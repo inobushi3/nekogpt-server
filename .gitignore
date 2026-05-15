@@ -6,3 +6,5 @@ node_modules/
 *.log
 _verify*.png
 assets/live2d/vivian/
+
+.vercel
