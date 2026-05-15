@@ -1,0 +1,2 @@
+set_friendly_name cirno_live2d 'cirno_live2d'
+set_avatar_skin_description cirno_live2d default 'Touhou project fan art'

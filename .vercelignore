@@ -1,0 +1,5 @@
+node_modules/
+.git/
+*.log
+_verify*.png
+assets/live2d/vivian/

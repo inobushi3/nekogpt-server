@@ -1,0 +1,8 @@
+{
+  "id": "catgpt",
+  "name": "NekoGPT",
+  "modelFile": "catgpt.model3.json",
+  "sourcePath": "bundled:catgpt",
+  "fileName": "catgpt.zip",
+  "userUploaded": false
+}
