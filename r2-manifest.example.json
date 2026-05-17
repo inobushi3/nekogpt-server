@@ -1,0 +1,29 @@
+{
+  "updatedAt": "2026-05-17T00:00:00.000Z",
+  "models": [
+    {
+      "id": "catgpt",
+      "name": "NekoGPT",
+      "modelUrl": "https://pub-75f5ae872a2142c58be7c7913ea356fe.r2.dev/models/catgpt/catgpt.model3.json",
+      "previewUrl": "https://pub-75f5ae872a2142c58be7c7913ea356fe.r2.dev/previews/nekogptchibi-preview.png",
+      "filesPrefix": "models/catgpt/",
+      "version": "0.1.0"
+    },
+    {
+      "id": "cirno",
+      "name": "Cirno",
+      "modelUrl": "https://pub-75f5ae872a2142c58be7c7913ea356fe.r2.dev/models/cirno/cirno_live2d.model3.json",
+      "previewUrl": "https://pub-75f5ae872a2142c58be7c7913ea356fe.r2.dev/previews/ico_cirno_live2d.png",
+      "filesPrefix": "models/cirno/",
+      "version": "0.1.0"
+    }
+  ],
+  "personas": [
+    {
+      "id": "default-neko",
+      "name": "Default Neko",
+      "personaUrl": "https://pub-75f5ae872a2142c58be7c7913ea356fe.r2.dev/personas/default-neko.json",
+      "version": "0.1.0"
+    }
+  ]
+}
