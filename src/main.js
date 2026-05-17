@@ -12,6 +12,7 @@ const installTerminalCommand = document.querySelector("[data-install-terminal-co
 const installTerminalHint = document.querySelector("[data-install-terminal-hint]");
 const installDownloadButton = document.querySelector(".install-download-button");
 const installDownloadLabel = document.querySelector("[data-install-download-label]");
+const freeDownloadButton = document.querySelector("[data-free-download]");
 const languageSwitch = document.querySelector("[data-language-switch]");
 const languageToggle = document.querySelector("[data-language-toggle]");
 const languageCurrent = document.querySelector("[data-language-current]");
@@ -820,6 +821,39 @@ function setMetaContent(selector, content) {
 
 const installPlatforms = new Set(["windows", "mac", "linux"]);
 const plannedInstallPlatforms = new Set(["mac", "linux"]);
+const freeDownloadReleaseApi = "https://api.github.com/repos/inobushi3/nekogpt/releases/latest";
+const freeDownloadFallbackUrl = "https://github.com/inobushi3/nekogpt/releases/latest/download/NekoGPTFree-Setup-0.1.0.exe";
+let freeDownloadUrlPromise;
+
+function selectFreeReleaseAsset(assets = []) {
+  const downloadableAssets = assets.filter((asset) => /\.(exe|msi|zip)$/i.test(asset.name || ""));
+  return (
+    downloadableAssets.find((asset) => /nekogptfree.*setup/i.test(asset.name || "")) ||
+    downloadableAssets.find((asset) => /\.exe$/i.test(asset.name || "")) ||
+    downloadableAssets[0]
+  );
+}
+
+async function resolveFreeDownloadUrl() {
+  if (!freeDownloadUrlPromise) {
+    freeDownloadUrlPromise = fetch(freeDownloadReleaseApi, {
+      headers: {
+        Accept: "application/vnd.github+json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(`GitHub release lookup failed: ${response.status}`);
+        return response.json();
+      })
+      .then((release) => {
+        const asset = selectFreeReleaseAsset(release.assets);
+        return asset?.browser_download_url || freeDownloadFallbackUrl;
+      })
+      .catch(() => freeDownloadFallbackUrl);
+  }
+
+  return freeDownloadUrlPromise;
+}
 
 function updateInstallPlatformContent(language = currentLanguage) {
   const platform = installPlatforms.has(activeInstallPlatform) ? activeInstallPlatform : "windows";
@@ -944,6 +978,18 @@ if (installDownloadButton) {
     if (plannedInstallPlatforms.has(activeInstallPlatform)) {
       event.preventDefault();
     }
+  });
+}
+
+if (freeDownloadButton) {
+  resolveFreeDownloadUrl().then((url) => {
+    freeDownloadButton.href = url;
+  });
+
+  freeDownloadButton.addEventListener("click", async (event) => {
+    event.preventDefault();
+    const downloadUrl = await resolveFreeDownloadUrl();
+    window.location.href = downloadUrl;
   });
 }
 
