@@ -26,6 +26,10 @@
   margin: 0 0 26px !important;
 }
 
+.scroll-cue {
+  display: none !important;
+}
+
 @media (max-width: 768px) {
   .feature-integrations-panel {
     padding-top: 28px !important;
