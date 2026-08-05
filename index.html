@@ -36,7 +36,7 @@
     <link rel="preload" href="./assets/live2d/cirno/cirno_live2d.model3.json" as="fetch" crossorigin="anonymous" />
     <link rel="stylesheet" href="./src/paw-spacing.css?v=120" />
     <link rel="stylesheet" href="./src/vanilla-cursors.css?v=121" />
-  
+
     <style>
       html,body{min-height:100%;margin:0;background:#0a0a0a;color:#fff;font-family:Inter,system-ui,sans-serif}
       #preview-loader{min-height:100vh;display:grid;place-items:center;text-align:center}
@@ -48,6 +48,15 @@
     <script>
       (() => {
         const payloadParts = ["./payload/part-01.txt", "./payload/part-02.txt", "./payload/part-03.txt", "./payload/part-04.txt", "./payload/part-05.txt", "./payload/part-06.txt", "./payload/part-07.txt", "./payload/part-08.txt", "./payload/part-09.txt", "./payload/part-10.txt", "./payload/part-11.txt", "./payload/part-12.txt", "./payload/part-13.txt", "./payload/part-14.txt", "./payload/part-15.txt", "./payload/part-16.txt", "./payload/part-17.txt", "./payload/part-18.txt", "./payload/part-19.txt", "./payload/part-20.txt", "./payload/part-21.txt", "./payload/part-22.txt", "./payload/part-23.txt", "./payload/part-24.txt"];
+
+        const loadScript = (src) => new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = src;
+          script.onload = resolve;
+          script.onerror = () => reject(new Error(`Falha ao carregar ${src}`));
+          document.body.appendChild(script);
+        });
+
         const loadPreview = async () => {
           const encoded = (await Promise.all(payloadParts.map(async (path) => {
             const response = await fetch(path, { cache: 'no-store' });
@@ -63,14 +72,16 @@
           document.head.appendChild(style);
           document.body.innerHTML = payload.body;
           new Function(payload.js)();
+
+          await loadScript('./src/paw-fix.js?v=119');
+          await loadScript('./src/site-customizations.js?v=125');
         };
+
         loadPreview().catch((error) => {
           console.error(error);
           document.body.innerHTML = '<main id="preview-loader"><span>Não foi possível carregar o preview.</span></main>';
         });
       })();
     </script>
-    <script src="./src/paw-fix.js?v=119"></script>
-    <script src="./src/site-customizations.js?v=124"></script>
   </body>
 </html>
