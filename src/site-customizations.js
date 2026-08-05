@@ -1,31 +1,109 @@
 (() => {
-  const oldCopy = /Dê\s+vida\s+ao\s+seu\s+modelo\s+Live2D\/Live3D\s+e\s+tenha\s+uma\s+companheira\s+com\s+personalidade\s+real\./g;
-  const newCopy = 'Tenha sua própria "Neuro-sama". Sua própria VTuber com personalidade real.';
+  const COPY = {
+    headlineOld: 'Dê vida ao seu modelo Live2D/Live3D e tenha uma companheira com personalidade real.',
+    headlineNew: 'Tenha sua própria "Neuro-sama". Sua própria VTuber com personalidade real.',
+    detailsOld: 'Modelos Live2D grátis incluídos - Sem conta obrigatória - Funciona offline',
+    detailsNew: 'Modelos Live2D e 3D grátis incluídos - Sem conta obrigatória - Funciona offline',
+    badge: 'Companheira IA VTuber grátis para VTubers, artistas Live2D e você',
+  };
 
-  const replaceCopy = (root = document.body) => {
-    if (!root) return;
+  const normalize = (value) =>
+    String(value || '')
+      .replace(/\s+/g, ' ')
+      .trim();
 
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-      acceptNode(node) {
-        const parent = node.parentElement;
-        if (!parent || /^(SCRIPT|STYLE|NOSCRIPT|TEXTAREA)$/i.test(parent.tagName)) {
-          return NodeFilter.FILTER_REJECT;
-        }
+  const findSmallestExactElement = (text, selectors = 'body *') => {
+    const target = normalize(text);
+    const matches = Array.from(document.querySelectorAll(selectors)).filter(
+      (element) => normalize(element.textContent) === target,
+    );
 
-        oldCopy.lastIndex = 0;
-        return oldCopy.test(node.nodeValue || '')
-          ? NodeFilter.FILTER_ACCEPT
-          : NodeFilter.FILTER_REJECT;
-      },
+    return matches.sort((a, b) => {
+      const childDifference = a.querySelectorAll('*').length - b.querySelectorAll('*').length;
+      if (childDifference !== 0) return childDifference;
+      return a.textContent.length - b.textContent.length;
+    })[0] || null;
+  };
+
+  const createAccentNode = (heading) => {
+    const accentSource = Array.from(heading.querySelectorAll('*'))
+      .filter((element) => normalize(element.textContent).includes('personalidade real'))
+      .sort((a, b) => a.textContent.length - b.textContent.length)[0];
+
+    if (accentSource) {
+      const accent = accentSource.cloneNode(false);
+      accent.textContent = 'personalidade real.';
+      return accent;
+    }
+
+    const accent = document.createElement('span');
+    accent.textContent = 'personalidade real.';
+    accent.style.background = 'linear-gradient(90deg, #ff69b4, #ffb18a)';
+    accent.style.webkitBackgroundClip = 'text';
+    accent.style.backgroundClip = 'text';
+    accent.style.color = 'transparent';
+    return accent;
+  };
+
+  const replaceHeadline = () => {
+    const heading = Array.from(document.querySelectorAll('h1, h2')).find((element) => {
+      const text = normalize(element.textContent);
+      return text === COPY.headlineOld || text.startsWith('Dê vida ao seu modelo Live2D/Live3D');
     });
 
-    const matches = [];
-    while (walker.nextNode()) matches.push(walker.currentNode);
+    if (!heading) return;
+    if (normalize(heading.textContent) === COPY.headlineNew) return;
 
-    for (const node of matches) {
-      oldCopy.lastIndex = 0;
-      node.nodeValue = node.nodeValue.replace(oldCopy, newCopy);
+    const accent = createAccentNode(heading);
+    heading.replaceChildren(
+      document.createTextNode('Tenha sua própria "Neuro-sama".'),
+      document.createElement('br'),
+      document.createTextNode('Sua própria VTuber com '),
+      accent,
+    );
+    heading.setAttribute('aria-label', COPY.headlineNew);
+  };
+
+  const replaceDetails = () => {
+    const element = findSmallestExactElement(
+      COPY.detailsOld,
+      'p, span, div, li, small',
+    );
+
+    if (element) element.textContent = COPY.detailsNew;
+  };
+
+  const removeBadge = () => {
+    const target = findSmallestExactElement(
+      COPY.badge,
+      'span, p, div, a, small',
+    );
+
+    if (!target) return;
+
+    const explicitContainer = target.closest(
+      '[class*="badge"], [class*="pill"], [class*="eyebrow"], [class*="chip"], [class*="tag"]',
+    );
+
+    if (explicitContainer && normalize(explicitContainer.textContent) === COPY.badge) {
+      explicitContainer.remove();
+      return;
     }
+
+    let removable = target;
+    let current = target;
+
+    while (current.parentElement && !/^(BODY|MAIN|SECTION|HEADER)$/i.test(current.parentElement.tagName)) {
+      const parent = current.parentElement;
+      if (normalize(parent.textContent) !== COPY.badge) break;
+
+      const style = window.getComputedStyle(parent);
+      const radius = Number.parseFloat(style.borderTopLeftRadius) || 0;
+      if (radius >= 10 || /inline-flex|flex/.test(style.display)) removable = parent;
+      current = parent;
+    }
+
+    removable.remove();
   };
 
   const addCursorAttribution = () => {
@@ -41,15 +119,26 @@
   };
 
   const applyCustomizations = () => {
-    replaceCopy();
+    replaceHeadline();
+    replaceDetails();
+    removeBadge();
     addCursorAttribution();
   };
 
-  applyCustomizations();
-  document.addEventListener('DOMContentLoaded', applyCustomizations, { once: true });
+  let scheduled = false;
+  const scheduleCustomizations = () => {
+    if (scheduled) return;
+    scheduled = true;
+    window.requestAnimationFrame(() => {
+      scheduled = false;
+      applyCustomizations();
+    });
+  };
 
-  const observer = new MutationObserver(applyCustomizations);
+  scheduleCustomizations();
+  document.addEventListener('DOMContentLoaded', scheduleCustomizations, { once: true });
 
+  const observer = new MutationObserver(scheduleCustomizations);
   const startObserver = () => {
     if (!document.body) return;
     observer.disconnect();
