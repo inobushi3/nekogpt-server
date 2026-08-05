@@ -268,13 +268,13 @@
     try {
       const encodedParts = await Promise.all(
         VIDEO_PARTS.map(async (path) => {
-          const response = await fetch(path, { cache: 'force-cache' });
+          const response = await fetch(path, { cache: 'no-store' });
           if (!response.ok) throw new Error(`Falha ao carregar ${path}`);
           return response.text();
         }),
       );
 
-      const objectUrl = URL.createObjectURL(base64ToBlob(encodedParts.join(''), 'video/mp4'));
+      const objectUrl = URL.createObjectURL(base64ToBlob(encodedParts.join('').replace(/\s+/g, ''), 'video/mp4'));
       video.src = objectUrl;
       video.addEventListener('loadeddata', () => {
         card.classList.add('is-ready');
@@ -289,15 +289,20 @@
   };
 
   const addBetaVideoShowcase = () => {
-    if (document.querySelector('.nekogpt-beta-video-showcase')) return;
+    const existing = document.querySelector('.nekogpt-beta-video-showcase');
+    if (existing) return true;
 
-    const heading = Array.from(document.querySelectorAll('h1, h2, h3')).find(
-      (element) => normalize(element.textContent) === COPY.featuresHeading,
-    );
-    if (!heading) return;
+    let anchor = document.getElementById('features');
 
-    const anchor = heading.closest('section') || heading.closest('[class*="section"]') || heading.parentElement;
-    if (!anchor || !anchor.parentElement) return;
+    if (!anchor) {
+      const heading = Array.from(document.querySelectorAll('h1, h2, h3')).find((element) =>
+        normalize(element.textContent).includes('Tudo o que você precisa para sua') &&
+        normalize(element.textContent).includes('companhia IA'),
+      );
+      anchor = heading?.closest('section') || heading?.parentElement || null;
+    }
+
+    if (!anchor || !anchor.parentElement) return false;
 
     addVideoStyles();
 
@@ -313,14 +318,16 @@
           muted
           loop
           playsinline
+          controls
           preload="auto"
           aria-label="Demonstração do NekoGPT em funcionamento"
         ></video>
       </div>
     `;
 
-    anchor.parentElement.insertBefore(section, anchor);
+    anchor.insertAdjacentElement('beforebegin', section);
     loadBetaVideo(section);
+    return true;
   };
 
   const addCursorAttribution = () => {
@@ -369,4 +376,12 @@
 
   startObserver();
   document.addEventListener('DOMContentLoaded', startObserver, { once: true });
+
+  let videoInsertAttempts = 0;
+  const videoInsertTimer = window.setInterval(() => {
+    videoInsertAttempts += 1;
+    if (addBetaVideoShowcase() || videoInsertAttempts >= 40) {
+      window.clearInterval(videoInsertTimer);
+    }
+  }, 250);
 })();
