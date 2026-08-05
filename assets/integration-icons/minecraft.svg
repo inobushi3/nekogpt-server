@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Minecraft">
+  <defs>
+    <linearGradient id="minecraftTop" x1="8" y1="4" x2="54" y2="22" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#79c64a"/>
+      <stop offset="0.5" stop-color="#4f9a35"/>
+      <stop offset="1" stop-color="#2f7428"/>
+    </linearGradient>
+    <linearGradient id="minecraftSideA" x1="8" y1="23" x2="32" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8a5a36"/>
+      <stop offset="1" stop-color="#5f3b24"/>
+    </linearGradient>
+    <linearGradient id="minecraftSideB" x1="32" y1="24" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6e472c"/>
+      <stop offset="1" stop-color="#3d2619"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#minecraftTop)" d="M32 4 58 18.5 32 33 6 18.5 32 4Z"/>
+  <path fill="url(#minecraftSideA)" d="M6 18.5 32 33v27L6 45.5v-27Z"/>
+  <path fill="url(#minecraftSideB)" d="M58 18.5 32 33v27l26-14.5v-27Z"/>
+  <path fill="#a1dc63" d="m32 4 26 14.5-8.3 4.6-25.9-14.5L32 4Z" opacity=".5"/>
+  <path fill="#3c812e" d="m6 18.5 26 14.5 26-14.5v5.8L32 38.8 6 24.3v-5.8Z"/>
+  <path fill="#9b6a42" d="M13 26.7h6v6h-6zM23 36h5v5h-5zM12 42h7v6h-7zM25 49h5v7h-5z"/>
+  <path fill="#6f462a" d="M45 27h6v6h-6zM35 38h5v5h-5zM47 43h6v6h-6zM36 50h7v6h-7z"/>
+  <path fill="#6bb83e" d="M19 14h7v5h-7zM33 11h8v5h-8zM41 20h7v5h-7zM10 19h8v4h-8z"/>
+  <path fill="none" stroke="#1b1b1b" stroke-opacity=".18" stroke-linejoin="round" stroke-width="2" d="M32 4 58 18.5v27L32 60 6 45.5v-27L32 4Z"/>
+</svg>
