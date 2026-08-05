@@ -5,18 +5,9 @@
     detailsOld: 'Modelos Live2D grátis incluídos - Sem conta obrigatória - Funciona offline',
     detailsNew: 'Modelos Live2D e 3D grátis incluídos - Sem conta obrigatória - Funciona offline',
     badge: 'Companheira IA VTuber grátis para VTubers, artistas Live2D e você',
-    featuresHeading: 'Tudo o que você precisa para sua companheira IA',
   };
 
-  const VIDEO_PARTS = [
-    './assets/video/beta/part-00.txt',
-    './assets/video/beta/part-01.txt',
-    './assets/video/beta/part-02.txt',
-    './assets/video/beta/part-03.txt',
-    './assets/video/beta/part-04.txt',
-    './assets/video/beta/part-05.txt',
-    './assets/video/beta/part-06.txt',
-  ];
+  const YOUTUBE_VIDEO_ID = 'EIQK4lKeWxQ';
 
   const normalize = (value) =>
     String(value || '')
@@ -62,8 +53,7 @@
       return text === COPY.headlineOld || text.startsWith('Dê vida ao seu modelo Live2D/Live3D');
     });
 
-    if (!heading) return;
-    if (normalize(heading.textContent) === COPY.headlineNew) return;
+    if (!heading || normalize(heading.textContent) === COPY.headlineNew) return;
 
     const accent = createAccentNode(heading);
     heading.replaceChildren(
@@ -76,12 +66,21 @@
   };
 
   const replaceDetails = () => {
-    const element = findSmallestExactElement(
+    const oldElement = findSmallestExactElement(
       COPY.detailsOld,
       'p, span, div, li, small',
     );
 
-    if (element) element.textContent = COPY.detailsNew;
+    if (oldElement) {
+      oldElement.textContent = COPY.detailsNew;
+      return;
+    }
+
+    const currentElement = Array.from(document.querySelectorAll('p, span, div, li, small')).find(
+      (element) => normalize(element.textContent).startsWith('Modelos Live2D e 3D grátis incluídos'),
+    );
+
+    if (currentElement) currentElement.textContent = COPY.detailsNew;
   };
 
   const removeBadge = () => {
@@ -101,28 +100,24 @@
       return;
     }
 
-    let removable = target;
-    let current = target;
+    target.remove();
+  };
 
-    while (current.parentElement && !/^(BODY|MAIN|SECTION|HEADER)$/i.test(current.parentElement.tagName)) {
-      const parent = current.parentElement;
-      if (normalize(parent.textContent) !== COPY.badge) break;
-
-      const style = window.getComputedStyle(parent);
-      const radius = Number.parseFloat(style.borderTopLeftRadius) || 0;
-      if (radius >= 10 || /inline-flex|flex/.test(style.display)) removable = parent;
-      current = parent;
-    }
-
-    removable.remove();
+  const removeScrollCue = () => {
+    document.querySelectorAll('.scroll-cue, [data-scroll-cue]').forEach((element) => element.remove());
   };
 
   const addVideoStyles = () => {
-    if (document.querySelector('#nekogpt-beta-video-styles')) return;
+    if (document.querySelector('#nekogpt-youtube-video-styles')) return;
 
     const style = document.createElement('style');
-    style.id = 'nekogpt-beta-video-styles';
+    style.id = 'nekogpt-youtube-video-styles';
     style.textContent = `
+      .scroll-cue,
+      [data-scroll-cue] {
+        display: none !important;
+      }
+
       .nekogpt-beta-video-showcase {
         position: relative;
         z-index: 2;
@@ -149,7 +144,7 @@
 
       .nekogpt-beta-video-card {
         position: relative;
-        width: min(100%, 304px);
+        width: min(100%, 340px);
         padding: 9px;
         border: 1px solid rgba(181, 149, 255, .28);
         border-radius: 30px;
@@ -166,65 +161,19 @@
         position: absolute;
         inset: 0;
         border-radius: inherit;
-        background: linear-gradient(135deg, rgba(255,255,255,.06), transparent 30%, transparent 72%, rgba(255, 91, 177, .05));
+        background: linear-gradient(135deg, rgba(255,255,255,.05), transparent 30%, transparent 72%, rgba(255, 91, 177, .04));
         pointer-events: none;
       }
 
-      .nekogpt-beta-video {
+      .nekogpt-youtube-short {
+        position: relative;
+        z-index: 1;
         display: block;
         width: 100%;
-        aspect-ratio: 160 / 284;
+        aspect-ratio: 9 / 16;
+        border: 0;
         border-radius: 22px;
         background: #050507;
-        object-fit: cover;
-      }
-
-      .nekogpt-beta-video-loading {
-        position: absolute;
-        inset: 9px;
-        z-index: 2;
-        display: grid;
-        place-items: center;
-        border-radius: 22px;
-        background: linear-gradient(145deg, rgba(14, 13, 21, .98), rgba(6, 6, 9, .98));
-        color: rgba(255, 255, 255, .6);
-        font-size: 13px;
-        letter-spacing: .02em;
-        transition: opacity .28s ease, visibility .28s ease;
-      }
-
-      .nekogpt-beta-video-loading::before {
-        content: '';
-        width: 26px;
-        height: 26px;
-        margin-bottom: 54px;
-        border: 2px solid rgba(255, 255, 255, .15);
-        border-top-color: #ff69b4;
-        border-radius: 50%;
-        animation: nekogpt-video-spin .8s linear infinite;
-      }
-
-      .nekogpt-beta-video-loading span {
-        position: absolute;
-        top: calc(50% + 23px);
-      }
-
-      .nekogpt-beta-video-card.is-ready .nekogpt-beta-video-loading {
-        opacity: 0;
-        visibility: hidden;
-      }
-
-      .nekogpt-beta-video-card.is-error .nekogpt-beta-video-loading::before {
-        display: none;
-      }
-
-      .nekogpt-beta-video-card.is-error .nekogpt-beta-video-loading span {
-        top: 50%;
-        transform: translateY(-50%);
-      }
-
-      @keyframes nekogpt-video-spin {
-        to { transform: rotate(360deg); }
       }
 
       @media (max-width: 720px) {
@@ -233,72 +182,26 @@
         }
 
         .nekogpt-beta-video-card {
-          width: min(100%, 282px);
+          width: min(100%, 310px);
           border-radius: 26px;
         }
 
-        .nekogpt-beta-video {
+        .nekogpt-youtube-short {
           border-radius: 19px;
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .nekogpt-beta-video-loading::before {
-          animation: none;
         }
       }
     `;
     document.head.appendChild(style);
   };
 
-  const base64ToBlob = (encoded, contentType) => {
-    const binary = window.atob(encoded);
-    const bytes = new Uint8Array(binary.length);
-    for (let index = 0; index < binary.length; index += 1) {
-      bytes[index] = binary.charCodeAt(index);
-    }
-    return new Blob([bytes], { type: contentType });
-  };
-
-  const loadBetaVideo = async (section) => {
-    const card = section.querySelector('.nekogpt-beta-video-card');
-    const video = section.querySelector('.nekogpt-beta-video');
-    const loadingText = section.querySelector('.nekogpt-beta-video-loading span');
-
-    try {
-      const encodedParts = await Promise.all(
-        VIDEO_PARTS.map(async (path) => {
-          const response = await fetch(path, { cache: 'no-store' });
-          if (!response.ok) throw new Error(`Falha ao carregar ${path}`);
-          return response.text();
-        }),
-      );
-
-      const objectUrl = URL.createObjectURL(base64ToBlob(encodedParts.join('').replace(/\s+/g, ''), 'video/mp4'));
-      video.src = objectUrl;
-      video.addEventListener('loadeddata', () => {
-        card.classList.add('is-ready');
-        video.play().catch(() => {});
-      }, { once: true });
-      video.addEventListener('error', () => URL.revokeObjectURL(objectUrl), { once: true });
-    } catch (error) {
-      console.error(error);
-      card.classList.add('is-error');
-      loadingText.textContent = 'Não foi possível carregar o vídeo.';
-    }
-  };
-
-  const addBetaVideoShowcase = () => {
-    const existing = document.querySelector('.nekogpt-beta-video-showcase');
-    if (existing) return true;
-
+  const addYouTubeShowcase = () => {
     let anchor = document.getElementById('features');
 
     if (!anchor) {
-      const heading = Array.from(document.querySelectorAll('h1, h2, h3')).find((element) =>
-        normalize(element.textContent).includes('Tudo o que você precisa para sua') &&
-        normalize(element.textContent).includes('companhia IA'),
-      );
+      const heading = Array.from(document.querySelectorAll('h1, h2, h3')).find((element) => {
+        const text = normalize(element.textContent);
+        return text.includes('Tudo o que você precisa para sua') && text.includes('companhia IA');
+      });
       anchor = heading?.closest('section') || heading?.parentElement || null;
     }
 
@@ -306,27 +209,30 @@
 
     addVideoStyles();
 
-    const section = document.createElement('section');
-    section.className = 'nekogpt-beta-video-showcase';
-    section.setAttribute('aria-label', 'Demonstração em vídeo do NekoGPT');
-    section.innerHTML = `
-      <div class="nekogpt-beta-video-card">
-        <div class="nekogpt-beta-video-loading"><span>Carregando demonstração...</span></div>
-        <video
-          class="nekogpt-beta-video"
-          autoplay
-          muted
-          loop
-          playsinline
-          controls
-          preload="auto"
-          aria-label="Demonstração do NekoGPT em funcionamento"
-        ></video>
-      </div>
-    `;
+    let section = document.querySelector('.nekogpt-beta-video-showcase');
+    if (!section) {
+      section = document.createElement('section');
+      section.className = 'nekogpt-beta-video-showcase';
+      section.setAttribute('aria-label', 'Demonstração em vídeo do NekoGPT');
+      anchor.insertAdjacentElement('beforebegin', section);
+    }
 
-    anchor.insertAdjacentElement('beforebegin', section);
-    loadBetaVideo(section);
+    if (!section.querySelector('.nekogpt-youtube-short')) {
+      section.innerHTML = `
+        <div class="nekogpt-beta-video-card">
+          <iframe
+            class="nekogpt-youtube-short"
+            src="https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&modestbranding=1&playsinline=1"
+            title="Demonstração do NekoGPT"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+      `;
+    }
+
     return true;
   };
 
@@ -346,7 +252,8 @@
     replaceHeadline();
     replaceDetails();
     removeBadge();
-    addBetaVideoShowcase();
+    removeScrollCue();
+    addYouTubeShowcase();
     addCursorAttribution();
   };
 
@@ -377,11 +284,11 @@
   startObserver();
   document.addEventListener('DOMContentLoaded', startObserver, { once: true });
 
-  let videoInsertAttempts = 0;
-  const videoInsertTimer = window.setInterval(() => {
-    videoInsertAttempts += 1;
-    if (addBetaVideoShowcase() || videoInsertAttempts >= 40) {
-      window.clearInterval(videoInsertTimer);
+  let attempts = 0;
+  const timer = window.setInterval(() => {
+    attempts += 1;
+    if (addYouTubeShowcase() || attempts >= 40) {
+      window.clearInterval(timer);
     }
   }, 250);
 })();
