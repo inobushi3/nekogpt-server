@@ -1,0 +1,111 @@
+:root {
+  --cursor-normal: url("https://www.rw-designer.com/cursor-extern.php?id=145195") 0 0;
+  --cursor-help: url("https://www.rw-designer.com/cursor-extern.php?id=145196") 0 0;
+  --cursor-working: url("https://www.rw-designer.com/cursor-extern.php?id=145198") 0 0;
+  --cursor-busy: url("https://www.rw-designer.com/cursor-extern.php?id=145199") 0 0;
+  --cursor-precision: url("https://www.rw-designer.com/cursor-extern.php?id=127871") 15 16;
+  --cursor-text: url("https://www.rw-designer.com/cursor-extern.php?id=127872") 16 17;
+  --cursor-handwriting: url("https://www.rw-designer.com/cursor-extern.php?id=145205") 0 26;
+  --cursor-unavailable: url("https://www.rw-designer.com/cursor-extern.php?id=127882") 5 5;
+  --cursor-vertical: url("https://www.rw-designer.com/cursor-extern.php?id=127874") 15 14;
+  --cursor-horizontal: url("https://www.rw-designer.com/cursor-extern.php?id=127875") 15 16;
+  --cursor-diagonal: url("https://www.rw-designer.com/cursor-extern.php?id=127876") 16 15;
+  --cursor-diagonal-alt: url("https://www.rw-designer.com/cursor-extern.php?id=127877") 15 16;
+  --cursor-move: url("https://www.rw-designer.com/cursor-extern.php?id=127878") 15 15;
+  --cursor-alternate: url("https://www.rw-designer.com/cursor-extern.php?id=145834") 31 0;
+  --cursor-link: url("https://www.rw-designer.com/cursor-extern.php?id=145202") 0 0;
+}
+
+html,
+body,
+body * {
+  cursor: var(--cursor-normal), default !important;
+}
+
+:is(a, button, [role="button"], [role="link"], summary, label[for], select, input[type="button"], input[type="submit"], input[type="reset"], input[type="checkbox"], input[type="radio"], .cursor-link),
+:is(a, button, [role="button"], [role="link"], summary, label[for], select, input[type="button"], input[type="submit"], input[type="reset"], input[type="checkbox"], input[type="radio"], .cursor-link) * {
+  cursor: var(--cursor-link), pointer !important;
+}
+
+:is(input:not([type]), input[type="text"], input[type="search"], input[type="email"], input[type="url"], input[type="tel"], input[type="password"], input[type="number"], textarea, [contenteditable="true"], .cursor-text),
+:is(input:not([type]), input[type="text"], input[type="search"], input[type="email"], input[type="url"], input[type="tel"], input[type="password"], input[type="number"], textarea, [contenteditable="true"], .cursor-text) * {
+  cursor: var(--cursor-text), text !important;
+}
+
+:is(:disabled, [aria-disabled="true"], .disabled, .cursor-unavailable),
+:is(:disabled, [aria-disabled="true"], .disabled, .cursor-unavailable) * {
+  cursor: var(--cursor-unavailable), not-allowed !important;
+}
+
+:is([aria-busy="true"], .is-busy, .cursor-busy),
+:is([aria-busy="true"], .is-busy, .cursor-busy) * {
+  cursor: var(--cursor-busy), wait !important;
+}
+
+:is(.is-loading, [data-loading="true"], .cursor-working),
+:is(.is-loading, [data-loading="true"], .cursor-working) * {
+  cursor: var(--cursor-working), progress !important;
+}
+
+:is([draggable="true"], .cursor-move),
+:is([draggable="true"], .cursor-move) * {
+  cursor: var(--cursor-move), move !important;
+}
+
+:is(.cursor-help, [data-cursor="help"]),
+:is(.cursor-help, [data-cursor="help"]) * {
+  cursor: var(--cursor-help), help !important;
+}
+
+:is(.cursor-precision, [data-cursor="precision"]),
+:is(.cursor-precision, [data-cursor="precision"]) * {
+  cursor: var(--cursor-precision), crosshair !important;
+}
+
+:is(.cursor-handwriting, [data-cursor="handwriting"]),
+:is(.cursor-handwriting, [data-cursor="handwriting"]) * {
+  cursor: var(--cursor-handwriting), text !important;
+}
+
+:is(.cursor-alternate, [data-cursor="alternate"]),
+:is(.cursor-alternate, [data-cursor="alternate"]) * {
+  cursor: var(--cursor-alternate), alias !important;
+}
+
+:is(.cursor-resize-horizontal, [data-cursor="resize-horizontal"]),
+:is(.cursor-resize-horizontal, [data-cursor="resize-horizontal"]) * {
+  cursor: var(--cursor-horizontal), ew-resize !important;
+}
+
+:is(.cursor-resize-vertical, [data-cursor="resize-vertical"]),
+:is(.cursor-resize-vertical, [data-cursor="resize-vertical"]) * {
+  cursor: var(--cursor-vertical), ns-resize !important;
+}
+
+:is(.cursor-resize-diagonal, [data-cursor="resize-diagonal"]),
+:is(.cursor-resize-diagonal, [data-cursor="resize-diagonal"]) * {
+  cursor: var(--cursor-diagonal), nwse-resize !important;
+}
+
+:is(.cursor-resize-diagonal-alt, [data-cursor="resize-diagonal-alt"]),
+:is(.cursor-resize-diagonal-alt, [data-cursor="resize-diagonal-alt"]) * {
+  cursor: var(--cursor-diagonal-alt), nesw-resize !important;
+}
+
+.cursor-credit {
+  display: block;
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 11px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.cursor-credit a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cursor-credit a:hover {
+  color: rgba(255, 255, 255, 0.65);
+}
