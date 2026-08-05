@@ -53,7 +53,7 @@
             return response.text();
           }))).join('');
           const bytes = Uint8Array.from(atob(encoded), (char) => char.charCodeAt(0));
-          if (!('DecompressionStream' in window)) throw new Error('Navegador sem suporte a DecompressionStream');
+          if (!("DecompressionStream" in window)) throw new Error('Navegador sem suporte a DecompressionStream');
           const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
           const payload = JSON.parse(await new Response(stream).text());
           const style = document.createElement('style');
@@ -68,5 +68,6 @@
         });
       })();
     </script>
+    <script src="./src/paw-fix.js?v=119"></script>
   </body>
 </html>
