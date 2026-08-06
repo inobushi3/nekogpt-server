@@ -11,115 +11,132 @@
   style.id = STYLE_ID;
   style.textContent = `
     .hero-showcase .showcase-stage.nekogpt-chat-layout {
-      grid-template-columns: minmax(300px, .82fr) minmax(420px, 1.18fr) !important;
-      width: min(100%, 980px) !important;
-      gap: clamp(20px, 2vw, 30px) !important;
+      grid-template-columns: minmax(320px, .72fr) minmax(520px, 1.28fr) !important;
+      width: min(100%, 1120px) !important;
+      gap: clamp(28px, 3vw, 48px) !important;
     }
 
     #${ROOT_ID} {
-      width: min(100%, 440px) !important;
-      padding: 20px 18px 18px !important;
-      gap: 14px !important;
-      border-radius: 30px !important;
-      transform: translateX(clamp(100px, 9vw, 170px)) !important;
+      width: min(100%, 560px) !important;
+      min-height: 540px !important;
+      padding: 27px 24px 24px !important;
+      gap: 20px !important;
+      border-radius: 34px !important;
+      transform: translateX(clamp(110px, 10vw, 190px)) !important;
       box-shadow:
-        0 18px 38px rgba(188, 76, 110, .18),
+        0 20px 42px rgba(188, 76, 110, .18),
         inset 0 0 0 3px rgba(255,255,255,.9),
         inset 0 -2px 0 rgba(239,183,202,.18) !important;
     }
 
     #${ROOT_ID}::before {
-      inset: 8px !important;
-      border-radius: 22px !important;
+      inset: 9px !important;
+      border-radius: 25px !important;
     }
 
     #${ROOT_ID} .nekogpt-chat-heading {
-      padding: 0 4px 4px !important;
+      padding: 0 6px 6px !important;
     }
 
     #${ROOT_ID} .nekogpt-chat-title {
-      font-size: clamp(1.08rem, 1.3vw, 1.24rem) !important;
+      font-size: clamp(1.25rem, 1.55vw, 1.48rem) !important;
     }
 
     #${ROOT_ID} .nekogpt-chat-messages {
-      gap: 18px !important;
-      padding-top: 4px !important;
+      gap: 32px !important;
+      padding: 8px 2px 4px !important;
     }
 
     #${ROOT_ID} .nekogpt-chat-bubble {
-      width: min(92%, 382px) !important;
-      padding: 24px 17px 21px !important;
-      border-radius: 23px !important;
+      width: min(94%, 490px) !important;
+      min-height: 112px !important;
+      padding: 31px 22px 27px !important;
+      border-radius: 27px !important;
     }
 
     #${ROOT_ID} .nekogpt-chat-bubble[data-role="user"] {
-      width: min(88%, 360px) !important;
-      padding: 20px 17px 21px !important;
+      width: min(90%, 460px) !important;
+      min-height: 104px !important;
+      padding: 25px 22px 27px !important;
     }
 
     #${ROOT_ID} .nekogpt-chat-name {
-      top: -16px !important;
-      left: 16px !important;
-      min-width: 112px !important;
-      min-height: 35px !important;
-      padding: 7px 14px !important;
-      border-radius: 17px !important;
-      font-size: .8rem !important;
+      top: -18px !important;
+      left: 19px !important;
+      min-width: 128px !important;
+      min-height: 39px !important;
+      padding: 8px 16px !important;
+      border-radius: 19px !important;
+      font-size: .88rem !important;
     }
 
     #${ROOT_ID} .nekogpt-chat-text {
-      font-size: clamp(.86rem, 1vw, .98rem) !important;
-      line-height: 1.48 !important;
+      font-size: clamp(.98rem, 1.15vw, 1.08rem) !important;
+      line-height: 1.56 !important;
     }
 
     #${ROOT_ID} .nekogpt-chat-composer {
-      grid-template-columns: minmax(0, 1fr) 42px !important;
-      padding: 8px 8px 8px 15px !important;
+      grid-template-columns: minmax(0, 1fr) 48px !important;
+      margin-top: 4px !important;
+      padding: 10px 10px 10px 18px !important;
     }
 
     #${ROOT_ID} .nekogpt-chat-input {
-      font-size: .8rem !important;
+      font-size: .9rem !important;
     }
 
     #${ROOT_ID} .nekogpt-chat-send {
-      width: 42px !important;
-      height: 42px !important;
+      width: 48px !important;
+      height: 48px !important;
     }
 
     #${ROOT_ID} .nekogpt-chat-send svg {
-      width: 18px !important;
-      height: 18px !important;
+      width: 20px !important;
+      height: 20px !important;
     }
 
-    @media (max-width: 1180px) {
+    @media (max-width: 1280px) {
       .hero-showcase .showcase-stage.nekogpt-chat-layout {
-        grid-template-columns: minmax(275px, .82fr) minmax(390px, 1.18fr) !important;
-        width: min(100%, 920px) !important;
+        grid-template-columns: minmax(285px, .76fr) minmax(470px, 1.24fr) !important;
+        width: min(100%, 1030px) !important;
+        gap: 30px !important;
       }
 
       #${ROOT_ID} {
-        width: min(100%, 410px) !important;
-        transform: translateX(78px) !important;
+        width: min(100%, 510px) !important;
+        min-height: 510px !important;
+        transform: translateX(95px) !important;
+      }
+
+      #${ROOT_ID} .nekogpt-chat-messages {
+        gap: 28px !important;
+      }
+
+      #${ROOT_ID} .nekogpt-chat-bubble {
+        width: 94% !important;
       }
     }
 
     @media (max-width: 980px) {
       .hero-showcase .showcase-stage.nekogpt-chat-layout {
         grid-template-columns: 1fr !important;
-        width: min(100%, 580px) !important;
+        width: min(100%, 620px) !important;
+        gap: 26px !important;
       }
 
       #${ROOT_ID} {
-        width: min(100%, 440px) !important;
+        width: min(100%, 520px) !important;
+        min-height: 0 !important;
         transform: none !important;
       }
     }
 
     @media (max-width: 560px) {
       #${ROOT_ID} {
-        width: min(100%, 370px) !important;
-        padding: 17px 14px 16px !important;
-        border-radius: 24px !important;
+        width: min(100%, 390px) !important;
+        padding: 21px 16px 18px !important;
+        gap: 16px !important;
+        border-radius: 26px !important;
         box-shadow:
           0 13px 27px rgba(188,76,110,.17),
           inset 0 0 0 2px rgba(255,255,255,.92) !important;
@@ -127,15 +144,22 @@
 
       #${ROOT_ID}::before {
         inset: 6px !important;
-        border-radius: 18px !important;
+        border-radius: 19px !important;
       }
 
-      #${ROOT_ID} .nekogpt-chat-bubble {
-        width: 92% !important;
+      #${ROOT_ID} .nekogpt-chat-messages {
+        gap: 25px !important;
       }
 
+      #${ROOT_ID} .nekogpt-chat-bubble,
       #${ROOT_ID} .nekogpt-chat-bubble[data-role="user"] {
-        width: 88% !important;
+        width: 94% !important;
+        min-height: 0 !important;
+        padding: 27px 17px 23px !important;
+      }
+
+      #${ROOT_ID} .nekogpt-chat-text {
+        font-size: .93rem !important;
       }
     }
   `;
