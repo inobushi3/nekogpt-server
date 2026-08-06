@@ -2,7 +2,7 @@
   'use strict';
 
   const LOGO_SOURCE = './assets/images/logo-nekogpt2-clean.b64.txt?v=1';
-  const STYLE_ID = 'nekogpt-clean-header-v7';
+  const STYLE_ID = 'nekogpt-clean-header-v8';
   let logoPromise;
 
   function installStyles() {
@@ -64,15 +64,35 @@
         background-image: none !important;
       }
 
+      .site-header {
+        overflow: visible !important;
+      }
+
+      .site-header .nav-shell {
+        min-height: 112px !important;
+        align-items: center !important;
+        overflow: visible !important;
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+      }
+
       .site-header .brand {
+        position: relative !important;
+        inset: auto !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: none !important;
         display: inline-flex !important;
         visibility: visible !important;
         opacity: 1 !important;
         align-items: center !important;
         justify-content: flex-start !important;
-        width: 315px !important;
-        min-width: 315px !important;
-        height: 112px !important;
+        align-self: center !important;
+        width: 270px !important;
+        min-width: 270px !important;
+        height: 94px !important;
         margin: 0 !important;
         padding: 0 !important;
         border: 0 !important;
@@ -83,11 +103,14 @@
       }
 
       .site-header .brand > img.nekogpt-logo-header {
+        position: static !important;
+        inset: auto !important;
+        transform: none !important;
         display: block !important;
-        width: 300px !important;
+        width: 250px !important;
         height: auto !important;
-        max-width: 300px !important;
-        max-height: 108px !important;
+        max-width: 250px !important;
+        max-height: 90px !important;
         object-fit: contain !important;
         object-position: left center !important;
         margin: 0 !important;
@@ -103,16 +126,22 @@
       }
 
       @media (max-width: 760px) {
+        .site-header .nav-shell {
+          min-height: 88px !important;
+          padding-top: 6px !important;
+          padding-bottom: 6px !important;
+        }
+
         .site-header .brand {
-          width: 232px !important;
-          min-width: 232px !important;
-          height: 88px !important;
+          width: 205px !important;
+          min-width: 205px !important;
+          height: 74px !important;
         }
 
         .site-header .brand > img.nekogpt-logo-header {
-          width: 220px !important;
-          max-width: 220px !important;
-          max-height: 84px !important;
+          width: 190px !important;
+          max-width: 190px !important;
+          max-height: 70px !important;
         }
       }
     `;
