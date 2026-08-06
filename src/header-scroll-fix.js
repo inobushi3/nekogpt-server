@@ -10,10 +10,6 @@
       .site-header {
         position: relative !important;
         inset: auto !important;
-        top: auto !important;
-        right: auto !important;
-        bottom: auto !important;
-        left: auto !important;
         transform: none !important;
         width: 100% !important;
         height: auto !important;
@@ -22,27 +18,38 @@
         contain: none !important;
         clip-path: none !important;
         z-index: 1000 !important;
+        background: transparent !important;
+        border: 0 !important;
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
       }
 
       .site-header .nav-shell,
       .site-header nav,
-      .site-header .nav-actions,
-      .site-header [class*="language"],
-      .site-header [class*="locale"],
-      .site-header [class*="dropdown"] {
-        position: relative !important;
+      .site-header .nav-links,
+      .site-header .language-switch {
         max-height: none !important;
         overflow: visible !important;
         contain: none !important;
         clip-path: none !important;
       }
 
-      .site-header [role="menu"],
-      .site-header [class*="menu"],
-      .site-header [class*="dropdown"] {
-        z-index: 10000 !important;
+      .site-header .language-switch {
+        position: relative !important;
+        z-index: 10001 !important;
+      }
+
+      .site-header .language-menu {
+        position: absolute !important;
+        top: calc(100% + 10px) !important;
+        right: 0 !important;
+        left: auto !important;
+        bottom: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        clip-path: none !important;
+        contain: none !important;
+        z-index: 10002 !important;
       }
     `;
     document.head.appendChild(style);
