@@ -55,6 +55,96 @@
           document.body.appendChild(script);
         });
 
+        const configureNativeSoloNeko = (payload) => {
+          const heroCharactersPattern = /    const heroCharacters = \[[\s\S]*?\n    \];/;
+          const nativeNekoCharacter = `    const heroCharacters = [
+      {
+        src: "./assets/live2d/catgpt/catgpt.model3.json",
+        label: "NekoGPT",
+        scale: 1,
+        anchorY: 0.5,
+        offsetX: 0,
+        offsetY: 0,
+        zIndex: 1,
+        idlePhase: 1.4,
+        followX: 12,
+        followY: 5,
+        rotate: 0.045,
+        lookOffsetY: -0.03,
+      },
+    ];`;
+
+          if (!heroCharactersPattern.test(payload.js)) {
+            throw new Error('Não foi possível localizar a configuração original do Live2D.');
+          }
+
+          payload.js = payload.js.replace(heroCharactersPattern, nativeNekoCharacter);
+          payload.body = payload.body.replace(
+            /\n\s*<p class="micro-copy"[^>]*>[\s\S]*?<\/p>/,
+            ''
+          );
+
+          payload.css += `
+
+/* Native solo Neko Live2D presentation */
+.hero-showcase {
+  min-height: 500px;
+}
+
+.showcase-glow,
+.showcase-topbar,
+.micro-copy {
+  display: none !important;
+}
+
+.showcase-card {
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.showcase-stage {
+  min-height: 500px !important;
+  overflow: visible !important;
+}
+
+.live2d-stage {
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.live2d-stage::before {
+  content: none !important;
+}
+
+.live2d-loader {
+  background: transparent !important;
+}
+
+@media (max-width: 760px) {
+  .hero-showcase,
+  .showcase-stage {
+    min-height: 420px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-showcase,
+  .showcase-stage {
+    min-height: 350px !important;
+  }
+}
+`;
+
+          return payload;
+        };
+
         const loadPreview = async () => {
           const encoded = (await Promise.all(payloadParts.map(async (path) => {
             const response = await fetch(path, { cache: 'no-store' });
@@ -64,7 +154,7 @@
           const bytes = Uint8Array.from(atob(encoded), (char) => char.charCodeAt(0));
           if (!("DecompressionStream" in window)) throw new Error('Navegador sem suporte a DecompressionStream');
           const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
-          const payload = JSON.parse(await new Response(stream).text());
+          const payload = configureNativeSoloNeko(JSON.parse(await new Response(stream).text()));
           const style = document.createElement('style');
           style.textContent = payload.css;
           document.head.appendChild(style);
@@ -78,7 +168,6 @@
           await loadScript('./src/brand-feature-redesign.js?v=140');
           await loadScript('./src/header-logo-v2.js?v=11');
           await loadScript('./src/header-scroll-fix.js?v=5');
-          await loadScript('./src/live2d-solo-neko.js?v=5');
         };
 
         loadPreview().catch((error) => {
