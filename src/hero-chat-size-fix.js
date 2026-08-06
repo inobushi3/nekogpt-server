@@ -13,7 +13,12 @@
     .hero-showcase .showcase-stage.nekogpt-chat-layout {
       grid-template-columns: minmax(320px, .72fr) minmax(520px, 1.28fr) !important;
       width: min(100%, 1120px) !important;
-      gap: clamp(28px, 3vw, 48px) !important;
+      gap: clamp(10px, 1.2vw, 20px) !important;
+    }
+
+    .hero-showcase .showcase-stage.nekogpt-chat-layout > .live2d-stage {
+      justify-self: end !important;
+      transform: translateX(clamp(145px, 11vw, 195px)) !important;
     }
 
     #${ROOT_ID} {
@@ -99,7 +104,11 @@
       .hero-showcase .showcase-stage.nekogpt-chat-layout {
         grid-template-columns: minmax(285px, .76fr) minmax(470px, 1.24fr) !important;
         width: min(100%, 1030px) !important;
-        gap: 30px !important;
+        gap: 12px !important;
+      }
+
+      .hero-showcase .showcase-stage.nekogpt-chat-layout > .live2d-stage {
+        transform: translateX(125px) !important;
       }
 
       #${ROOT_ID} {
@@ -122,6 +131,11 @@
         grid-template-columns: 1fr !important;
         width: min(100%, 620px) !important;
         gap: 26px !important;
+      }
+
+      .hero-showcase .showcase-stage.nekogpt-chat-layout > .live2d-stage {
+        justify-self: center !important;
+        transform: none !important;
       }
 
       #${ROOT_ID} {
