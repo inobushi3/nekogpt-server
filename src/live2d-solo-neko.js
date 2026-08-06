@@ -23,8 +23,13 @@
     style.textContent = `
       .${ROOT_CLASS} {
         position: relative !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
         width: 100% !important;
-        min-height: 480px !important;
+        height: 430px !important;
+        min-height: 430px !important;
+        max-height: 430px !important;
         margin: 0 auto !important;
         padding: 0 !important;
         overflow: visible !important;
@@ -48,24 +53,28 @@
       .${VIEWPORT_CLASS} {
         position: relative !important;
         display: block !important;
-        width: min(390px, 92vw) !important;
-        height: 480px !important;
+        flex: 0 0 auto !important;
+        width: min(370px, 92vw) !important;
+        height: 430px !important;
+        min-height: 430px !important;
         margin: 0 auto !important;
         padding: 0 !important;
         overflow: hidden !important;
+        contain: paint !important;
         background: transparent !important;
         border: 0 !important;
         border-radius: 0 !important;
         box-shadow: none !important;
+        isolation: isolate !important;
       }
 
-      .${VIEWPORT_CLASS} > .${CANVAS_CLASS} {
+      .${CANVAS_CLASS} {
         position: absolute !important;
-        left: -90px !important;
-        bottom: 0 !important;
+        left: 0 !important;
+        top: 0 !important;
+        right: auto !important;
+        bottom: auto !important;
         display: block !important;
-        width: auto !important;
-        height: 480px !important;
         max-width: none !important;
         max-height: none !important;
         margin: 0 !important;
@@ -74,8 +83,8 @@
         border-radius: 0 !important;
         background: transparent !important;
         box-shadow: none !important;
-        transform: none !important;
-        transform-origin: left bottom !important;
+        transform-origin: 0 0 !important;
+        will-change: transform !important;
       }
 
       .${HIDDEN_CLASS} {
@@ -87,33 +96,29 @@
 
       @media (max-width: 760px) {
         .${ROOT_CLASS} {
-          min-height: 410px !important;
+          height: 370px !important;
+          min-height: 370px !important;
+          max-height: 370px !important;
         }
 
         .${VIEWPORT_CLASS} {
-          width: min(335px, 94vw) !important;
-          height: 410px !important;
-        }
-
-        .${VIEWPORT_CLASS} > .${CANVAS_CLASS} {
-          left: -75px !important;
-          height: 410px !important;
+          width: min(320px, 94vw) !important;
+          height: 370px !important;
+          min-height: 370px !important;
         }
       }
 
       @media (max-width: 480px) {
         .${ROOT_CLASS} {
-          min-height: 350px !important;
+          height: 320px !important;
+          min-height: 320px !important;
+          max-height: 320px !important;
         }
 
         .${VIEWPORT_CLASS} {
-          width: min(290px, 94vw) !important;
-          height: 350px !important;
-        }
-
-        .${VIEWPORT_CLASS} > .${CANVAS_CLASS} {
-          left: -64px !important;
-          height: 350px !important;
+          width: min(285px, 94vw) !important;
+          height: 320px !important;
+          min-height: 320px !important;
         }
       }
     `;
@@ -125,20 +130,25 @@
     .filter((element) => interactionLabels.includes(normalize(element.textContent)))
     .sort((a, b) => a.querySelectorAll('*').length - b.querySelectorAll('*').length)[0] || null;
 
-  const findRoot = (instruction) => {
-    let current = instruction?.parentElement || null;
+  const findTarget = () => {
+    const instruction = findInstruction();
+    let root = instruction?.parentElement || null;
 
-    while (current && current !== document.body) {
-      if (current.querySelector('canvas')) return current;
-      current = current.parentElement;
+    while (root && root !== document.body && !root.querySelector('canvas')) {
+      root = root.parentElement;
     }
 
-    const canvas = Array.from(document.querySelectorAll('canvas')).find((element) => {
-      const rect = element.getBoundingClientRect();
-      return rect.width >= 250 && rect.height >= 180;
-    });
+    const candidates = Array.from((root || document).querySelectorAll('canvas'))
+      .map((canvas) => ({ canvas, rect: canvas.getBoundingClientRect() }))
+      .filter(({ rect }) => rect.width >= 250 && rect.height >= 150)
+      .sort((a, b) => (b.rect.width * b.rect.height) - (a.rect.width * a.rect.height));
 
-    return canvas?.parentElement || null;
+    if (!candidates.length) return null;
+
+    const canvas = candidates[0].canvas;
+    if (!root || root === document.body) root = canvas.parentElement;
+
+    return { instruction, root, canvas, candidates };
   };
 
   const removeInstruction = (instruction, root) => {
@@ -164,57 +174,78 @@
     let depth = 0;
     while (current && current !== root && depth < 8) {
       current.dataset.nekoLive2dClean = 'true';
-      current.style.background = 'transparent';
-      current.style.backgroundImage = 'none';
-      current.style.border = '0';
-      current.style.borderRadius = '0';
-      current.style.boxShadow = 'none';
+      current.style.setProperty('background', 'transparent', 'important');
+      current.style.setProperty('background-image', 'none', 'important');
+      current.style.setProperty('border', '0', 'important');
+      current.style.setProperty('border-radius', '0', 'important');
+      current.style.setProperty('box-shadow', 'none', 'important');
+      current.style.setProperty('overflow', 'visible', 'important');
       current = current.parentElement;
       depth += 1;
     }
   };
 
-  const prepareCanvas = (root) => {
-    const canvases = Array.from(root.querySelectorAll('canvas'))
-      .filter((canvas) => {
-        const rect = canvas.getBoundingClientRect();
-        return rect.width >= 180 && rect.height >= 150;
-      })
-      .sort((a, b) => a.getBoundingClientRect().left - b.getBoundingClientRect().left);
+  const positionCanvas = (canvas, viewport) => {
+    const sourceWidth = Number(canvas.dataset.nekoSourceWidth);
+    const sourceHeight = Number(canvas.dataset.nekoSourceHeight);
+    if (!sourceWidth || !sourceHeight) return;
 
-    if (!canvases.length) return false;
+    const viewportWidth = viewport.clientWidth;
+    const viewportHeight = viewport.clientHeight;
+    if (!viewportWidth || !viewportHeight) return;
 
-    const nekoCanvas = canvases[0];
-    cleanFrame(root, nekoCanvas);
+    // Preserve the renderer's original CSS size. Resizing the canvas itself makes
+    // PIXI reposition the model and was the reason only the head remained visible.
+    const scale = viewportHeight / sourceHeight;
 
-    canvases.slice(1).forEach((canvas) => {
-      canvas.classList.add(HIDDEN_CLASS);
-      const wrapper = canvas.parentElement;
-      if (wrapper && wrapper !== root && wrapper.querySelectorAll('canvas').length === 1) {
-        wrapper.classList.add(HIDDEN_CLASS);
-      }
-    });
+    // The Neko occupies the left side of the shared canvas. Center that region
+    // while the Cirno begins just outside the viewport on the right.
+    const nekoCenterRatio = 0.455;
+    const translateX = (viewportWidth / 2) - (sourceWidth * scale * nekoCenterRatio);
 
-    let viewport = nekoCanvas.closest(`.${VIEWPORT_CLASS}`);
-    if (!viewport) {
-      viewport = document.createElement('div');
-      viewport.className = VIEWPORT_CLASS;
-      nekoCanvas.parentNode.insertBefore(viewport, nekoCanvas);
-      viewport.appendChild(nekoCanvas);
-    }
-
-    nekoCanvas.classList.add(CANVAS_CLASS);
-    nekoCanvas.classList.remove(HIDDEN_CLASS);
-    return true;
+    canvas.style.setProperty('transform', `translate3d(${translateX}px, 0, 0) scale(${scale})`, 'important');
   };
 
-  const applySoloNeko = () => {
-    const instruction = findInstruction();
-    const root = findRoot(instruction);
-    if (!root) return false;
+  const prepareCanvas = ({ instruction, root, canvas, candidates }) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width < 250 || rect.height < 150) return false;
 
     removeInstruction(instruction, root);
-    return prepareCanvas(root);
+    cleanFrame(root, canvas);
+
+    candidates.slice(1).forEach(({ canvas: extraCanvas }) => {
+      extraCanvas.classList.add(HIDDEN_CLASS);
+    });
+
+    let viewport = canvas.closest(`.${VIEWPORT_CLASS}`);
+    if (!viewport) {
+      canvas.dataset.nekoSourceWidth = String(rect.width);
+      canvas.dataset.nekoSourceHeight = String(rect.height);
+
+      viewport = document.createElement('div');
+      viewport.className = VIEWPORT_CLASS;
+      canvas.parentNode.insertBefore(viewport, canvas);
+      viewport.appendChild(canvas);
+    }
+
+    const sourceWidth = Number(canvas.dataset.nekoSourceWidth) || rect.width;
+    const sourceHeight = Number(canvas.dataset.nekoSourceHeight) || rect.height;
+
+    canvas.classList.add(CANVAS_CLASS);
+    canvas.classList.remove(HIDDEN_CLASS);
+    canvas.style.setProperty('width', `${sourceWidth}px`, 'important');
+    canvas.style.setProperty('height', `${sourceHeight}px`, 'important');
+
+    const updatePosition = () => positionCanvas(canvas, viewport);
+    requestAnimationFrame(updatePosition);
+
+    if (!viewport.dataset.nekoResizeObserver) {
+      viewport.dataset.nekoResizeObserver = 'true';
+      const resizeObserver = new ResizeObserver(updatePosition);
+      resizeObserver.observe(viewport);
+    }
+
+    return true;
   };
 
   installStyles();
@@ -222,9 +253,11 @@
   let attempts = 0;
   const timer = window.setInterval(() => {
     attempts += 1;
-    const ready = applySoloNeko();
-    if ((ready && attempts >= 12) || attempts >= 50) window.clearInterval(timer);
-  }, 200);
+    const target = findTarget();
+    const ready = target ? prepareCanvas(target) : false;
 
-  applySoloNeko();
+    if (ready || attempts >= 60) {
+      window.clearInterval(timer);
+    }
+  }, 200);
 })();
