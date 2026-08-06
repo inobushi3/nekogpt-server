@@ -187,6 +187,91 @@
       display: none !important;
     }
 
+    .system-requirements .requirements-shell {
+      box-sizing: border-box !important;
+      padding: 30px 30px 34px !important;
+      border: 3px solid #efbfd0 !important;
+      border-radius: 28px !important;
+      background: linear-gradient(180deg, #ffffff 0%, #fff7fa 62%, #fff1f5 100%) !important;
+      box-shadow:
+        0 7px 0 #bc4c6e,
+        0 15px 30px rgba(188, 76, 110, 0.14),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.96),
+        inset 0 -2px 0 rgba(239, 191, 208, 0.24) !important;
+      color: #58454d !important;
+    }
+
+    .system-requirements #requirements-title {
+      color: #533b45 !important;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+    }
+
+    .system-requirements .requirements-grid {
+      gap: 20px !important;
+    }
+
+    .system-requirements .requirement-card,
+    .system-requirements .requirement-card:hover,
+    .system-requirements .requirement-card:focus,
+    .system-requirements .requirement-card:focus-within,
+    .system-requirements .requirement-card:active {
+      box-sizing: border-box !important;
+      min-height: 112px !important;
+      padding: 22px 18px !important;
+      border: 2px solid #efbfd0 !important;
+      border-radius: 18px !important;
+      background: linear-gradient(180deg, #ffffff 0%, #fff6f9 100%) !important;
+      box-shadow:
+        0 5px 0 rgba(188, 76, 110, 0.42),
+        0 11px 22px rgba(188, 76, 110, 0.11),
+        inset 0 1px 0 #ffffff !important;
+      color: #58454d !important;
+      transform: none !important;
+      transition: none !important;
+      animation: none !important;
+      filter: none !important;
+      outline: none !important;
+    }
+
+    .system-requirements .requirement-card::before,
+    .system-requirements .requirement-card::after,
+    .system-requirements .requirement-card:hover::before,
+    .system-requirements .requirement-card:hover::after {
+      content: none !important;
+      display: none !important;
+    }
+
+    .system-requirements .requirement-card span {
+      color: #8b6f79 !important;
+    }
+
+    .system-requirements .requirement-card strong {
+      color: #533b45 !important;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.86) !important;
+    }
+
+    .system-requirements .requirement-card.highlighted,
+    .system-requirements .requirement-card.highlighted:hover,
+    .system-requirements .requirement-card.highlighted:focus,
+    .system-requirements .requirement-card.highlighted:focus-within,
+    .system-requirements .requirement-card.highlighted:active {
+      border-color: #e58baa !important;
+      background: linear-gradient(180deg, #f9dce6 0%, #f4bfd2 100%) !important;
+      box-shadow:
+        0 5px 0 #b94b6d,
+        0 12px 24px rgba(188, 76, 110, 0.17),
+        inset 0 1px 0 rgba(255, 255, 255, 0.66) !important;
+    }
+
+    .system-requirements .requirement-card.highlighted span,
+    .system-requirements .requirement-card.highlighted strong {
+      color: #4f3740 !important;
+    }
+
+    .system-requirements .requirements-shell > p {
+      color: #7a656e !important;
+    }
+
     /* The terminal intentionally keeps its original dark appearance. */
     #download .install-terminal,
     #download .terminal-head,
@@ -218,6 +303,28 @@
       #download .install-step:active {
         min-height: 0 !important;
         border-radius: 18px !important;
+      }
+
+      .system-requirements .requirements-shell {
+        padding: 24px 18px 28px !important;
+        border-radius: 22px !important;
+        box-shadow:
+          0 6px 0 #bc4c6e,
+          0 12px 24px rgba(188, 76, 110, 0.13),
+          inset 0 0 0 2px rgba(255, 255, 255, 0.96) !important;
+      }
+
+      .system-requirements .requirements-grid {
+        gap: 16px !important;
+      }
+
+      .system-requirements .requirement-card,
+      .system-requirements .requirement-card:hover,
+      .system-requirements .requirement-card:focus,
+      .system-requirements .requirement-card:focus-within,
+      .system-requirements .requirement-card:active {
+        min-height: 0 !important;
+        border-radius: 16px !important;
       }
     }
   `;
