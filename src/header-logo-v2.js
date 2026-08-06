@@ -2,7 +2,7 @@
   'use strict';
 
   const LOGO_SOURCE = './assets/images/logo-nekogpt2-clean.b64.txt?v=1';
-  const STYLE_ID = 'nekogpt-clean-header-v9';
+  const STYLE_ID = 'nekogpt-clean-header-v10';
   let logoPromise;
 
   function installStyles() {
@@ -69,32 +69,35 @@
       }
 
       .site-header .nav-shell {
-        min-height: 258px !important;
+        position: relative !important;
+        min-height: 270px !important;
         align-items: flex-start !important;
         overflow: visible !important;
-        padding-top: 12px !important;
-        padding-bottom: 12px !important;
+        padding-top: 24px !important;
+        padding-bottom: 18px !important;
       }
 
       .site-header .brand {
-        position: relative !important;
+        position: absolute !important;
         inset: auto !important;
+        top: 24px !important;
+        left: clamp(24px, 4vw, 72px) !important;
         transform: none !important;
-        display: inline-flex !important;
+        display: flex !important;
         visibility: visible !important;
         opacity: 1 !important;
         align-items: flex-start !important;
         justify-content: flex-start !important;
-        align-self: flex-start !important;
-        width: 520px !important;
-        min-width: 520px !important;
-        height: 232px !important;
+        width: min(420px, 42vw) !important;
+        min-width: 0 !important;
+        height: auto !important;
         margin: 0 !important;
         padding: 0 !important;
         border: 0 !important;
         background: transparent !important;
         box-shadow: none !important;
         overflow: visible !important;
+        z-index: 2 !important;
       }
 
       .site-header .brand > img.nekogpt-logo-header {
@@ -102,10 +105,10 @@
         inset: auto !important;
         transform: none !important;
         display: block !important;
-        width: 470px !important;
+        width: min(400px, 40vw) !important;
         height: auto !important;
-        max-width: 470px !important;
-        max-height: 220px !important;
+        max-width: 100% !important;
+        max-height: none !important;
         object-fit: contain !important;
         object-position: left top !important;
         margin: 0 !important;
@@ -119,26 +122,44 @@
         user-select: none !important;
       }
 
-      .site-header nav,
+      .site-header nav {
+        margin-left: auto !important;
+        margin-top: 18px !important;
+      }
+
       .site-header .nav-actions {
-        margin-top: 26px !important;
+        margin-top: 12px !important;
       }
 
       @media (max-width: 1180px) {
         .site-header .nav-shell {
-          min-height: 210px !important;
+          min-height: 230px !important;
         }
 
         .site-header .brand {
-          width: 390px !important;
-          min-width: 390px !important;
-          height: 184px !important;
+          top: 22px !important;
+          left: 30px !important;
+          width: 360px !important;
         }
 
         .site-header .brand > img.nekogpt-logo-header {
-          width: 360px !important;
-          max-width: 360px !important;
-          max-height: 174px !important;
+          width: 350px !important;
+          max-width: 350px !important;
+        }
+      }
+
+      @media (max-width: 860px) {
+        .site-header .nav-shell {
+          min-height: 190px !important;
+        }
+
+        .site-header .brand {
+          width: 300px !important;
+        }
+
+        .site-header .brand > img.nekogpt-logo-header {
+          width: 290px !important;
+          max-width: 290px !important;
         }
       }
 
@@ -151,8 +172,10 @@
         }
 
         .site-header .brand {
+          position: relative !important;
+          top: auto !important;
+          left: auto !important;
           width: 205px !important;
-          min-width: 205px !important;
           height: 90px !important;
           align-items: center !important;
         }
@@ -160,7 +183,6 @@
         .site-header .brand > img.nekogpt-logo-header {
           width: 190px !important;
           max-width: 190px !important;
-          max-height: 82px !important;
           object-position: left center !important;
         }
 
