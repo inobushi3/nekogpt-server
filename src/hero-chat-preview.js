@@ -7,11 +7,10 @@
   const COPY = {
     pt: {
       aria: 'Prévia de conversa com a companheira NekoGPT',
-      title: 'Conversa em tempo real',
-      status: 'online',
+      title: 'NekoGPT',
       messages: [
         { role: 'ai', name: 'NekoGPT', text: 'Oi! Posso conversar com você enquanto fico ao seu lado.' },
-        { role: 'user', name: 'Você', text: 'Você também consegue reagir ao que acontece na minha tela?' },
+        { role: 'user', text: 'Você também consegue reagir ao que acontece na minha tela?' },
         { role: 'ai', name: 'NekoGPT', text: 'Consigo sim — posso ver, lembrar e responder por voz ♡' }
       ],
       placeholder: 'Converse com sua companheira...',
@@ -19,11 +18,10 @@
     },
     en: {
       aria: 'Conversation preview with the NekoGPT companion',
-      title: 'Real-time conversation',
-      status: 'online',
+      title: 'NekoGPT',
       messages: [
         { role: 'ai', name: 'NekoGPT', text: 'Hi! I can chat with you while staying right by your side.' },
-        { role: 'user', name: 'You', text: 'Can you also react to what is happening on my screen?' },
+        { role: 'user', text: 'Can you also react to what is happening on my screen?' },
         { role: 'ai', name: 'NekoGPT', text: 'I can — I can see, remember, and reply with my voice ♡' }
       ],
       placeholder: 'Talk to your companion...',
@@ -31,11 +29,10 @@
     },
     es: {
       aria: 'Vista previa de conversación con la compañera NekoGPT',
-      title: 'Conversación en tiempo real',
-      status: 'en línea',
+      title: 'NekoGPT',
       messages: [
         { role: 'ai', name: 'NekoGPT', text: '¡Hola! Puedo conversar contigo mientras permanezco a tu lado.' },
-        { role: 'user', name: 'Tú', text: '¿También puedes reaccionar a lo que ocurre en mi pantalla?' },
+        { role: 'user', text: '¿También puedes reaccionar a lo que ocurre en mi pantalla?' },
         { role: 'ai', name: 'NekoGPT', text: 'Sí — puedo ver, recordar y responder con mi voz ♡' }
       ],
       placeholder: 'Habla con tu compañera...',
@@ -43,11 +40,10 @@
     },
     fr: {
       aria: 'Aperçu de conversation avec la compagne NekoGPT',
-      title: 'Conversation en temps réel',
-      status: 'en ligne',
+      title: 'NekoGPT',
       messages: [
         { role: 'ai', name: 'NekoGPT', text: 'Coucou ! Je peux discuter avec vous tout en restant à vos côtés.' },
-        { role: 'user', name: 'Vous', text: 'Pouvez-vous aussi réagir à ce qui se passe sur mon écran ?' },
+        { role: 'user', text: 'Pouvez-vous aussi réagir à ce qui se passe sur mon écran ?' },
         { role: 'ai', name: 'NekoGPT', text: 'Oui — je peux voir, mémoriser et répondre avec ma voix ♡' }
       ],
       placeholder: 'Parlez à votre compagne...',
@@ -79,13 +75,14 @@
     .replaceAll("'", '&#039;');
 
   const installStyles = () => {
-    if (document.getElementById(STYLE_ID)) return;
+    const existing = document.getElementById(STYLE_ID);
+    if (existing) existing.remove();
 
     const style = document.createElement('style');
     style.id = STYLE_ID;
     style.textContent = `
       .hero-showcase {
-        min-height: 590px !important;
+        min-height: 570px !important;
         overflow: visible !important;
       }
 
@@ -96,13 +93,15 @@
 
       .hero-showcase .showcase-stage.nekogpt-chat-layout {
         display: grid !important;
-        grid-template-columns: minmax(300px, .9fr) minmax(360px, 1.1fr) !important;
+        grid-template-columns: minmax(285px, .9fr) minmax(330px, 1.02fr) !important;
         align-items: center !important;
-        justify-content: center !important;
-        gap: clamp(18px, 2.4vw, 34px) !important;
-        width: min(100%, 900px) !important;
-        min-height: 570px !important;
-        margin: 0 auto !important;
+        justify-content: end !important;
+        gap: clamp(14px, 1.8vw, 24px) !important;
+        width: min(100%, 850px) !important;
+        min-height: 550px !important;
+        margin-left: auto !important;
+        margin-right: 0 !important;
+        transform: translateX(clamp(36px, 5vw, 86px)) !important;
         overflow: visible !important;
       }
 
@@ -111,7 +110,7 @@
         z-index: 2 !important;
         width: 100% !important;
         min-width: 0 !important;
-        min-height: 550px !important;
+        min-height: 535px !important;
         overflow: visible !important;
       }
 
@@ -120,18 +119,18 @@
         z-index: 4 !important;
         display: flex !important;
         flex-direction: column !important;
-        gap: 14px !important;
-        width: 100% !important;
+        gap: 11px !important;
+        width: min(100%, 350px) !important;
         min-width: 0 !important;
-        padding: 20px 18px 18px !important;
+        justify-self: end !important;
+        padding: 16px 14px 15px !important;
         box-sizing: border-box !important;
         border: 3px solid #efb7ca !important;
-        border-radius: 30px !important;
-        background:
-          linear-gradient(180deg, rgba(255,255,255,.98) 0%, rgba(255,246,250,.98) 100%) !important;
+        border-radius: 27px !important;
+        background: linear-gradient(180deg, rgba(255,255,255,.98) 0%, rgba(255,246,250,.98) 100%) !important;
         box-shadow:
-          0 8px 0 #bd4f72,
-          0 18px 38px rgba(188, 76, 110, .18),
+          0 7px 0 #bd4f72,
+          0 16px 32px rgba(188, 76, 110, .17),
           inset 0 0 0 3px rgba(255,255,255,.9),
           inset 0 -3px 0 rgba(239,183,202,.28) !important;
         isolation: isolate !important;
@@ -141,71 +140,47 @@
       #${ROOT_ID}::before {
         content: '' !important;
         position: absolute !important;
-        inset: 8px !important;
+        inset: 7px !important;
         z-index: -1 !important;
         border: 1px solid rgba(239, 183, 202, .58) !important;
-        border-radius: 22px !important;
+        border-radius: 20px !important;
         pointer-events: none !important;
       }
 
       #${ROOT_ID} .nekogpt-chat-heading {
         display: flex !important;
         align-items: center !important;
-        justify-content: space-between !important;
-        gap: 12px !important;
-        padding: 0 4px 4px !important;
+        justify-content: flex-start !important;
+        padding: 0 3px 2px !important;
       }
 
       #${ROOT_ID} .nekogpt-chat-title {
         margin: 0 !important;
         color: #5b3d49 !important;
-        font-size: clamp(1rem, 1.25vw, 1.18rem) !important;
+        font-size: clamp(1rem, 1.15vw, 1.12rem) !important;
         font-weight: 800 !important;
         letter-spacing: -.01em !important;
         text-shadow: 0 1px 0 #fff !important;
       }
 
-      #${ROOT_ID} .nekogpt-chat-status {
-        display: inline-flex !important;
-        align-items: center !important;
-        gap: 6px !important;
-        padding: 6px 10px !important;
-        border: 1px solid #efbfd0 !important;
-        border-radius: 999px !important;
-        background: #fff4f8 !important;
-        color: #9b6377 !important;
-        font-size: .72rem !important;
-        font-weight: 800 !important;
-        line-height: 1 !important;
-      }
-
-      #${ROOT_ID} .nekogpt-chat-status::before {
-        content: '' !important;
-        width: 7px !important;
-        height: 7px !important;
-        border-radius: 50% !important;
-        background: #64c98a !important;
-        box-shadow: 0 0 0 3px rgba(100,201,138,.16) !important;
-      }
-
       #${ROOT_ID} .nekogpt-chat-messages {
         display: flex !important;
         flex-direction: column !important;
-        gap: 19px !important;
-        padding-top: 4px !important;
+        gap: 14px !important;
+        padding-top: 2px !important;
       }
 
       #${ROOT_ID} .nekogpt-chat-bubble {
         position: relative !important;
-        width: min(94%, 390px) !important;
-        padding: 25px 17px 24px !important;
+        width: min(86%, 290px) !important;
+        padding: 20px 14px 17px !important;
         box-sizing: border-box !important;
         border: 2px solid #efb8cb !important;
-        border-radius: 23px !important;
+        border-radius: 20px !important;
         background: linear-gradient(180deg, #fffafe 0%, #ffedf5 100%) !important;
         box-shadow:
-          0 5px 0 #da8daa,
-          0 10px 20px rgba(188,76,110,.10),
+          0 4px 0 #da8daa,
+          0 8px 16px rgba(188,76,110,.09),
           inset 0 1px 0 rgba(255,255,255,.96) !important;
         color: #755b66 !important;
         transform: none !important;
@@ -216,97 +191,83 @@
 
       #${ROOT_ID} .nekogpt-chat-bubble[data-role="user"] {
         align-self: flex-end !important;
+        width: min(82%, 275px) !important;
+        padding-top: 14px !important;
         border-color: #e6c1cf !important;
         background: linear-gradient(180deg, #ffffff 0%, #fff7fa 100%) !important;
         box-shadow:
-          0 5px 0 #cfa3b3,
-          0 10px 20px rgba(126,79,96,.09),
+          0 4px 0 #cfa3b3,
+          0 8px 16px rgba(126,79,96,.08),
           inset 0 1px 0 rgba(255,255,255,.98) !important;
       }
 
       #${ROOT_ID} .nekogpt-chat-bubble::after {
         content: '' !important;
         position: absolute !important;
-        left: 16px !important;
-        right: 16px !important;
-        bottom: 5px !important;
-        height: 10px !important;
-        opacity: .86 !important;
+        left: 13px !important;
+        right: 13px !important;
+        bottom: 4px !important;
+        height: 8px !important;
+        opacity: .84 !important;
         background:
-          radial-gradient(circle at 5px 6px, #f1bfd2 0 5px, transparent 5.6px)
-          repeat-x left center / 15px 10px !important;
+          radial-gradient(circle at 4px 5px, #f1bfd2 0 4px, transparent 4.6px)
+          repeat-x left center / 13px 8px !important;
         pointer-events: none !important;
       }
 
       #${ROOT_ID} .nekogpt-chat-bubble[data-role="user"]::after {
         background:
-          radial-gradient(circle at 5px 6px, #ead3dc 0 5px, transparent 5.6px)
-          repeat-x left center / 15px 10px !important;
+          radial-gradient(circle at 4px 5px, #ead3dc 0 4px, transparent 4.6px)
+          repeat-x left center / 13px 8px !important;
       }
 
       #${ROOT_ID} .nekogpt-chat-name {
         position: absolute !important;
-        top: -17px !important;
-        left: 16px !important;
+        top: -14px !important;
+        left: 13px !important;
         display: inline-flex !important;
         align-items: center !important;
-        gap: 8px !important;
-        min-width: 118px !important;
-        min-height: 37px !important;
-        padding: 7px 15px !important;
+        gap: 7px !important;
+        min-width: 100px !important;
+        min-height: 31px !important;
+        padding: 6px 12px !important;
         box-sizing: border-box !important;
         border: 2px solid #efb8cb !important;
-        border-radius: 17px !important;
+        border-radius: 15px !important;
         background: linear-gradient(180deg, #fffefe 0%, #fff3f8 100%) !important;
         box-shadow:
-          0 4px 0 #da8daa,
-          0 8px 16px rgba(188,76,110,.08),
+          0 3px 0 #da8daa,
+          0 7px 13px rgba(188,76,110,.07),
           inset 0 1px 0 rgba(255,255,255,.98) !important;
         color: #d77fa3 !important;
-        font-size: .82rem !important;
+        font-size: .75rem !important;
         font-weight: 800 !important;
         line-height: 1 !important;
         white-space: nowrap !important;
-      }
-
-      #${ROOT_ID} .nekogpt-chat-bubble[data-role="user"] .nekogpt-chat-name {
-        left: auto !important;
-        right: 16px !important;
-        border-color: #e6c1cf !important;
-        box-shadow:
-          0 4px 0 #cfa3b3,
-          0 8px 16px rgba(126,79,96,.07),
-          inset 0 1px 0 rgba(255,255,255,.98) !important;
-        color: #866673 !important;
       }
 
       #${ROOT_ID} .nekogpt-chat-name::after {
         content: '♡' !important;
         margin-left: auto !important;
         color: #e998b7 !important;
-        font-size: 1rem !important;
-      }
-
-      #${ROOT_ID} .nekogpt-chat-bubble[data-role="user"] .nekogpt-chat-name::after {
-        content: '✦' !important;
-        color: #c596a8 !important;
+        font-size: .9rem !important;
       }
 
       #${ROOT_ID} .nekogpt-chat-text {
         color: #725965 !important;
-        font-size: clamp(.84rem, 1vw, .96rem) !important;
+        font-size: clamp(.78rem, .92vw, .88rem) !important;
         font-weight: 600 !important;
-        line-height: 1.48 !important;
+        line-height: 1.42 !important;
         text-wrap: pretty !important;
       }
 
       #${ROOT_ID} .nekogpt-chat-composer {
         display: grid !important;
-        grid-template-columns: minmax(0, 1fr) 42px !important;
+        grid-template-columns: minmax(0, 1fr) 38px !important;
         align-items: center !important;
-        gap: 9px !important;
-        margin-top: 2px !important;
-        padding: 8px 8px 8px 14px !important;
+        gap: 8px !important;
+        margin-top: 1px !important;
+        padding: 7px 7px 7px 12px !important;
         border: 2px solid #efbfd0 !important;
         border-radius: 999px !important;
         background: #fffafd !important;
@@ -319,7 +280,7 @@
         min-width: 0 !important;
         overflow: hidden !important;
         color: #9c7b87 !important;
-        font-size: .82rem !important;
+        font-size: .74rem !important;
         font-weight: 600 !important;
         line-height: 1.2 !important;
         white-space: nowrap !important;
@@ -328,8 +289,8 @@
 
       #${ROOT_ID} .nekogpt-chat-send {
         display: grid !important;
-        width: 42px !important;
-        height: 42px !important;
+        width: 38px !important;
+        height: 38px !important;
         place-items: center !important;
         padding: 0 !important;
         border: 2px solid #e88eae !important;
@@ -359,8 +320,8 @@
       }
 
       #${ROOT_ID} .nekogpt-chat-send svg {
-        width: 18px !important;
-        height: 18px !important;
+        width: 16px !important;
+        height: 16px !important;
         fill: none !important;
         stroke: currentColor !important;
         stroke-width: 2.2 !important;
@@ -370,8 +331,8 @@
 
       @media (max-width: 1180px) {
         .hero-showcase .showcase-stage.nekogpt-chat-layout {
-          grid-template-columns: minmax(270px, .86fr) minmax(330px, 1.14fr) !important;
-          gap: 18px !important;
+          grid-template-columns: minmax(260px, .88fr) minmax(315px, 1fr) !important;
+          transform: translateX(28px) !important;
         }
       }
 
@@ -382,30 +343,33 @@
 
         .hero-showcase .showcase-stage.nekogpt-chat-layout {
           grid-template-columns: 1fr !important;
-          width: min(100%, 560px) !important;
+          width: min(100%, 520px) !important;
           min-height: auto !important;
-          gap: 20px !important;
+          margin: 0 auto !important;
+          transform: none !important;
+          gap: 18px !important;
         }
 
         .hero-showcase .showcase-stage.nekogpt-chat-layout > .live2d-stage {
-          min-height: 480px !important;
+          min-height: 470px !important;
         }
 
         #${ROOT_ID} {
-          width: min(100%, 520px) !important;
+          width: min(100%, 350px) !important;
+          justify-self: center !important;
           margin: 0 auto 24px !important;
         }
       }
 
       @media (max-width: 560px) {
         .hero-showcase .showcase-stage.nekogpt-chat-layout > .live2d-stage {
-          min-height: 410px !important;
+          min-height: 405px !important;
         }
 
         #${ROOT_ID} {
-          padding: 17px 13px 15px !important;
-          border-width: 3px !important;
-          border-radius: 24px !important;
+          width: min(100%, 330px) !important;
+          padding: 15px 12px 14px !important;
+          border-radius: 23px !important;
           box-shadow:
             0 6px 0 #bd4f72,
             0 13px 26px rgba(188,76,110,.16),
@@ -414,18 +378,15 @@
 
         #${ROOT_ID}::before {
           inset: 6px !important;
-          border-radius: 18px !important;
+          border-radius: 17px !important;
         }
 
         #${ROOT_ID} .nekogpt-chat-bubble {
-          width: 96% !important;
-          padding: 24px 14px 23px !important;
-          border-radius: 20px !important;
+          width: 88% !important;
         }
 
-        #${ROOT_ID} .nekogpt-chat-name {
-          min-width: 104px !important;
-          padding: 7px 12px !important;
+        #${ROOT_ID} .nekogpt-chat-bubble[data-role="user"] {
+          width: 84% !important;
         }
       }
 
@@ -439,12 +400,18 @@
     document.head.appendChild(style);
   };
 
-  const messageMarkup = (message) => `
-    <article class="nekogpt-chat-bubble" data-role="${escapeHtml(message.role)}">
-      <div class="nekogpt-chat-name">${escapeHtml(message.name)}</div>
-      <div class="nekogpt-chat-text">${escapeHtml(message.text)}</div>
-    </article>
-  `;
+  const messageMarkup = (message) => {
+    const name = message.role === 'ai' && message.name
+      ? `<div class="nekogpt-chat-name">${escapeHtml(message.name)}</div>`
+      : '';
+
+    return `
+      <article class="nekogpt-chat-bubble" data-role="${escapeHtml(message.role)}">
+        ${name}
+        <div class="nekogpt-chat-text">${escapeHtml(message.text)}</div>
+      </article>
+    `;
+  };
 
   const render = () => {
     const showcaseStage = document.querySelector('.hero-showcase .showcase-stage, .showcase-stage');
@@ -472,7 +439,6 @@
     root.innerHTML = `
       <div class="nekogpt-chat-heading">
         <h3 class="nekogpt-chat-title">${escapeHtml(copy.title)}</h3>
-        <span class="nekogpt-chat-status">${escapeHtml(copy.status)}</span>
       </div>
       <div class="nekogpt-chat-messages">
         ${copy.messages.map(messageMarkup).join('')}
