@@ -209,4 +209,43 @@
   `;
 
   document.head.appendChild(style);
+
+  const normalize = (value) =>
+    String(value || '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .toLowerCase();
+
+  const isCursorCredit = (node) => {
+    const text = normalize(node?.textContent);
+    return (
+      text.includes('vanilla nekopara cursors') ||
+      (text.includes('lissweetie') && text.includes('cursor'))
+    );
+  };
+
+  const removeCursorCredit = () => {
+    Array.from(document.querySelectorAll('a, small, span, p, div, li, footer'))
+      .filter(isCursorCredit)
+      .forEach((node) => {
+        if (Array.from(node.children).some(isCursorCredit)) return;
+
+        const parent = node.parentElement;
+        node.remove();
+
+        if (
+          parent &&
+          ['P', 'SMALL', 'SPAN', 'LI'].includes(parent.tagName) &&
+          !normalize(parent.textContent)
+        ) {
+          parent.remove();
+        }
+      });
+  };
+
+  removeCursorCredit();
+
+  const creditObserver = new MutationObserver(removeCursorCredit);
+  creditObserver.observe(document.body, { childList: true, subtree: true });
+  window.setTimeout(() => creditObserver.disconnect(), 15000);
 })();
