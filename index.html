@@ -55,6 +55,34 @@
           document.body.appendChild(script);
         });
 
+        const updateLocalizedCopy = (payload) => {
+          const replacements = [
+            [
+              'Conecte-se ao Twitch, Discord, Obsidian, Google e muito mais. Sua assistente de IA funciona onde você estiver.',
+              'Conecte-se ao Twitch, Discord, Obsidian, e muito mais. Sua companheira de IA funciona onde você quiser.'
+            ],
+            [
+              'Connect to Twitch, Discord, Obsidian, Google, and much more. Your AI assistant works wherever you are.',
+              'Connect to Twitch, Discord, Obsidian, and much more. Your AI companion works wherever you want.'
+            ],
+            [
+              'Conéctate a Twitch, Discord, Obsidian, Google y mucho más. Tu asistente de IA funciona donde estés.',
+              'Conéctate a Twitch, Discord, Obsidian y mucho más. Tu compañera de IA funciona donde quieras.'
+            ],
+            [
+              'Connectez Twitch, Discord, Obsidian, Google et bien plus. Votre assistante IA fonctionne où que vous soyez.',
+              'Connectez Twitch, Discord, Obsidian et bien plus encore. Votre compagne IA fonctionne où vous le souhaitez.'
+            ]
+          ];
+
+          replacements.forEach(([currentText, nextText]) => {
+            payload.body = payload.body.split(currentText).join(nextText);
+            payload.js = payload.js.split(currentText).join(nextText);
+          });
+
+          return payload;
+        };
+
         const configureNativeSoloNeko = (payload) => {
           const heroCharactersPattern = /    const heroCharacters = \[[\s\S]*?\n    \];/;
           const nativeNekoCharacter = `    const heroCharacters = [
@@ -154,7 +182,8 @@
           const bytes = Uint8Array.from(atob(encoded), (char) => char.charCodeAt(0));
           if (!("DecompressionStream" in window)) throw new Error('Navegador sem suporte a DecompressionStream');
           const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
-          const payload = configureNativeSoloNeko(JSON.parse(await new Response(stream).text()));
+          const originalPayload = JSON.parse(await new Response(stream).text());
+          const payload = configureNativeSoloNeko(updateLocalizedCopy(originalPayload));
           const style = document.createElement('style');
           style.textContent = payload.css;
           document.head.appendChild(style);
