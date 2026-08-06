@@ -3,7 +3,6 @@
 
   const STYLE_ID = 'nekogpt-header-scroll-fix';
   const NAV_CLASS = 'nekogpt-pink-navigation';
-  const PRIMARY_CLASS = 'nekogpt-nav-primary';
 
   if (!document.getElementById(STYLE_ID)) {
     const style = document.createElement('style');
@@ -104,40 +103,6 @@
           inset 0 1px 0 #ffffff !important;
       }
 
-      .site-header .nav-shell.${NAV_CLASS} .${PRIMARY_CLASS} {
-        color: #ffffff !important;
-        border: 2px solid #b94769 !important;
-        background: linear-gradient(180deg, #f4bfd0 0%, #e99ab3 100%) !important;
-        box-shadow:
-          0 4px 0 #a63e5f,
-          0 8px 16px rgba(188, 76, 110, 0.2),
-          inset 0 1px 0 rgba(255, 255, 255, 0.72) !important;
-        text-shadow: 0 1px 0 rgba(133, 44, 71, 0.36) !important;
-        transition:
-          transform 160ms ease,
-          box-shadow 160ms ease,
-          filter 160ms ease !important;
-      }
-
-      .site-header .nav-shell.${NAV_CLASS} .${PRIMARY_CLASS}:hover,
-      .site-header .nav-shell.${NAV_CLASS} .${PRIMARY_CLASS}:focus-visible {
-        color: #ffffff !important;
-        transform: translateY(-1px) !important;
-        filter: brightness(1.035) !important;
-        box-shadow:
-          0 5px 0 #a63e5f,
-          0 10px 20px rgba(188, 76, 110, 0.25),
-          inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
-      }
-
-      .site-header .nav-shell.${NAV_CLASS} .${PRIMARY_CLASS}:active {
-        transform: translateY(2px) !important;
-        box-shadow:
-          0 2px 0 #a63e5f,
-          0 5px 10px rgba(188, 76, 110, 0.18),
-          inset 0 1px 0 rgba(255, 255, 255, 0.72) !important;
-      }
-
       .site-header .language-switch {
         position: relative !important;
         z-index: 10001 !important;
@@ -204,20 +169,17 @@
 
     shell.classList.add(NAV_CLASS);
 
-    const controls = Array.from(shell.querySelectorAll('a, button'));
-    controls.forEach((control) => control.classList.remove(PRIMARY_CLASS));
-
-    const primary = controls.find((control) => {
+    Array.from(shell.querySelectorAll('a, button')).forEach((control) => {
       const text = normalize(control.textContent);
-      return (
+      const isLifetimeButton =
         text.includes('acesso vitalício') ||
         text.includes('acesso vitalicio') ||
         text.includes('lifetime access') ||
-        text.includes('get lifetime')
-      );
+        text.includes('get lifetime');
+
+      if (isLifetimeButton) control.remove();
     });
 
-    if (primary) primary.classList.add(PRIMARY_CLASS);
     return true;
   };
 
