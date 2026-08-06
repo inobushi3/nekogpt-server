@@ -33,7 +33,6 @@
     <link rel="preload" href="./assets/vendor/live2d/cubism.min.js" as="script" />
     <link rel="preload" href="./assets/live2d/catgpt/catgpt.model3.json" as="fetch" crossorigin="anonymous" />
     <link rel="preload" href="./assets/live2d/catgpt/catgpt.moc3" as="fetch" crossorigin="anonymous" />
-    <link rel="preload" href="./assets/live2d/cirno/cirno_live2d.model3.json" as="fetch" crossorigin="anonymous" />
     <link rel="stylesheet" href="./src/paw-spacing.css?v=120" />
 
     <style>
@@ -79,6 +78,7 @@
           await loadScript('./src/brand-feature-redesign.js?v=140');
           await loadScript('./src/header-logo-v2.js?v=11');
           await loadScript('./src/header-scroll-fix.js?v=5');
+          await loadScript('./src/live2d-solo-neko.js?v=1');
         };
 
         loadPreview().catch((error) => {
