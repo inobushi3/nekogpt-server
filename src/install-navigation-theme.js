@@ -136,19 +136,24 @@
       color: #7a656e !important;
     }
 
-    #download .shimmer-button,
-    #download .shimmer-button:hover,
-    #download .shimmer-button:focus,
-    #download .shimmer-button:focus-visible,
-    #download .shimmer-button:active {
-      border: 2px solid #e99ab4 !important;
+    #download .install-step .install-download-button,
+    #download .install-step .install-download-button:hover,
+    #download .install-step .install-download-button:focus,
+    #download .install-step .install-download-button:focus-visible,
+    #download .install-step .install-download-button:active {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      border: 2px solid #e58baa !important;
       border-radius: 999px !important;
-      background: linear-gradient(180deg, #f58db1 0%, #ea709d 100%) !important;
+      background: linear-gradient(180deg, #f38fb2 0%, #e96d9b 100%) !important;
       box-shadow:
         0 5px 0 #b94b6d,
         0 12px 24px rgba(188, 76, 110, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+        inset 0 1px 0 rgba(255, 255, 255, 0.52) !important;
       color: #ffffff !important;
+      text-decoration: none !important;
       transform: none !important;
       transition: none !important;
       animation: none !important;
@@ -156,28 +161,28 @@
       outline: none !important;
     }
 
-    #download .shimmer-button span,
-    #download .shimmer-button strong,
-    #download .shimmer-button i,
-    #download .shimmer-button:hover span,
-    #download .shimmer-button:focus span,
-    #download .shimmer-button:active span {
+    #download .install-step .install-download-button [data-install-download-label],
+    #download .install-step .install-download-button .button-icon,
+    #download .install-step .install-download-button:hover [data-install-download-label],
+    #download .install-step .install-download-button:focus [data-install-download-label],
+    #download .install-step .install-download-button:active [data-install-download-label] {
       color: #ffffff !important;
       -webkit-text-fill-color: #ffffff !important;
       text-shadow: none !important;
+      filter: none !important;
     }
 
-    #download .shimmer-button svg,
-    #download .shimmer-button svg * {
+    #download .install-step .install-download-button .button-icon svg,
+    #download .install-step .install-download-button .button-icon svg * {
       color: #ffffff !important;
       stroke: #ffffff !important;
       filter: none !important;
     }
 
-    #download .shimmer-button::before,
-    #download .shimmer-button::after,
-    #download .shimmer-button:hover::before,
-    #download .shimmer-button:hover::after {
+    #download .install-step .install-download-button::before,
+    #download .install-step .install-download-button::after,
+    #download .install-step .install-download-button:hover::before,
+    #download .install-step .install-download-button:hover::after {
       content: none !important;
       display: none !important;
     }
