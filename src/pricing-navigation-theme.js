@@ -32,6 +32,7 @@
       border: 2px solid #efbfd0 !important;
       border-radius: 24px !important;
       background: linear-gradient(180deg, #ffffff 0%, #fff6f9 100%) !important;
+      background-image: linear-gradient(180deg, #ffffff 0%, #fff6f9 100%) !important;
       box-shadow:
         0 7px 0 rgba(188, 76, 110, 0.46),
         0 15px 30px rgba(188, 76, 110, 0.14),
@@ -39,10 +40,18 @@
         inset 0 -2px 0 rgba(239, 191, 208, 0.22) !important;
       color: #58454d !important;
       transform: none !important;
+      transform-style: flat !important;
+      perspective: none !important;
+      translate: none !important;
+      scale: 1 !important;
+      rotate: 0deg !important;
       transition: none !important;
       animation: none !important;
       filter: none !important;
+      backdrop-filter: none !important;
       outline: none !important;
+      will-change: auto !important;
+      cursor: default !important;
     }
 
     #pricing .price-card:not(.free-card),
@@ -52,6 +61,7 @@
     #pricing .price-card:not(.free-card):active {
       border-color: #e58baa !important;
       background: linear-gradient(180deg, #fff0f5 0%, #ffdce8 100%) !important;
+      background-image: linear-gradient(180deg, #fff0f5 0%, #ffdce8 100%) !important;
       box-shadow:
         0 7px 0 #b94b6d,
         0 16px 32px rgba(188, 76, 110, 0.18),
@@ -62,7 +72,16 @@
     #pricing .price-card::before,
     #pricing .price-card::after,
     #pricing .price-card:hover::before,
-    #pricing .price-card:hover::after {
+    #pricing .price-card:hover::after,
+    #pricing .price-card:focus::before,
+    #pricing .price-card:focus::after,
+    #pricing .price-card:focus-within::before,
+    #pricing .price-card:focus-within::after {
+      content: none !important;
+      display: none !important;
+      opacity: 0 !important;
+      background: none !important;
+      box-shadow: none !important;
       transition: none !important;
       animation: none !important;
       filter: none !important;
@@ -122,12 +141,10 @@
     #pricing .price-card .outline-button:hover,
     #pricing .price-card .outline-button:focus,
     #pricing .price-card .outline-button:focus-visible,
-    #pricing .price-card .outline-button:active,
     #pricing .price-card a[href],
     #pricing .price-card a[href]:hover,
     #pricing .price-card a[href]:focus,
-    #pricing .price-card a[href]:focus-visible,
-    #pricing .price-card a[href]:active {
+    #pricing .price-card a[href]:focus-visible {
       border: 2px solid #e58baa !important;
       border-radius: 999px !important;
       background: linear-gradient(180deg, #f38fb2 0%, #e96d9b 100%) !important;
@@ -139,11 +156,23 @@
       -webkit-text-fill-color: #ffffff !important;
       text-decoration: none !important;
       text-shadow: none !important;
-      transform: none !important;
-      transition: none !important;
+      transform: translateY(0) !important;
+      transition: transform 90ms ease, box-shadow 90ms ease !important;
       animation: none !important;
       filter: none !important;
       outline: none !important;
+      cursor: pointer !important;
+      will-change: transform, box-shadow !important;
+    }
+
+    #pricing .price-card .outline-button:active,
+    #pricing .price-card a[href]:active {
+      transform: translateY(4px) !important;
+      box-shadow:
+        0 1px 0 #b94b6d,
+        0 4px 8px rgba(188, 76, 110, 0.18),
+        inset 0 2px 4px rgba(132, 42, 75, 0.18) !important;
+      transition-duration: 45ms !important;
     }
 
     #pricing .price-card .outline-button *,
@@ -153,6 +182,7 @@
       fill: #ffffff !important;
       stroke: #ffffff !important;
       text-shadow: none !important;
+      pointer-events: none !important;
     }
 
     #pricing .price-card .outline-button::before,
@@ -161,6 +191,13 @@
     #pricing .price-card a[href]::after {
       content: none !important;
       display: none !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #pricing .price-card .outline-button,
+      #pricing .price-card a[href] {
+        transition: none !important;
+      }
     }
 
     @media (max-width: 760px) {
