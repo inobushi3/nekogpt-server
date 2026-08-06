@@ -156,6 +156,24 @@
       outline: none !important;
     }
 
+    #download .shimmer-button span,
+    #download .shimmer-button strong,
+    #download .shimmer-button i,
+    #download .shimmer-button:hover span,
+    #download .shimmer-button:focus span,
+    #download .shimmer-button:active span {
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      text-shadow: none !important;
+    }
+
+    #download .shimmer-button svg,
+    #download .shimmer-button svg * {
+      color: #ffffff !important;
+      stroke: #ffffff !important;
+      filter: none !important;
+    }
+
     #download .shimmer-button::before,
     #download .shimmer-button::after,
     #download .shimmer-button:hover::before,
