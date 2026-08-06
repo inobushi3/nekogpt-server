@@ -21,10 +21,21 @@
     const style = document.createElement('style');
     style.id = STYLE_ID;
     style.textContent = `
+      [data-neko-live2d-host='true'] {
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+      }
+
       .${ROOT_CLASS} {
         position: relative !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
         width: 100% !important;
-        min-height: 480px !important;
+        height: auto !important;
+        min-height: 390px !important;
+        max-height: none !important;
         margin: 0 auto !important;
         padding: 0 !important;
         background: transparent !important;
@@ -48,8 +59,10 @@
       .${VIEWPORT_CLASS} {
         position: relative !important;
         display: block !important;
+        flex: 0 0 auto !important;
         width: min(390px, 92vw) !important;
-        height: 480px !important;
+        height: 390px !important;
+        min-height: 390px !important;
         margin: 0 auto !important;
         padding: 0 !important;
         overflow: hidden !important;
@@ -65,7 +78,7 @@
       .${VIEWPORT_CLASS} > .${CANVAS_CLASS} {
         position: absolute !important;
         left: -90px !important;
-        bottom: 0 !important;
+        bottom: 30px !important;
         display: block !important;
         width: auto !important;
         height: 480px !important;
@@ -90,32 +103,36 @@
 
       @media (max-width: 760px) {
         .${ROOT_CLASS} {
-          min-height: 410px !important;
+          min-height: 335px !important;
         }
 
         .${VIEWPORT_CLASS} {
           width: min(335px, 94vw) !important;
-          height: 410px !important;
+          height: 335px !important;
+          min-height: 335px !important;
         }
 
         .${VIEWPORT_CLASS} > .${CANVAS_CLASS} {
           left: -75px !important;
+          bottom: 15px !important;
           height: 410px !important;
         }
       }
 
       @media (max-width: 480px) {
         .${ROOT_CLASS} {
-          min-height: 350px !important;
+          min-height: 290px !important;
         }
 
         .${VIEWPORT_CLASS} {
           width: min(290px, 94vw) !important;
-          height: 350px !important;
+          height: 290px !important;
+          min-height: 290px !important;
         }
 
         .${VIEWPORT_CLASS} > .${CANVAS_CLASS} {
           left: -64px !important;
+          bottom: 10px !important;
           height: 350px !important;
         }
       }
@@ -129,6 +146,9 @@
     .sort((a, b) => a.querySelectorAll('*').length - b.querySelectorAll('*').length)[0] || null;
 
   const findRoot = (instruction) => {
+    const existingRoot = document.querySelector('[data-neko-live2d-root="true"]');
+    if (existingRoot) return existingRoot;
+
     let current = instruction?.parentElement || null;
 
     while (current && current !== document.body) {
@@ -141,7 +161,8 @@
       return rect.width >= 250 && rect.height >= 180;
     });
 
-    return canvas?.parentElement || null;
+    if (!canvas) return null;
+    return canvas.closest(`.${VIEWPORT_CLASS}`)?.parentElement || canvas.parentElement;
   };
 
   const removeInstruction = (instruction, root) => {
@@ -162,6 +183,11 @@
 
   const cleanFrame = (root, canvas) => {
     root.classList.add(ROOT_CLASS);
+    root.dataset.nekoLive2dRoot = 'true';
+
+    if (root.parentElement && root.parentElement !== document.body) {
+      root.parentElement.dataset.nekoLive2dHost = 'true';
+    }
 
     let current = canvas.parentElement;
     let depth = 0;
@@ -172,6 +198,7 @@
       current.style.border = '0';
       current.style.borderRadius = '0';
       current.style.boxShadow = 'none';
+      current.style.maxHeight = 'none';
       current = current.parentElement;
       depth += 1;
     }
