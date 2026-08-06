@@ -21,6 +21,7 @@
       padding: 20px 18px 18px !important;
       gap: 14px !important;
       border-radius: 30px !important;
+      transform: translateX(clamp(100px, 9vw, 170px)) !important;
       box-shadow:
         0 18px 38px rgba(188, 76, 110, .18),
         inset 0 0 0 3px rgba(255,255,255,.9),
@@ -98,6 +99,7 @@
 
       #${ROOT_ID} {
         width: min(100%, 410px) !important;
+        transform: translateX(78px) !important;
       }
     }
 
@@ -109,6 +111,7 @@
 
       #${ROOT_ID} {
         width: min(100%, 440px) !important;
+        transform: none !important;
       }
     }
 
