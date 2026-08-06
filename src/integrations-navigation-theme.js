@@ -52,14 +52,7 @@
       }
 
       .${SHELL_CLASS}::after {
-        content: '' !important;
-        position: absolute !important;
-        inset: 4px 18px auto !important;
-        height: 38% !important;
-        z-index: -1 !important;
-        border-radius: 22px !important;
-        background: linear-gradient(180deg, rgba(255,255,255,.78), transparent) !important;
-        pointer-events: none !important;
+        content: none !important;
       }
 
       .${SHELL_CLASS} h1,
@@ -85,7 +78,9 @@
         margin-top: 22px !important;
       }
 
-      .${CARD_CLASS} {
+      .${CARD_CLASS},
+      .${CARD_CLASS}:hover,
+      .${CARD_CLASS}:focus-within {
         position: relative !important;
         min-width: 0 !important;
         min-height: 112px !important;
@@ -101,24 +96,8 @@
           inset 0 1px 0 #ffffff,
           inset 0 -2px 0 rgba(239, 191, 208, 0.2) !important;
         color: #58454d !important;
-        transform: translateY(0) !important;
-        transition:
-          transform 160ms ease,
-          border-color 160ms ease,
-          box-shadow 160ms ease,
-          background 160ms ease !important;
-      }
-
-      .${CARD_CLASS}:hover,
-      .${CARD_CLASS}:focus-within {
-        transform: translateY(-3px) !important;
-        border-color: #e7a6bb !important;
-        background: linear-gradient(180deg, #ffffff 0%, #ffedf3 100%) !important;
-        box-shadow:
-          0 7px 0 rgba(188, 76, 110, 0.52),
-          0 16px 28px rgba(188, 76, 110, 0.18),
-          inset 0 1px 0 #ffffff,
-          inset 0 -2px 0 rgba(239, 191, 208, 0.24) !important;
+        transform: none !important;
+        transition: none !important;
       }
 
       .${CARD_CLASS} h1,
@@ -135,7 +114,9 @@
         color: #7a656e !important;
       }
 
-      .${ICON_CLASS} {
+      .${ICON_CLASS},
+      .${CARD_CLASS}:hover .${ICON_CLASS},
+      .${CARD_CLASS}:focus-within .${ICON_CLASS} {
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
@@ -151,6 +132,8 @@
           0 8px 16px rgba(188, 76, 110, 0.1),
           inset 0 1px 0 #ffffff !important;
         color: #bc4c6e !important;
+        transform: none !important;
+        transition: none !important;
       }
 
       .${ICON_CLASS} svg {
@@ -189,12 +172,6 @@
 
         .${CARD_CLASS} {
           min-height: 0 !important;
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .${CARD_CLASS} {
-          transition: none !important;
         }
       }
     `;
