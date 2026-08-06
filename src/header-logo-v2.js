@@ -2,8 +2,9 @@
   'use strict';
 
   const LOGO_SOURCE = './assets/images/logo-nekogpt2-clean.b64.txt?v=1';
-  const STYLE_ID = 'nekogpt-clean-header-v10';
-  let logoPromise;
+  const STYLE_ID = 'nekogpt-clean-header-v11';
+  const LOGO_ID = 'nekogpt-hero-logo-banner';
+  let logoUrlPromise;
 
   function installStyles() {
     if (document.getElementById(STYLE_ID)) return;
@@ -13,8 +14,8 @@
     style.textContent = `
       html,
       body {
+        position: relative !important;
         background: #000 !important;
-        background-color: #000 !important;
         background-image: none !important;
         cursor: auto !important;
       }
@@ -52,8 +53,6 @@
       .hero-section::after {
         content: none !important;
         display: none !important;
-        background: none !important;
-        box-shadow: none !important;
       }
 
       .site-header,
@@ -70,47 +69,47 @@
 
       .site-header .nav-shell {
         position: relative !important;
-        min-height: 270px !important;
-        align-items: flex-start !important;
+        min-height: 88px !important;
+        align-items: center !important;
         overflow: visible !important;
-        padding-top: 24px !important;
-        padding-bottom: 18px !important;
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
       }
 
       .site-header .brand {
-        position: absolute !important;
-        inset: auto !important;
-        top: 24px !important;
-        left: clamp(24px, 4vw, 72px) !important;
-        transform: none !important;
-        display: flex !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        align-items: flex-start !important;
-        justify-content: flex-start !important;
-        width: min(420px, 42vw) !important;
+        display: none !important;
+        width: 0 !important;
         min-width: 0 !important;
-        height: auto !important;
+        height: 0 !important;
         margin: 0 !important;
         padding: 0 !important;
-        border: 0 !important;
-        background: transparent !important;
-        box-shadow: none !important;
-        overflow: visible !important;
-        z-index: 2 !important;
+        overflow: hidden !important;
       }
 
-      .site-header .brand > img.nekogpt-logo-header {
-        position: static !important;
-        inset: auto !important;
-        transform: none !important;
+      #${LOGO_ID} {
+        position: absolute !important;
+        top: 118px !important;
+        left: 0 !important;
+        z-index: 2 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
+        width: min(62vw, 920px) !important;
+        height: 210px !important;
+        margin: 0 !important;
+        padding: 0 20px !important;
+        box-sizing: border-box !important;
+        pointer-events: none !important;
+      }
+
+      #${LOGO_ID} > img {
         display: block !important;
-        width: min(400px, 40vw) !important;
+        width: min(360px, 34vw) !important;
+        max-width: 360px !important;
+        max-height: 200px !important;
         height: auto !important;
-        max-width: 100% !important;
-        max-height: none !important;
         object-fit: contain !important;
-        object-position: left top !important;
+        object-position: center top !important;
         margin: 0 !important;
         padding: 0 !important;
         border: 0 !important;
@@ -118,77 +117,58 @@
         box-shadow: none !important;
         filter: none !important;
         image-rendering: auto !important;
-        pointer-events: none !important;
         user-select: none !important;
       }
 
-      .site-header nav {
-        margin-left: auto !important;
-        margin-top: 18px !important;
-      }
-
-      .site-header .nav-actions {
-        margin-top: 12px !important;
-      }
-
       @media (max-width: 1180px) {
-        .site-header .nav-shell {
-          min-height: 230px !important;
+        #${LOGO_ID} {
+          top: 112px !important;
+          width: 65vw !important;
+          height: 190px !important;
         }
 
-        .site-header .brand {
-          top: 22px !important;
-          left: 30px !important;
-          width: 360px !important;
-        }
-
-        .site-header .brand > img.nekogpt-logo-header {
-          width: 350px !important;
-          max-width: 350px !important;
+        #${LOGO_ID} > img {
+          width: min(320px, 36vw) !important;
+          max-width: 320px !important;
+          max-height: 180px !important;
         }
       }
 
       @media (max-width: 860px) {
-        .site-header .nav-shell {
-          min-height: 190px !important;
+        #${LOGO_ID} {
+          top: 102px !important;
+          width: 68vw !important;
+          height: 165px !important;
         }
 
-        .site-header .brand {
-          width: 300px !important;
-        }
-
-        .site-header .brand > img.nekogpt-logo-header {
-          width: 290px !important;
-          max-width: 290px !important;
+        #${LOGO_ID} > img {
+          width: min(270px, 40vw) !important;
+          max-width: 270px !important;
+          max-height: 155px !important;
         }
       }
 
       @media (max-width: 760px) {
         .site-header .nav-shell {
-          min-height: 104px !important;
-          align-items: center !important;
+          min-height: 76px !important;
           padding-top: 6px !important;
           padding-bottom: 6px !important;
         }
 
-        .site-header .brand {
+        #${LOGO_ID} {
           position: relative !important;
           top: auto !important;
           left: auto !important;
-          width: 205px !important;
-          height: 90px !important;
-          align-items: center !important;
+          width: 100% !important;
+          height: auto !important;
+          margin: 8px 0 14px !important;
+          padding: 0 12px !important;
         }
 
-        .site-header .brand > img.nekogpt-logo-header {
-          width: 190px !important;
-          max-width: 190px !important;
-          object-position: left center !important;
-        }
-
-        .site-header nav,
-        .site-header .nav-actions {
-          margin-top: 0 !important;
+        #${LOGO_ID} > img {
+          width: min(220px, 60vw) !important;
+          max-width: 220px !important;
+          max-height: none !important;
         }
       }
     `;
@@ -197,7 +177,7 @@
   }
 
   function removeEffects() {
-    const selector = [
+    const selectors = [
       '#particle-field',
       '[class*="particle"]',
       '[id*="particle"]',
@@ -217,16 +197,16 @@
       '[id*="ambient-orb"]'
     ].join(',');
 
-    document.querySelectorAll(selector).forEach((node) => node.remove());
+    document.querySelectorAll(selectors).forEach((node) => node.remove());
     document.documentElement.style.background = '#000';
     document.body.style.background = '#000';
     document.body.style.backgroundImage = 'none';
     document.body.style.cursor = 'auto';
   }
 
-  function loadLogo() {
-    if (!logoPromise) {
-      logoPromise = fetch(LOGO_SOURCE, { cache: 'no-store' })
+  function loadLogoUrl() {
+    if (!logoUrlPromise) {
+      logoUrlPromise = fetch(LOGO_SOURCE, { cache: 'no-store' })
         .then((response) => {
           if (!response.ok) throw new Error(`Falha ao carregar ${LOGO_SOURCE}`);
           return response.text();
@@ -238,26 +218,31 @@
         });
     }
 
-    return logoPromise;
+    return logoUrlPromise;
   }
 
   async function applyLogo() {
-    const brand = document.querySelector('.site-header .brand');
-    if (!brand) return false;
+    const header = document.querySelector('.site-header');
+    if (!header) return false;
 
-    const source = await loadLogo();
+    let container = document.getElementById(LOGO_ID);
+    if (!container) {
+      container = document.createElement('div');
+      container.id = LOGO_ID;
+      header.insertAdjacentElement('afterend', container);
+    }
+
+    if (container.dataset.loaded === 'true') return true;
+
     const image = document.createElement('img');
-    image.className = 'nekogpt-logo-header';
-    image.src = source;
-    image.alt = '';
-    image.setAttribute('aria-hidden', 'true');
+    image.src = await loadLogoUrl();
+    image.alt = 'NekoGPT';
     image.decoding = 'async';
     image.draggable = false;
 
     await image.decode();
-    brand.replaceChildren(image);
-    brand.removeAttribute('aria-hidden');
-    brand.setAttribute('aria-label', 'NekoGPT');
+    container.replaceChildren(image);
+    container.dataset.loaded = 'true';
     return true;
   }
 
@@ -268,7 +253,6 @@
   const timer = window.setInterval(async () => {
     attempts += 1;
     removeEffects();
-
     const ready = await applyLogo().catch((error) => {
       console.error('Falha ao aplicar a logo do NekoGPT:', error);
       return false;
