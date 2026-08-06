@@ -80,6 +80,9 @@
 
       .${CARD_CLASS},
       .${CARD_CLASS}:hover,
+      .${CARD_CLASS}:active,
+      .${CARD_CLASS}:focus,
+      .${CARD_CLASS}:focus-visible,
       .${CARD_CLASS}:focus-within {
         position: relative !important;
         min-width: 0 !important;
@@ -89,6 +92,7 @@
         overflow: visible !important;
         border: 2px solid #efbfd0 !important;
         border-radius: 18px !important;
+        outline: 0 !important;
         background: linear-gradient(180deg, #ffffff 0%, #fff6f9 100%) !important;
         box-shadow:
           0 5px 0 rgba(188, 76, 110, 0.48),
@@ -96,8 +100,38 @@
           inset 0 1px 0 #ffffff,
           inset 0 -2px 0 rgba(239, 191, 208, 0.2) !important;
         color: #58454d !important;
+        filter: none !important;
         transform: none !important;
         transition: none !important;
+        animation: none !important;
+      }
+
+      .${CARD_CLASS}::before,
+      .${CARD_CLASS}::after,
+      .${CARD_CLASS}:hover::before,
+      .${CARD_CLASS}:hover::after,
+      .${CARD_CLASS}:focus::before,
+      .${CARD_CLASS}:focus::after,
+      .${CARD_CLASS}:focus-within::before,
+      .${CARD_CLASS}:focus-within::after {
+        content: none !important;
+        display: none !important;
+        opacity: 0 !important;
+        background: none !important;
+        box-shadow: none !important;
+        filter: none !important;
+        transform: none !important;
+        animation: none !important;
+      }
+
+      .${CARD_CLASS} *,
+      .${CARD_CLASS}:hover *,
+      .${CARD_CLASS}:active *,
+      .${CARD_CLASS}:focus *,
+      .${CARD_CLASS}:focus-within * {
+        filter: none !important;
+        transition: none !important;
+        animation: none !important;
       }
 
       .${CARD_CLASS} h1,
@@ -116,6 +150,8 @@
 
       .${ICON_CLASS},
       .${CARD_CLASS}:hover .${ICON_CLASS},
+      .${CARD_CLASS}:active .${ICON_CLASS},
+      .${CARD_CLASS}:focus .${ICON_CLASS},
       .${CARD_CLASS}:focus-within .${ICON_CLASS} {
         display: inline-flex !important;
         align-items: center !important;
@@ -126,26 +162,48 @@
         margin-bottom: 12px !important;
         border: 1px solid #efbfd0 !important;
         border-radius: 13px !important;
+        outline: 0 !important;
         background: linear-gradient(180deg, #fffefe 0%, #fdebf2 100%) !important;
         box-shadow:
           0 3px 0 rgba(188, 76, 110, 0.32),
           0 8px 16px rgba(188, 76, 110, 0.1),
           inset 0 1px 0 #ffffff !important;
         color: #bc4c6e !important;
+        filter: none !important;
         transform: none !important;
         transition: none !important;
+        animation: none !important;
       }
 
-      .${ICON_CLASS} svg {
+      .${ICON_CLASS}::before,
+      .${ICON_CLASS}::after,
+      .${CARD_CLASS}:hover .${ICON_CLASS}::before,
+      .${CARD_CLASS}:hover .${ICON_CLASS}::after {
+        content: none !important;
+        display: none !important;
+        background: none !important;
+        box-shadow: none !important;
+        filter: none !important;
+      }
+
+      .${ICON_CLASS} svg,
+      .${ICON_CLASS} svg *,
+      .${CARD_CLASS}:hover .${ICON_CLASS} svg,
+      .${CARD_CLASS}:hover .${ICON_CLASS} svg * {
         color: #bc4c6e !important;
-        fill: currentColor !important;
-        stroke: currentColor !important;
+        fill: #bc4c6e !important;
+        stroke: #bc4c6e !important;
+        filter: none !important;
+        transform: none !important;
       }
 
-      .${ICON_CLASS} img {
+      .${ICON_CLASS} img,
+      .${CARD_CLASS}:hover .${ICON_CLASS} img {
         max-width: 24px !important;
         max-height: 24px !important;
         object-fit: contain !important;
+        filter: none !important;
+        transform: none !important;
       }
 
       @media (max-width: 760px) {
