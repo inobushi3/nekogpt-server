@@ -5,7 +5,6 @@
   const ROOT_CLASS = 'nekogpt-solo-live2d';
   const VIEWPORT_CLASS = 'nekogpt-solo-live2d-viewport';
   const CANVAS_CLASS = 'nekogpt-solo-live2d-canvas';
-  const SINGLE_CLASS = 'nekogpt-solo-live2d-single-canvas';
   const HIDDEN_CLASS = 'nekogpt-hidden-live2d-canvas';
 
   const interactionLabels = [
@@ -25,7 +24,7 @@
       .${ROOT_CLASS} {
         position: relative !important;
         width: 100% !important;
-        min-height: 460px !important;
+        min-height: 480px !important;
         margin: 0 auto !important;
         padding: 0 !important;
         background: transparent !important;
@@ -42,17 +41,20 @@
         background-color: transparent !important;
         background-image: none !important;
         border-color: transparent !important;
+        border-radius: 0 !important;
         box-shadow: none !important;
       }
 
       .${VIEWPORT_CLASS} {
         position: relative !important;
         display: block !important;
-        width: min(540px, 92vw) !important;
-        height: 460px !important;
+        width: min(390px, 92vw) !important;
+        height: 480px !important;
         margin: 0 auto !important;
         padding: 0 !important;
         overflow: hidden !important;
+        clip-path: inset(0) !important;
+        contain: paint !important;
         background: transparent !important;
         border: 0 !important;
         border-radius: 0 !important;
@@ -60,31 +62,23 @@
         isolation: isolate !important;
       }
 
-      .${CANVAS_CLASS} {
+      .${VIEWPORT_CLASS} > .${CANVAS_CLASS} {
         position: absolute !important;
+        left: -90px !important;
         bottom: 0 !important;
         display: block !important;
+        width: auto !important;
+        height: 480px !important;
         max-width: none !important;
         max-height: none !important;
         margin: 0 !important;
+        padding: 0 !important;
         border: 0 !important;
         border-radius: 0 !important;
         background: transparent !important;
         box-shadow: none !important;
-        transform-origin: center bottom !important;
-      }
-
-      .${VIEWPORT_CLASS}.${SINGLE_CLASS} > .${CANVAS_CLASS} {
-        left: -150px !important;
-        width: auto !important;
-        height: 460px !important;
-      }
-
-      .${VIEWPORT_CLASS}:not(.${SINGLE_CLASS}) > .${CANVAS_CLASS} {
-        left: 50% !important;
-        width: auto !important;
-        height: 460px !important;
-        transform: translateX(-50%) !important;
+        transform: none !important;
+        transform-origin: left bottom !important;
       }
 
       .${HIDDEN_CLASS} {
@@ -96,41 +90,33 @@
 
       @media (max-width: 760px) {
         .${ROOT_CLASS} {
-          min-height: 390px !important;
+          min-height: 410px !important;
         }
 
         .${VIEWPORT_CLASS} {
-          width: min(455px, 94vw) !important;
-          height: 390px !important;
+          width: min(335px, 94vw) !important;
+          height: 410px !important;
         }
 
-        .${VIEWPORT_CLASS}.${SINGLE_CLASS} > .${CANVAS_CLASS} {
-          left: -126px !important;
-          height: 390px !important;
-        }
-
-        .${VIEWPORT_CLASS}:not(.${SINGLE_CLASS}) > .${CANVAS_CLASS} {
-          height: 390px !important;
+        .${VIEWPORT_CLASS} > .${CANVAS_CLASS} {
+          left: -75px !important;
+          height: 410px !important;
         }
       }
 
       @media (max-width: 480px) {
         .${ROOT_CLASS} {
-          min-height: 340px !important;
+          min-height: 350px !important;
         }
 
         .${VIEWPORT_CLASS} {
-          width: min(390px, 96vw) !important;
-          height: 340px !important;
+          width: min(290px, 94vw) !important;
+          height: 350px !important;
         }
 
-        .${VIEWPORT_CLASS}.${SINGLE_CLASS} > .${CANVAS_CLASS} {
-          left: -110px !important;
-          height: 340px !important;
-        }
-
-        .${VIEWPORT_CLASS}:not(.${SINGLE_CLASS}) > .${CANVAS_CLASS} {
-          height: 340px !important;
+        .${VIEWPORT_CLASS} > .${CANVAS_CLASS} {
+          left: -64px !important;
+          height: 350px !important;
         }
       }
     `;
@@ -150,13 +136,12 @@
       current = current.parentElement;
     }
 
-    const canvases = Array.from(document.querySelectorAll('canvas'))
-      .filter((canvas) => {
-        const rect = canvas.getBoundingClientRect();
-        return rect.width >= 250 && rect.height >= 180;
-      });
+    const canvas = Array.from(document.querySelectorAll('canvas')).find((element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.width >= 250 && rect.height >= 180;
+    });
 
-    return canvases[0]?.parentElement || null;
+    return canvas?.parentElement || null;
   };
 
   const removeInstruction = (instruction, root) => {
@@ -187,13 +172,12 @@
       current.style.border = '0';
       current.style.borderRadius = '0';
       current.style.boxShadow = 'none';
-      current.style.overflow = 'visible';
       current = current.parentElement;
       depth += 1;
     }
   };
 
-  const prepareCanvases = (root) => {
+  const prepareCanvas = (root) => {
     const canvases = Array.from(root.querySelectorAll('canvas'))
       .filter((canvas) => {
         const rect = canvas.getBoundingClientRect();
@@ -222,9 +206,10 @@
       viewport.appendChild(nekoCanvas);
     }
 
-    viewport.classList.toggle(SINGLE_CLASS, canvases.length === 1);
+    viewport.classList.add(VIEWPORT_CLASS);
     nekoCanvas.classList.add(CANVAS_CLASS);
     nekoCanvas.classList.remove(HIDDEN_CLASS);
+    nekoCanvas.dataset.nekoLive2dCanvas = 'true';
 
     return true;
   };
@@ -243,7 +228,6 @@
 
       if (!value || typeof value !== 'object' || visited.has(value)) continue;
       visited.add(value);
-
       if (value.stage?.children && value.renderer) applications.push(value);
     }
 
@@ -263,12 +247,12 @@
         .filter((model) => Number.isFinite(Number(model.x)))
         .sort((a, b) => Number(a.x) - Number(b.x));
 
-      const cirno = ordered[ordered.length - 1];
-      if (!cirno || cirno.dataset?.nekogptKeptModel) return;
-
-      cirno.visible = false;
-      cirno.renderable = false;
-      cirno.interactive = false;
+      ordered.slice(1).forEach((model) => {
+        model.visible = false;
+        model.renderable = false;
+        model.interactive = false;
+        model.eventMode = 'none';
+      });
     });
   };
 
@@ -278,7 +262,7 @@
     if (!root) return false;
 
     removeInstruction(instruction, root);
-    const ready = prepareCanvases(root);
+    const ready = prepareCanvas(root);
     hideCirnoFromExposedPixiStages();
     return ready;
   };
@@ -290,7 +274,7 @@
   const timer = window.setInterval(() => {
     attempts += 1;
     const ready = applySoloNeko();
-    if ((ready && attempts >= 20) || attempts >= 80) window.clearInterval(timer);
+    if ((ready && attempts >= 24) || attempts >= 100) window.clearInterval(timer);
   }, 200);
 
   const observer = new MutationObserver(() => applySoloNeko());
