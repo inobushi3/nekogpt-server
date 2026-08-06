@@ -21,29 +21,18 @@
     const style = document.createElement('style');
     style.id = STYLE_ID;
     style.textContent = `
-      [data-neko-live2d-host='true'] {
-        height: auto !important;
-        max-height: none !important;
-        overflow: visible !important;
-      }
-
       .${ROOT_CLASS} {
         position: relative !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: flex-start !important;
         width: 100% !important;
-        height: auto !important;
-        min-height: 390px !important;
-        max-height: none !important;
+        min-height: 480px !important;
         margin: 0 auto !important;
         padding: 0 !important;
+        overflow: visible !important;
         background: transparent !important;
         background-image: none !important;
         border: 0 !important;
         border-radius: 0 !important;
         box-shadow: none !important;
-        overflow: visible !important;
       }
 
       .${ROOT_CLASS},
@@ -59,26 +48,21 @@
       .${VIEWPORT_CLASS} {
         position: relative !important;
         display: block !important;
-        flex: 0 0 auto !important;
         width: min(390px, 92vw) !important;
-        height: 390px !important;
-        min-height: 390px !important;
+        height: 480px !important;
         margin: 0 auto !important;
         padding: 0 !important;
         overflow: hidden !important;
-        clip-path: inset(0) !important;
-        contain: paint !important;
         background: transparent !important;
         border: 0 !important;
         border-radius: 0 !important;
         box-shadow: none !important;
-        isolation: isolate !important;
       }
 
       .${VIEWPORT_CLASS} > .${CANVAS_CLASS} {
         position: absolute !important;
         left: -90px !important;
-        bottom: 30px !important;
+        bottom: 0 !important;
         display: block !important;
         width: auto !important;
         height: 480px !important;
@@ -103,36 +87,32 @@
 
       @media (max-width: 760px) {
         .${ROOT_CLASS} {
-          min-height: 335px !important;
+          min-height: 410px !important;
         }
 
         .${VIEWPORT_CLASS} {
           width: min(335px, 94vw) !important;
-          height: 335px !important;
-          min-height: 335px !important;
+          height: 410px !important;
         }
 
         .${VIEWPORT_CLASS} > .${CANVAS_CLASS} {
           left: -75px !important;
-          bottom: 15px !important;
           height: 410px !important;
         }
       }
 
       @media (max-width: 480px) {
         .${ROOT_CLASS} {
-          min-height: 290px !important;
+          min-height: 350px !important;
         }
 
         .${VIEWPORT_CLASS} {
           width: min(290px, 94vw) !important;
-          height: 290px !important;
-          min-height: 290px !important;
+          height: 350px !important;
         }
 
         .${VIEWPORT_CLASS} > .${CANVAS_CLASS} {
           left: -64px !important;
-          bottom: 10px !important;
           height: 350px !important;
         }
       }
@@ -146,9 +126,6 @@
     .sort((a, b) => a.querySelectorAll('*').length - b.querySelectorAll('*').length)[0] || null;
 
   const findRoot = (instruction) => {
-    const existingRoot = document.querySelector('[data-neko-live2d-root="true"]');
-    if (existingRoot) return existingRoot;
-
     let current = instruction?.parentElement || null;
 
     while (current && current !== document.body) {
@@ -161,8 +138,7 @@
       return rect.width >= 250 && rect.height >= 180;
     });
 
-    if (!canvas) return null;
-    return canvas.closest(`.${VIEWPORT_CLASS}`)?.parentElement || canvas.parentElement;
+    return canvas?.parentElement || null;
   };
 
   const removeInstruction = (instruction, root) => {
@@ -183,11 +159,6 @@
 
   const cleanFrame = (root, canvas) => {
     root.classList.add(ROOT_CLASS);
-    root.dataset.nekoLive2dRoot = 'true';
-
-    if (root.parentElement && root.parentElement !== document.body) {
-      root.parentElement.dataset.nekoLive2dHost = 'true';
-    }
 
     let current = canvas.parentElement;
     let depth = 0;
@@ -198,7 +169,6 @@
       current.style.border = '0';
       current.style.borderRadius = '0';
       current.style.boxShadow = 'none';
-      current.style.maxHeight = 'none';
       current = current.parentElement;
       depth += 1;
     }
@@ -233,54 +203,9 @@
       viewport.appendChild(nekoCanvas);
     }
 
-    viewport.classList.add(VIEWPORT_CLASS);
     nekoCanvas.classList.add(CANVAS_CLASS);
     nekoCanvas.classList.remove(HIDDEN_CLASS);
-    nekoCanvas.dataset.nekoLive2dCanvas = 'true';
-
     return true;
-  };
-
-  const hideCirnoFromExposedPixiStages = () => {
-    const visited = new Set();
-    const applications = [];
-
-    for (const key of Object.getOwnPropertyNames(window)) {
-      let value;
-      try {
-        value = window[key];
-      } catch (_) {
-        continue;
-      }
-
-      if (!value || typeof value !== 'object' || visited.has(value)) continue;
-      visited.add(value);
-      if (value.stage?.children && value.renderer) applications.push(value);
-    }
-
-    applications.forEach((application) => {
-      const models = [];
-      const walk = (node) => {
-        if (!node || typeof node !== 'object') return;
-        const constructorName = String(node.constructor?.name || '').toLowerCase();
-        if (constructorName.includes('live2d') || node.internalModel) models.push(node);
-        if (Array.isArray(node.children)) node.children.forEach(walk);
-      };
-
-      walk(application.stage);
-      if (models.length < 2) return;
-
-      const ordered = models
-        .filter((model) => Number.isFinite(Number(model.x)))
-        .sort((a, b) => Number(a.x) - Number(b.x));
-
-      ordered.slice(1).forEach((model) => {
-        model.visible = false;
-        model.renderable = false;
-        model.interactive = false;
-        model.eventMode = 'none';
-      });
-    });
   };
 
   const applySoloNeko = () => {
@@ -289,21 +214,17 @@
     if (!root) return false;
 
     removeInstruction(instruction, root);
-    const ready = prepareCanvas(root);
-    hideCirnoFromExposedPixiStages();
-    return ready;
+    return prepareCanvas(root);
   };
 
   installStyles();
-  applySoloNeko();
 
   let attempts = 0;
   const timer = window.setInterval(() => {
     attempts += 1;
     const ready = applySoloNeko();
-    if ((ready && attempts >= 24) || attempts >= 100) window.clearInterval(timer);
+    if ((ready && attempts >= 12) || attempts >= 50) window.clearInterval(timer);
   }, 200);
 
-  const observer = new MutationObserver(() => applySoloNeko());
-  observer.observe(document.body, { childList: true, subtree: true });
+  applySoloNeko();
 })();
