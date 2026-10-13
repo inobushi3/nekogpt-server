@@ -1,0 +1,82 @@
+/* NekoGPT — seamless pastel-pink transition from the cinematic hero to the trailer.
+   The trailer overlaps the hero slightly; the gradient becomes opaque exactly
+   where the underlying hero ends, so there is no hard rectangular edge. */
+.nekogpt-trailer-section {
+  --neko-transition-depth: 132px;
+  margin-top: calc(-1 * var(--neko-transition-depth));
+  padding-top: calc(clamp(75px, 8vw, 118px) + var(--neko-transition-depth));
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 245, 250, 0) 0,
+    rgba(255, 245, 250, .12) 22px,
+    rgba(255, 245, 250, .43) 68px,
+    rgba(255, 245, 250, .82) 112px,
+    #fff5fa 157px,
+    #fff0f7 50%,
+    #ffeaf4 100%
+  );
+}
+
+/* Animated pink mist: deliberately restrained so the video's last frames
+   stay visible and the heading remains readable. */
+.nekogpt-trailer-section::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: -22px;
+  left: -18%;
+  width: 136%;
+  height: clamp(220px, 28vw, 370px);
+  border: 0;
+  border-radius: 45%;
+  box-shadow: none;
+  background:
+    radial-gradient(ellipse 39% 48% at 19% 27%, rgba(255, 206, 232, .52), transparent 96%),
+    radial-gradient(ellipse 41% 51% at 79% 36%, rgba(255, 220, 238, .44), transparent 94%);
+  filter: blur(30px);
+  opacity: .38;
+  transform: translate3d(-2%, 0, 0) scale(1);
+  animation: nekoPastelMist 11s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes nekoPastelMist {
+  0% { transform: translate3d(-2%, 0, 0) scale(1); opacity: .31; }
+  50% { opacity: .51; }
+  100% { transform: translate3d(2%, 14px, 0) scale(1.035); opacity: .35; }
+}
+
+/* An original, cleaner NekoGPT font treatment — not Ryza's serif. */
+.nekogpt-trailer-heading h2 {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-size: clamp(36px, 4.9vw, 64px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: .15em;
+  text-indent: .15em;
+  color: #bb6f98;
+}
+.nekogpt-trailer-heading span {
+  color: #b889a5;
+  letter-spacing: .31em;
+}
+@media (max-width: 700px) {
+  .nekogpt-trailer-section {
+    --neko-transition-depth: 98px;
+    padding-top: calc(66px + var(--neko-transition-depth));
+  }
+  .nekogpt-trailer-section::before {
+    height: 220px;
+    filter: blur(20px);
+    opacity: .32;
+  }
+  .nekogpt-trailer-heading h2 {
+    font-size: clamp(34px, 9vw, 48px);
+    letter-spacing: .12em;
+    text-indent: .12em;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nekogpt-trailer-section::before {
+    animation: none;
+  }
+}
