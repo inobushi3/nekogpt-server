@@ -261,7 +261,7 @@
           new Function(payload.js)();
 
           await loadScript('./src/paw-fix.js?v=119');
-          await loadScript('./src/site-customizations.js?v=128');
+          await loadScript('./src/site-customizations.js?v=129');
           await loadScript('./src/brand-feature-redesign.js?v=140');
           await loadScript('./src/feature-navigation-theme.js?v=2');
           await loadScript('./src/integrations-navigation-theme.js?v=3');
@@ -274,7 +274,7 @@
           await loadScript('./src/header-scroll-fix.js?v=5');
           const heroMotionStyles = document.createElement('link');
           heroMotionStyles.rel = 'stylesheet';
-          heroMotionStyles.href = './src/hero-motion.css?v=12';
+          heroMotionStyles.href = './src/hero-motion.css?v=13';
           await new Promise((resolve, reject) => {
             heroMotionStyles.onload = resolve;
             heroMotionStyles.onerror = () => reject(new Error('Falha ao carregar os estilos do topo.'));
@@ -293,7 +293,7 @@
           await loadScript('./src/trailer-endcap.js?v=1');
           const resourcesStyles = document.createElement('link');
           resourcesStyles.rel = 'stylesheet';
-          resourcesStyles.href = './src/resources-section.css?v=3';
+          resourcesStyles.href = './src/resources-section.css?v=4';
           await new Promise((resolve) => {
             resourcesStyles.onload = resolve;
             resourcesStyles.onerror = resolve;
@@ -329,7 +329,7 @@
           await loadScript('./src/gameplay-feature.js?v=2');
           const creatorsStyles = document.createElement('link');
           creatorsStyles.rel = 'stylesheet';
-          creatorsStyles.href = './src/creators-section.css?v=8';
+          creatorsStyles.href = './src/creators-section.css?v=9';
           await new Promise((resolve, reject) => {
             creatorsStyles.onload = resolve;
             creatorsStyles.onerror = () => reject(new Error('Falha ao carregar a seção Usuários e Criador.'));
@@ -344,8 +344,9 @@
             socialFooterStyles.onerror = () => reject(new Error('Falha ao carregar o rodapé do NekoGPT.'));
             document.head.appendChild(socialFooterStyles);
           });
-          await loadScript('./src/social-footer.js?v=1');
+          await loadScript('./src/social-footer.js?v=2');
           await loadScript('./src/wishlist-badge.js?v=1');
+          await loadScript('./src/site-localization.js?v=1');
 
           const hero = document.querySelector('.hero');
           const heroVideo = hero?.querySelector('.neko-motion-video');

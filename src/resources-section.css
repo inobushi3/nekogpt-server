@@ -165,3 +165,12 @@
 #features video.nekogpt-resources-video::-webkit-media-controls {
   display: none !important;
 }
+
+/* Keep the longer French heading and its accent inside small screens. */
+@media (max-width: 540px) {
+  html[lang^="fr"] #nekogpt-resources-heading {
+    font-size: clamp(24px, 6.8vw, 35px);
+    letter-spacing: .035em;
+    text-indent: 0;
+  }
+}

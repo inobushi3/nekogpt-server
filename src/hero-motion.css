@@ -1,6 +1,8 @@
 /* NekoGPT animated hero: applies only after video is ready. */
 .hero .neko-motion {position:absolute;inset:0;opacity:0;pointer-events:none;overflow:hidden}
 .hero .neko-motion-scroll {display:none}
+/* The retired multilingual promotional pill must not flash in any language. */
+.hero .status-pill, .hero [data-i18n="hero.badge"] { display:none !important; }
 /* The retired Live2D/chat demo is never part of the cinematic landing page. */
 .hero .hero-showcase {display:none!important}
 .hero.hero-with-motion {position:relative;isolation:isolate;box-sizing:border-box;overflow:hidden;min-height:100vh;min-height:100svh;padding-top:clamp(105px,12vh,145px);padding-bottom:clamp(100px,14vh,170px);background:#080e22}

@@ -81,24 +81,11 @@
     if (currentElement) currentElement.textContent = COPY.detailsNew;
   };
 
+  // Retired introductory badge, regardless of the currently selected language.
+  // Keep resource cards and other badges elsewhere on the site untouched.
   const removeBadge = () => {
-    const target = findSmallestExactElement(
-      COPY.badge,
-      'span, p, div, a, small',
-    );
-
-    if (!target) return;
-
-    const explicitContainer = target.closest(
-      '[class*="badge"], [class*="pill"], [class*="eyebrow"], [class*="chip"], [class*="tag"]',
-    );
-
-    if (explicitContainer && normalize(explicitContainer.textContent) === COPY.badge) {
-      explicitContainer.remove();
-      return;
-    }
-
-    target.remove();
+    document.querySelectorAll('.hero .status-pill, .hero [data-i18n="hero.badge"]')
+      .forEach(element => element.remove());
   };
 
   const removeScrollCue = () => {
@@ -247,16 +234,10 @@
     return true;
   };
 
-  const addCursorAttribution = () => {
-    if (document.querySelector('.cursor-credit')) return;
-
-    const footer = document.querySelector('footer, .site-footer');
-    if (!footer) return;
-
-    const credit = document.createElement('small');
-    credit.className = 'cursor-credit';
-    credit.innerHTML = '<a href="https://www.rw-designer.com/cursor-set/vanilla" target="_blank" rel="noopener noreferrer">Vanilla Nekopara cursors by LisSweetie · CC BY</a>';
-    footer.appendChild(credit);
+  // The former footer credit is no longer rendered here; keep third-party
+  // asset license information with project credits when publishing documentation.
+  const removeCursorCredit = () => {
+    document.querySelectorAll('.cursor-credit').forEach(element => element.remove());
   };
 
   const applyCustomizations = () => {
@@ -265,7 +246,7 @@
     removeBadge();
     removeScrollCue();
     addTrailerShowcase();
-    addCursorAttribution();
+    removeCursorCredit();
   };
 
   let scheduled = false;

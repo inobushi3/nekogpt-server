@@ -47,7 +47,7 @@
             </svg>
           </a>
         </nav>
-        <p class="nekogpt-social-footer__caption">Acompanhe o NekoGPT nas redes sociais</p>
+        <p class="nekogpt-social-footer__caption">Siga no Twitter, inscreva-se no canal para acompanhar o projeto e entre no Discord para fazer parte da comunidade e participar de eventos e sorteios.</p>
         <small class="nekogpt-social-footer__copyright">© 2026 NekoGPT</small>
       </div>
     `;
