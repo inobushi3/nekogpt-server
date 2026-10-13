@@ -52,7 +52,7 @@
     docLink.removeAttribute('data-i18n');
     docLink.removeAttribute('data-i18n-html');
     docLink.setAttribute('data-neko-documentation', '');
-    docLink.href = '/docs/';
+    docLink.href = '/docs/?lang=' + encodeURIComponent(locale());
     const label = labels[locale()];
     if (docLink.textContent !== label) docLink.textContent = label;
     return true;
