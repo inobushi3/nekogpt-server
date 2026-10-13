@@ -72,6 +72,27 @@
   line-height: 1.16;
   letter-spacing: .085em;
 }
+/* Keep the little cat face alongside the long title, including on phones. */
+.nekogpt-creators-section-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .26em;
+  text-align: center;
+}
+.nekogpt-creators-section-title::after {
+  content: "≽^- ˕ -^≼";
+  display: inline-block;
+  flex: 0 0 auto;
+  color: #c185a4;
+  font-family: "Segoe UI Symbol", "Noto Sans Symbols 2", system-ui, sans-serif;
+  font-size: .40em;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: normal;
+  white-space: nowrap;
+}
+
 .nekogpt-creators-eyebrow {
   margin: 0;
   color: #b78a9c;
