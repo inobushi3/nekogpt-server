@@ -58,12 +58,20 @@
               <p>O primeiro comprador do NekoGPT, tem ajudado bastante com feedback, sempre com boas ideias.</p>
             </div>
           </article>
-          <article class="nekogpt-creator-card" aria-label="Espaço para apresentação do criador">
-            <div class="nekogpt-creator-card-media" aria-label="Foto a adicionar futuramente" role="img"></div>
+          <article class="nekogpt-creator-card nekogpt-creator-card--beard" aria-label="Destaque da comunidade Beard">
+            <div class="nekogpt-creator-card-media">
+              <video class="nekogpt-creator-card-video"
+                autoplay muted loop playsinline preload="metadata"
+                disablepictureinpicture disableremoteplayback tabindex="-1"
+                poster="./assets/images/beard-poster.jpg"
+                aria-label="Vídeo de Beard usando o NekoGPT, sem áudio">
+                <source src="./assets/video/beard-muted.mp4" type="video/mp4">
+                Seu navegador não suporta a reprodução deste vídeo.
+              </video>
+            </div>
             <div class="nekogpt-creator-card-copy">
-              <p class="nekogpt-creator-card-kicker">NekoGPT</p>
-              <h3>Criador</h3>
-              <p>Espaço reservado para a apresentação do criador.</p>
+              <p class="nekogpt-creator-card-kicker">Beard</p>
+              <p>Beard está sempre ajudando na qualidade de vida do app e dando boas ideias para facilitar o uso.</p>
             </div>
           </article>
         </div>
