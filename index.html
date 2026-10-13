@@ -327,6 +327,15 @@
             document.head.appendChild(gameplayStyles);
           });
           await loadScript('./src/gameplay-feature.js?v=2');
+          const nekoNoteStyles = document.createElement('link');
+          nekoNoteStyles.rel = 'stylesheet';
+          nekoNoteStyles.href = './src/neko-note-section.css?v=1';
+          await new Promise((resolve) => {
+            nekoNoteStyles.onload = resolve;
+            nekoNoteStyles.onerror = resolve;
+            document.head.appendChild(nekoNoteStyles);
+          });
+          await loadScript('./src/neko-note-section.js?v=1');
           await loadScript('./src/wishlist-badge.js?v=1');
 
           const hero = document.querySelector('.hero');
