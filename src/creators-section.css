@@ -124,15 +124,6 @@
   background: linear-gradient(180deg, rgba(255,255,255,.14), transparent 28%);
   pointer-events: none;
 }
-.nekogpt-creator-card-media::after {
-  position: absolute;
-  z-index: 1;
-  content: '';
-  inset: 15px;
-  border: 1px solid rgba(210, 148, 178, .16);
-  border-radius: 13px;
-  pointer-events: none;
-}
 /* When actual photos are supplied, they fill the media area with a subtle hover zoom. */
 .nekogpt-creator-card-media img {
   display: block;
