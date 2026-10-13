@@ -207,6 +207,11 @@
           await loadScript('./src/hero-chat-size-fix.js?v=5');
           await loadScript('./src/header-logo-v2.js?v=11');
           await loadScript('./src/header-scroll-fix.js?v=5');
+          const heroMotionStyles = document.createElement('link');
+          heroMotionStyles.rel = 'stylesheet';
+          heroMotionStyles.href = './src/hero-motion.css?v=1';
+          document.head.appendChild(heroMotionStyles);
+          await loadScript('./src/hero-motion.js?v=1');
         };
 
         loadPreview().catch((error) => {
