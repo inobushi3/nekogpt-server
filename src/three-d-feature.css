@@ -1,0 +1,33 @@
+/* Third feature: same pastel Live2D/Chat design, with media on the right. */
+.nekogpt-3d-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+  align-items: center;
+  gap: clamp(44px, 5.2vw, 88px);
+  margin-top: clamp(110px, 13vw, 210px);
+}
+.nekogpt-3d-feature .nekogpt-3d-copy {
+  max-width: 530px;
+}
+.nekogpt-3d-feature .nekogpt-3d-visual {
+  min-width: 0;
+}
+.nekogpt-3d-feature .nekogpt-3d-video {
+  object-fit: contain;
+}
+@media (max-width: 860px) {
+  .nekogpt-3d-feature {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-top: clamp(80px, 12vw, 130px);
+  }
+  .nekogpt-3d-feature .nekogpt-3d-copy {
+    max-width: 720px;
+  }
+}
+@media (max-width: 540px) {
+  .nekogpt-3d-feature {
+    margin-top: 76px;
+    gap: 28px;
+  }
+}
