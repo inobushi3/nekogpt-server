@@ -1,0 +1,40 @@
+/* NekoGPT animated hero: applies only after video is ready. */
+.hero .neko-motion {position:absolute;inset:0;opacity:0;pointer-events:none;overflow:hidden}
+.hero .neko-motion-scroll {display:none}
+.hero.hero-with-motion {position:relative;isolation:isolate;box-sizing:border-box;overflow:hidden;min-height:100vh;min-height:100svh;padding-top:clamp(105px,12vh,145px);padding-bottom:clamp(100px,14vh,170px);background:#080e22}
+.hero.hero-with-motion .neko-motion {opacity:1;z-index:0}
+.hero.hero-with-motion .neko-motion video {display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.hero.hero-with-motion .neko-motion:after {content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,9,28,.86) 0%,rgba(5,10,29,.76) 23%,rgba(7,13,30,.42) 42%,rgba(7,13,30,.04) 70%),linear-gradient(180deg,rgba(3,7,23,.3),transparent 19%,transparent 67%,rgba(5,5,7,.25) 80%,#050507 100%)}
+.hero.hero-with-motion .hero-grid {position:relative;z-index:2;display:flex;width:100%;max-width:1480px;min-height:calc(100svh - 260px);align-items:center;justify-content:flex-start;gap:0;margin-right:auto;margin-left:auto}
+.hero.hero-with-motion .hero-copy {position:relative;z-index:2;flex:0 1 625px;max-width:625px;margin-right:auto;text-align:left;filter:drop-shadow(0 2px 12px rgba(1,4,15,.35))}
+.hero.hero-with-motion .hero-showcase {display:none!important}
+.hero.hero-with-motion .hero-title {max-width:625px;margin-right:0;margin-left:0;font-size:clamp(2.8rem,4.6vw,4.7rem);line-height:1.07;letter-spacing:-.035em;color:#fff}
+.hero.hero-with-motion .hero-lede,.hero.hero-with-motion .hero-note,.hero.hero-with-motion .personality-line {color:rgba(255,255,255,.91)}
+.hero.hero-with-motion .status-pill {width:fit-content;max-width:100%;border-color:rgba(255,255,255,.24);background:rgba(6,13,35,.38);color:#f8f9ff;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.hero.hero-with-motion .personality-line,.hero.hero-with-motion .platform-actions {justify-content:flex-start}
+.hero.hero-with-motion .neko-motion-scroll {position:absolute;z-index:3;bottom:30px;left:50%;display:flex;flex-direction:column;align-items:center;gap:10px;transform:translateX(-50%);color:rgba(255,255,255,.8);font:700 10px/1.3 Inter,system-ui,sans-serif;letter-spacing:.25em;text-decoration:none;transition:opacity .2s}
+.hero.hero-with-motion .neko-motion-scroll:after {content:"";display:block;width:1px;height:32px;background:linear-gradient(to bottom,rgba(255,255,255,.9),transparent)}
+.hero.hero-with-motion .neko-motion-scroll:hover,.hero.hero-with-motion .neko-motion-scroll:focus-visible {opacity:.65}
+@media(max-width:1120px) {
+.hero.hero-with-motion .hero-grid {min-height:calc(100svh - 240px)}
+.hero.hero-with-motion .hero-copy {flex-basis:min(68vw,600px);text-align:left}
+.hero.hero-with-motion .hero-title,.hero.hero-with-motion .hero-lede {margin-right:0;margin-left:0}
+}
+@media(max-width:760px) {
+.hero.hero-with-motion {padding-top:125px;padding-bottom:100px}
+.hero.hero-with-motion .neko-motion video {object-position:52% center}
+.hero.hero-with-motion .neko-motion:after {background:linear-gradient(180deg,rgba(4,9,27,.82),rgba(4,9,27,.67) 40%,rgba(4,9,27,.36) 68%,#050507 100%)}
+.hero.hero-with-motion .hero-grid {min-height:calc(100svh - 225px);justify-content:center}
+.hero.hero-with-motion .hero-copy {flex-basis:100%;max-width:560px;text-align:center}
+.hero.hero-with-motion .hero-title {margin-right:auto;margin-left:auto;font-size:clamp(2.45rem,8vw,3.7rem)}
+.hero.hero-with-motion .hero-lede,.hero.hero-with-motion .status-pill {margin-right:auto;margin-left:auto}
+.hero.hero-with-motion .personality-line,.hero.hero-with-motion .platform-actions {justify-content:center}
+.hero.hero-with-motion .neko-motion-scroll {bottom:15px}
+}
+@media(max-width:400px) {
+.hero.hero-with-motion {padding-top:112px}
+.hero.hero-with-motion .hero-title {font-size:clamp(2.15rem,9vw,2.65rem)}
+.hero.hero-with-motion .status-pill {font-size:.81rem}
+.hero.hero-with-motion .platform-actions {gap:9px}
+}
+@media(prefers-reduced-motion:reduce) {.hero.hero-with-motion .neko-motion-scroll {transition:none}}
