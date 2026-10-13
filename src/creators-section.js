@@ -43,12 +43,19 @@
           </p>
         </header>
         <div class="nekogpt-creators-cards">
-          <article class="nekogpt-creator-card" aria-label="Espaço para depoimento de usuário">
-            <div class="nekogpt-creator-card-media" aria-label="Foto a adicionar futuramente" role="img"></div>
+          <article class="nekogpt-creator-card nekogpt-creator-card--jhon" aria-label="Depoimento do usuário Jhon_456">
+            <div class="nekogpt-creator-card-media">
+              <video class="nekogpt-creator-card-video"
+                autoplay muted loop playsinline preload="none"
+                disablepictureinpicture disableremoteplayback tabindex="-1"
+                poster="./assets/images/jhon456-poster.jpg"
+                aria-label="Vídeo de Jhon_456 usando o NekoGPT, sem áudio">
+                Seu navegador não suporta a reprodução deste vídeo.
+              </video>
+            </div>
             <div class="nekogpt-creator-card-copy">
-              <p class="nekogpt-creator-card-kicker">Comunidade</p>
-              <h3>Usuários</h3>
-              <p>Espaço reservado para histórias e feedbacks dos usuários.</p>
+              <p class="nekogpt-creator-card-kicker">Jhon_456</p>
+              <p>O primeiro comprador do NekoGPT, tem ajudado bastante com feedback, sempre com boas ideias.</p>
             </div>
           </article>
           <article class="nekogpt-creator-card" aria-label="Espaço para apresentação do criador">
@@ -63,6 +70,51 @@
       </div>
     `;
     features.insertAdjacentElement('afterend', section);
+    const communityVideo = section.querySelector('.nekogpt-creator-card--jhon video');
+    if (communityVideo) {
+      let sourceUrl = null;
+      let loading = null;
+      let visible = false;
+      const sync = () => {
+        if (visible && sourceUrl && !document.hidden) communityVideo.play().catch(() => {});
+        else communityVideo.pause();
+      };
+      const loadVideo = () => {
+        if (loading) return loading;
+        loading = (async () => {
+          const encodedParts = await Promise.all(Array.from({ length: 10 }, async (_, index) => {
+            const path = './assets/video/jhon456-parts/part-' + String(index).padStart(2, '0') + '.txt';
+            const response = await fetch(path);
+            if (!response.ok) throw new Error('Não foi possível carregar: ' + path);
+            const encoded = (await response.text()).trim();
+            return Uint8Array.from(atob(encoded), char => char.charCodeAt(0));
+          }));
+          const byteLength = encodedParts.reduce((total, part) => total + part.byteLength, 0);
+          if (byteLength !== 2563710) throw new Error('O vídeo de Jhon_456 está incompleto.');
+          sourceUrl = URL.createObjectURL(new Blob(encodedParts, { type: 'video/mp4' }));
+          communityVideo.src = sourceUrl;
+          communityVideo.load();
+          sync();
+        })().catch(error => console.error('Falha ao carregar vídeo de Jhon_456:', error));
+        return loading;
+      };
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(([entry]) => {
+          visible = entry.isIntersecting;
+          if (visible) loadVideo();
+          sync();
+        }, { rootMargin: '200px 0px', threshold: .05 });
+        observer.observe(communityVideo);
+      } else {
+        visible = true;
+        loadVideo();
+      }
+      document.addEventListener('visibilitychange', sync);
+      window.addEventListener('pagehide', () => {
+        if (sourceUrl) URL.revokeObjectURL(sourceUrl);
+      }, { once: true });
+    }
     renameExistingCreatorsLink();
     return true;
   }

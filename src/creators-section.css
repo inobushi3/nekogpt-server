@@ -196,3 +196,36 @@
   .nekogpt-creator-card:hover,
   .nekogpt-creator-card:hover .nekogpt-creator-card-media img { transform: none; }
 }
+
+/* First real community highlight — only the video enlarges on card hover. */
+.nekogpt-creator-card--jhon .nekogpt-creator-card-kicker {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(25px, 2.5vw, 32px);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: .025em;
+  line-height: 1.3;
+  color: #9e5e82;
+  text-transform: none;
+  margin-bottom: 16px;
+}
+.nekogpt-creator-card--jhon .nekogpt-creator-card-media {
+  background: #f7edf4;
+}
+.nekogpt-creator-card--jhon .nekogpt-creator-card-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #f7edf4;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 450ms ease;
+}
+.nekogpt-creator-card--jhon video::-webkit-media-controls { display: none !important; }
+.nekogpt-creator-card--jhon:hover .nekogpt-creator-card-video { transform: scale(1.035); }
+@media (prefers-reduced-motion: reduce) {
+  .nekogpt-creator-card--jhon .nekogpt-creator-card-video { transition: none; }
+  .nekogpt-creator-card--jhon:hover .nekogpt-creator-card-video { transform: none; }
+}
