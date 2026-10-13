@@ -283,7 +283,7 @@
           await loadScript('./src/hero-motion.js?v=7');
           const trailerTransitionStyles = document.createElement('link');
           trailerTransitionStyles.rel = 'stylesheet';
-          trailerTransitionStyles.href = './src/trailer-transition.css?v=4';
+          trailerTransitionStyles.href = './src/trailer-transition.css?v=5';
           await new Promise((resolve) => {
             trailerTransitionStyles.onload = resolve;
             trailerTransitionStyles.onerror = resolve;
@@ -293,7 +293,7 @@
           await loadScript('./src/trailer-endcap.js?v=1');
           const resourcesStyles = document.createElement('link');
           resourcesStyles.rel = 'stylesheet';
-          resourcesStyles.href = './src/resources-section.css?v=2';
+          resourcesStyles.href = './src/resources-section.css?v=3';
           await new Promise((resolve) => {
             resourcesStyles.onload = resolve;
             resourcesStyles.onerror = resolve;
@@ -329,7 +329,7 @@
           await loadScript('./src/gameplay-feature.js?v=2');
           const creatorsStyles = document.createElement('link');
           creatorsStyles.rel = 'stylesheet';
-          creatorsStyles.href = './src/creators-section.css?v=7';
+          creatorsStyles.href = './src/creators-section.css?v=8';
           await new Promise((resolve, reject) => {
             creatorsStyles.onload = resolve;
             creatorsStyles.onerror = () => reject(new Error('Falha ao carregar a seção Usuários e Criador.'));
