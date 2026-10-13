@@ -2,9 +2,10 @@
 .neko-steam-wishlist {
   position: fixed;
   z-index: 2200;
-  right: max(16px, env(safe-area-inset-right));
+  left: max(24px, env(safe-area-inset-left));
+  right: auto;
   bottom: max(20px, env(safe-area-inset-bottom));
-  width: clamp(196px, 19vw, 292px);
+  width: clamp(265px, 26vw, 410px);
   max-width: calc(100vw - 32px);
   margin: 0;
   padding: 0;
@@ -67,9 +68,10 @@
 }
 @media (max-width: 700px) {
   .neko-steam-wishlist {
-    right: max(11px, env(safe-area-inset-right));
+    left: max(12px, env(safe-area-inset-left));
+    right: auto;
     bottom: max(12px, env(safe-area-inset-bottom));
-    width: clamp(156px, 40vw, 205px);
+    width: clamp(190px, 52vw, 260px);
   }
   .neko-steam-wishlist__link:hover { scale: 1; }
 }
