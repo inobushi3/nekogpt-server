@@ -18,7 +18,7 @@
       content="Uma experiência de companhia com IA, personagens, voz, memória e integrações para criadores."
     />
     <meta property="og:image" content="./assets/images/dashboard-hero.png" />
-    <meta name="theme-color" content="#050507" />
+    <meta name="theme-color" content="#161f42" />
     <title>NekoGPT - App desktop de companhia com IA</title>
     <link rel="icon" type="image/png" href="./assets/images/icon-256.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -29,11 +29,12 @@
     />
     <!-- Prioritize the actual hero instead of preloading the retired Live2D preview. -->
     <link rel="preload" href="./assets/images/neko-hero-poster.webp" as="image" type="image/webp" fetchpriority="high" />
+    <link rel="preload" href="./src/hero-motion.css?v=14" as="style" />
     <link rel="stylesheet" href="./src/paw-spacing.css?v=120" />
     <link rel="stylesheet" href="./src/wishlist-badge.css?v=3" />
 
     <style>
-      html,body{min-height:100%;margin:0;background:#000;color:#fff;font-family:Inter,system-ui,sans-serif}
+      html,body{min-height:100%;margin:0;background:#161f42;color:#fff;font-family:Inter,system-ui,sans-serif}
       #preview-loader{min-height:100vh;display:grid;place-items:center;text-align:center}
       #preview-loader span{opacity:.72}
       /* The original payload is an intermediate implementation, never a visible page. */
@@ -78,7 +79,20 @@
         letter-spacing: .22em;
         text-shadow: 0 1px 8px rgba(0,0,0,.6);
       }
+      #neko-bootstrap-screen span::after {
+        content:'';
+        display:block;
+        width:124px;
+        height:3px;
+        margin:11px auto 0;
+        border-radius:999px;
+        background:linear-gradient(90deg, transparent 0%, #f3b0d4 30%, #fff4fd 50%, #f3b0d4 70%, transparent 100%);
+        background-size:200% 100%;
+        animation:nekoLoadingGlow 1.8s ease-in-out infinite;
+        filter:drop-shadow(0 0 5px rgba(250,181,220,.65));
+      }
       #neko-bootstrap-screen.neko-bootstrap-done {opacity:0;pointer-events:none}
+      @keyframes nekoLoadingGlow {from{background-position:100% 0;opacity:.46}50%{opacity:1}to{background-position:-100% 0;opacity:.46}}
       @keyframes nekoBootstrapBreathe {from{transform:translateY(0)}to{transform:translateY(-4px)}}
       @media(max-width:1199px) {
         #neko-bootstrap-screen img {width:min(49vw,505px);margin:91px 0 0 22px}
@@ -87,7 +101,7 @@
         #neko-bootstrap-screen img {width:min(84vw,470px);margin:95px 0 0 14px}
       }
       @media(prefers-reduced-motion:reduce) {
-        #neko-bootstrap-screen, #neko-bootstrap-screen img {animation:none;transition:none}
+        #neko-bootstrap-screen, #neko-bootstrap-screen img, #neko-bootstrap-screen span::after {animation:none;transition:none}
       }
     </style>
   </head>
@@ -100,7 +114,7 @@
     <!-- deploy refresh: cute window controls -->
     <script>
       (() => {
-        // Keep the splash until the real hero is styled and its first video frame is ready.
+        // Keep the splash only until the hero/navigation are styled, not until the video decodes.
         const bootstrapScreen = document.getElementById('neko-bootstrap-screen');
         let bootFinished = false;
         const finishBootstrap = () => {
@@ -243,7 +257,7 @@
 
         const loadPreview = async () => {
           const encoded = (await Promise.all(payloadParts.map(async (path) => {
-            const response = await fetch(path, { cache: 'no-store' });
+            const response = await fetch(path); // Cache the stable payload between refreshes.
             if (!response.ok) throw new Error(`Falha ao carregar ${path}`);
             return response.text();
           }))).join('');
@@ -275,13 +289,13 @@
           await loadScript('./src/documentation-navigation.js?v=1');
           const heroMotionStyles = document.createElement('link');
           heroMotionStyles.rel = 'stylesheet';
-          heroMotionStyles.href = './src/hero-motion.css?v=13';
+          heroMotionStyles.href = './src/hero-motion.css?v=14';
           await new Promise((resolve, reject) => {
             heroMotionStyles.onload = resolve;
             heroMotionStyles.onerror = () => reject(new Error('Falha ao carregar os estilos do topo.'));
             document.head.appendChild(heroMotionStyles);
           });
-          await loadScript('./src/hero-motion.js?v=7');
+          await loadScript('./src/hero-motion.js?v=8');
           const trailerTransitionStyles = document.createElement('link');
           trailerTransitionStyles.rel = 'stylesheet';
           trailerTransitionStyles.href = './src/trailer-transition.css?v=5';
@@ -290,8 +304,15 @@
             trailerTransitionStyles.onerror = resolve;
             document.head.appendChild(trailerTransitionStyles);
           });
-          await loadScript('./src/trailer-video.js?v=2');
+          // Remove retired content before showing the styled landing page.
           await loadScript('./src/trailer-endcap.js?v=1');
+          const hero = document.querySelector('.hero');
+          if (hero) hero.classList.add('hero-with-motion');
+          // The poster is ready to display; video decoding must never block the page.
+          finishBootstrap();
+
+          // Below-the-fold sections load independently of the first render.
+          await loadScript('./src/trailer-video.js?v=2');
           const resourcesStyles = document.createElement('link');
           resourcesStyles.rel = 'stylesheet';
           resourcesStyles.href = './src/resources-section.css?v=4';
@@ -349,25 +370,7 @@
           await loadScript('./src/wishlist-badge.js?v=1');
           await loadScript('./src/site-localization.js?v=1');
 
-          const hero = document.querySelector('.hero');
-          const heroVideo = hero?.querySelector('.neko-motion-video');
-          const revealPage = () => {
-            // On slow connections, show the still frame rather than the old preview.
-            if (hero && !hero.classList.contains('hero-with-motion')) {
-              hero.classList.add('hero-with-motion');
-              if (heroVideo) {
-                heroVideo.poster = './assets/images/neko-hero-poster.webp';
-              }
-            }
-            finishBootstrap();
-          };
-          if (!heroVideo || heroVideo.readyState >= 2) {
-            revealPage();
-          } else {
-            heroVideo.addEventListener('loadeddata', revealPage, { once: true });
-            heroVideo.addEventListener('error', revealPage, { once: true });
-            setTimeout(revealPage, 6500);
-          }
+          // The page was revealed as soon as its header was ready.
         };
 
         loadPreview().catch((error) => {
