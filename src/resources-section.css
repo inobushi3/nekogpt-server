@@ -138,3 +138,15 @@
 @media (prefers-reduced-motion: reduce) {
   .nekogpt-resources-section .nekogpt-resources-video { animation: none; }
 }
+
+
+/* Clean, non-interactive looping previews — Resources section ONLY.
+   Does not affect the main animated hero or the full trailer player. */
+#features video.nekogpt-resources-video {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+#features video.nekogpt-resources-video::-webkit-media-controls {
+  display: none !important;
+}

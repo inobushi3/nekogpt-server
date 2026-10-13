@@ -32,7 +32,7 @@
           </div>
           <div class="nekogpt-resources-visual">
             <div class="nekogpt-resources-video-frame">
-              <video class="nekogpt-resources-video" autoplay muted loop playsinline controls preload="none"
+              <video class="nekogpt-resources-video" autoplay muted loop playsinline disablepictureinpicture disableremoteplayback tabindex="-1" preload="none"
                      poster="./assets/images/nekogpt-live2d-preview.jpg"
                      aria-label="Demonstração da personalização de modelos Live2D no NekoGPT">
                 Seu navegador não suporta este vídeo.

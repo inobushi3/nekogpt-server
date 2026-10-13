@@ -292,13 +292,13 @@
           await loadScript('./src/trailer-endcap.js?v=1');
           const resourcesStyles = document.createElement('link');
           resourcesStyles.rel = 'stylesheet';
-          resourcesStyles.href = './src/resources-section.css?v=1';
+          resourcesStyles.href = './src/resources-section.css?v=2';
           await new Promise((resolve) => {
             resourcesStyles.onload = resolve;
             resourcesStyles.onerror = resolve;
             document.head.appendChild(resourcesStyles);
           });
-          await loadScript('./src/resources-section.js?v=1');
+          await loadScript('./src/resources-section.js?v=2');
           const chatFeatureStyles = document.createElement('link');
           chatFeatureStyles.rel = 'stylesheet';
           chatFeatureStyles.href = './src/chat-feature.css?v=1';
@@ -307,7 +307,7 @@
             chatFeatureStyles.onerror = resolve;
             document.head.appendChild(chatFeatureStyles);
           });
-          await loadScript('./src/chat-feature.js?v=1');
+          await loadScript('./src/chat-feature.js?v=2');
           const feature3dStyles = document.createElement('link');
           feature3dStyles.rel = 'stylesheet';
           feature3dStyles.href = './src/three-d-feature.css?v=1';
@@ -316,7 +316,7 @@
             feature3dStyles.onerror = resolve;
             document.head.appendChild(feature3dStyles);
           });
-          await loadScript('./src/three-d-feature.js?v=1');
+          await loadScript('./src/three-d-feature.js?v=2');
 
           const hero = document.querySelector('.hero');
           const heroVideo = hero?.querySelector('.neko-motion-video');

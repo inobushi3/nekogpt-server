@@ -11,7 +11,7 @@
     <div class="nekogpt-resources-visual nekogpt-chat-visual">
       <div class="nekogpt-resources-video-frame">
         <video class="nekogpt-resources-video nekogpt-chat-video"
-               autoplay muted loop playsinline controls preload="metadata"
+               autoplay muted loop playsinline disablepictureinpicture disableremoteplayback tabindex="-1" preload="metadata"
                poster="./assets/images/nekogpt-chat-preview.jpg"
                aria-label="Demonstração dos recursos de chat do NekoGPT">
           <source src="./assets/video/nekogpt-chat-demo.mp4" type="video/mp4">

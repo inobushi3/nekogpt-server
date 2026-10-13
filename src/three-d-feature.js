@@ -21,7 +21,7 @@
       <div class="nekogpt-resources-visual nekogpt-3d-visual">
         <div class="nekogpt-resources-video-frame">
           <video class="nekogpt-resources-video nekogpt-3d-video"
-                 autoplay muted loop playsinline controls preload="metadata"
+                 autoplay muted loop playsinline disablepictureinpicture disableremoteplayback tabindex="-1" preload="metadata"
                  poster="./assets/images/nekogpt-3d-poster.jpg"
                  aria-label="Demonstração da personalização de modelos 3D no NekoGPT">
             <source src="./assets/video/nekogpt-3d.mp4" type="video/mp4">
@@ -37,7 +37,7 @@
     let visible = false;
     const sync = () => {
       if (visible && !document.hidden && !reducedMotion?.matches) {
-        video.play().catch(() => { /* Autoplay is optional; controls remain visible. */ });
+        video.play().catch(() => { /* Muted loop will resume when the section is visible. */ });
       } else video.pause();
     };
     if ('IntersectionObserver' in window) {
