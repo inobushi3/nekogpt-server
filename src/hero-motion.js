@@ -67,7 +67,7 @@
   });
   const scrollLink = document.createElement('a');
   scrollLink.className = 'neko-motion-scroll';
-  scrollLink.href = '#features';
+  scrollLink.href = '#trailer';
   scrollLink.textContent = 'SCROLL';
   scrollLink.setAttribute('aria-label', 'Ir para os recursos');
   hero.appendChild(scrollLink);

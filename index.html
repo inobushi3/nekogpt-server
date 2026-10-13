@@ -215,6 +215,7 @@
           trailerTransitionStyles.href = './src/trailer-transition.css?v=3';
           document.head.appendChild(trailerTransitionStyles);
           await loadScript('./src/trailer-video.js?v=1');
+          await loadScript('./src/trailer-endcap.js?v=1');
         };
 
         loadPreview().catch((error) => {
