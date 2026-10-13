@@ -317,6 +317,15 @@
             document.head.appendChild(feature3dStyles);
           });
           await loadScript('./src/three-d-feature.js?v=2');
+          const gameplayStyles = document.createElement('link');
+          gameplayStyles.rel = 'stylesheet';
+          gameplayStyles.href = './src/gameplay-feature.css?v=1';
+          await new Promise(resolve => {
+            gameplayStyles.onload = resolve;
+            gameplayStyles.onerror = resolve;
+            document.head.appendChild(gameplayStyles);
+          });
+          await loadScript('./src/gameplay-feature.js?v=1');
 
           const hero = document.querySelector('.hero');
           const heroVideo = hero?.querySelector('.neko-motion-video');

@@ -1,0 +1,39 @@
+/* Pastel feature, alternating video-left Gameplay arrangement. */
+.nekogpt-gameplay-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(44px, 5.2vw, 88px);
+  margin-top: clamp(110px, 13vw, 210px);
+}
+.nekogpt-gameplay-feature .nekogpt-gameplay-copy {
+  max-width: 530px;
+}
+.nekogpt-gameplay-feature .nekogpt-gameplay-visual {
+  min-width: 0;
+}
+.nekogpt-gameplay-feature .nekogpt-gameplay-video {
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.nekogpt-gameplay-feature .nekogpt-gameplay-video::-webkit-media-controls {
+  display: none !important;
+}
+@media (max-width: 860px) {
+  .nekogpt-gameplay-feature {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-top: clamp(80px, 12vw, 130px);
+  }
+  .nekogpt-gameplay-feature .nekogpt-gameplay-copy {
+    max-width: 720px;
+  }
+}
+@media (max-width: 540px) {
+  .nekogpt-gameplay-feature {
+    margin-top: 76px;
+    gap: 28px;
+  }
+}
