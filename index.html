@@ -192,9 +192,7 @@
           new Function(payload.js)();
 
           await loadScript('./src/paw-fix.js?v=119');
-          await loadScript('./src/site-customizations.js?v=126');
-          await loadScript('./src/phone-video-frame.js?v=1');
-          await loadScript('./src/video-side-characters.js?v=128');
+          await loadScript('./src/site-customizations.js?v=127');
           await loadScript('./src/brand-feature-redesign.js?v=140');
           await loadScript('./src/feature-navigation-theme.js?v=2');
           await loadScript('./src/integrations-navigation-theme.js?v=3');
@@ -212,6 +210,7 @@
           heroMotionStyles.href = './src/hero-motion.css?v=11';
           document.head.appendChild(heroMotionStyles);
           await loadScript('./src/hero-motion.js?v=6');
+          await loadScript('./src/trailer-video.js?v=1');
         };
 
         loadPreview().catch((error) => {

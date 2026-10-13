@@ -1,0 +1,31 @@
+name: Build site trailer MP4
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "assets/video/trailer-data/**"
+      - "scripts/build-trailer.py"
+      - ".github/workflows/build-trailer.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble the optimized MP4
+        run: python3 scripts/build-trailer.py
+      - name: Commit static trailer asset
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/video/nekogpt-trailer.mp4
+          if ! git diff --cached --quiet; then
+            git commit -m "Build optimized NekoGPT trailer MP4"
+            git push
+          fi

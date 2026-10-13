@@ -7,8 +7,6 @@
     badge: 'Companheira IA VTuber grátis para VTubers, artistas Live2D e você',
   };
 
-  const YOUTUBE_VIDEO_ID = 'EIQK4lKeWxQ';
-
   const normalize = (value) =>
     String(value || '')
       .replace(/\s+/g, ' ')
@@ -107,96 +105,115 @@
     document.querySelectorAll('.scroll-cue, [data-scroll-cue]').forEach((element) => element.remove());
   };
 
-  const addVideoStyles = () => {
-    if (document.querySelector('#nekogpt-youtube-video-styles')) return;
 
+  // Ryza-inspired, native landscape trailer section.
+  const addTrailerStyles = () => {
+    if (document.getElementById('nekogpt-trailer-section-styles')) return;
     const style = document.createElement('style');
-    style.id = 'nekogpt-youtube-video-styles';
+    style.id = 'nekogpt-trailer-section-styles';
     style.textContent = `
-      .scroll-cue,
-      [data-scroll-cue] {
-        display: none !important;
-      }
-
-      .nekogpt-beta-video-showcase {
+      .nekogpt-trailer-section {
         position: relative;
-        z-index: 2;
-        display: flex;
-        justify-content: center;
+        isolation: isolate;
         width: 100%;
         box-sizing: border-box;
-        padding: 42px 24px 96px;
-      }
-
-      .nekogpt-beta-video-showcase::before {
-        content: '';
-        position: absolute;
-        top: 45%;
-        left: 50%;
-        width: min(640px, 88vw);
-        height: 58%;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(117, 81, 255, .14), rgba(255, 91, 177, .06) 42%, transparent 72%);
-        filter: blur(24px);
-        pointer-events: none;
-      }
-
-      .nekogpt-beta-video-card {
-        position: relative;
-        width: min(100%, 340px);
-        padding: 9px;
-        border: 1px solid rgba(181, 149, 255, .28);
-        border-radius: 30px;
-        background: linear-gradient(145deg, rgba(25, 22, 36, .96), rgba(7, 7, 11, .98));
-        box-shadow:
-          0 34px 90px rgba(0, 0, 0, .56),
-          0 0 50px rgba(103, 72, 255, .14),
-          inset 0 1px 0 rgba(255, 255, 255, .06);
+        padding: clamp(75px, 8vw, 118px) 24px clamp(90px, 9vw, 136px);
         overflow: hidden;
+        background: linear-gradient(180deg, #fff5fa 0%, #fff0f7 45%, #ffeaf4 100%);
+        color: #9f4f78;
       }
-
-      .nekogpt-beta-video-card::after {
+      .nekogpt-trailer-section::before,
+      .nekogpt-trailer-section::after {
         content: '';
         position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        background: linear-gradient(135deg, rgba(255,255,255,.05), transparent 30%, transparent 72%, rgba(255, 91, 177, .04));
+        z-index: -1;
+        width: 340px;
+        height: 340px;
+        border: 1px solid rgba(223, 141, 177, .22);
+        border-radius: 50%;
         pointer-events: none;
       }
-
-      .nekogpt-youtube-short {
+      .nekogpt-trailer-section::before {
+        top: 26%;
+        left: -225px;
+        box-shadow: 0 0 0 42px rgba(255,255,255,.13), 0 0 0 90px rgba(255,255,255,.09);
+      }
+      .nekogpt-trailer-section::after {
+        right: -175px;
+        bottom: 4%;
+        box-shadow: 0 0 0 48px rgba(255,255,255,.13), 0 0 0 102px rgba(255,255,255,.07);
+      }
+      .nekogpt-trailer-inner {
         position: relative;
         z-index: 1;
+        width: min(100%, 980px);
+        margin: 0 auto;
+      }
+      .nekogpt-trailer-heading {
+        margin: 0 auto clamp(26px, 3.2vw, 42px);
+        text-align: center;
+      }
+      .nekogpt-trailer-heading h2 {
+        margin: 0;
+        color: #bd668e;
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: clamp(42px, 5.5vw, 70px);
+        font-weight: 400;
+        line-height: 1.1;
+        letter-spacing: .18em;
+        text-indent: .18em;
+        text-shadow: none;
+      }
+      .nekogpt-trailer-heading span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        margin-top: 6px;
+        color: #c58d9e;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .38em;
+      }
+      .nekogpt-trailer-heading span::before,
+      .nekogpt-trailer-heading span::after {
+        content: '';
+        width: 56px;
+        max-width: 14vw;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #dcb4c8);
+      }
+      .nekogpt-trailer-heading span::after { transform: scaleX(-1); }
+      .nekogpt-trailer-screen {
+        padding: 4px;
+        border: 1px solid rgba(202, 122, 161, .22);
+        border-radius: clamp(16px, 2vw, 26px);
+        background: #fffafd;
+        box-shadow: 0 20px 50px rgba(122, 55, 90, .13), 0 3px 16px rgba(122, 55, 90, .05);
+        overflow: hidden;
+      }
+      .nekogpt-trailer-screen video {
         display: block;
         width: 100%;
-        aspect-ratio: 9 / 16;
+        height: auto;
+        aspect-ratio: 16 / 9;
         border: 0;
-        border-radius: 22px;
-        background: #050507;
+        border-radius: clamp(12px, 1.7vw, 21px);
+        background: #151527;
+        object-fit: contain;
       }
-
-      @media (max-width: 720px) {
-        .nekogpt-beta-video-showcase {
-          padding: 28px 20px 72px;
-        }
-
-        .nekogpt-beta-video-card {
-          width: min(100%, 310px);
-          border-radius: 26px;
-        }
-
-        .nekogpt-youtube-short {
-          border-radius: 19px;
-        }
+      @media (max-width: 700px) {
+        .nekogpt-trailer-section { padding: 66px 15px 86px; }
+        .nekogpt-trailer-heading { margin-bottom: 24px; }
+        .nekogpt-trailer-heading h2 { font-size: clamp(34px, 10vw, 52px); }
+        .nekogpt-trailer-screen { padding: 3px; }
       }
     `;
     document.head.appendChild(style);
   };
 
-  const addYouTubeShowcase = () => {
+  const addTrailerShowcase = () => {
     let anchor = document.getElementById('features');
-
     if (!anchor) {
       const heading = Array.from(document.querySelectorAll('h1, h2, h3')).find((element) => {
         const text = normalize(element.textContent);
@@ -204,35 +221,29 @@
       });
       anchor = heading?.closest('section') || heading?.parentElement || null;
     }
-
     if (!anchor || !anchor.parentElement) return false;
-
-    addVideoStyles();
-
-    let section = document.querySelector('.nekogpt-beta-video-showcase');
+    addTrailerStyles();
+    let section = document.querySelector('.nekogpt-trailer-section');
     if (!section) {
       section = document.createElement('section');
-      section.className = 'nekogpt-beta-video-showcase';
-      section.setAttribute('aria-label', 'Demonstração em vídeo do NekoGPT');
-      anchor.insertAdjacentElement('beforebegin', section);
-    }
-
-    if (!section.querySelector('.nekogpt-youtube-short')) {
+      section.className = 'nekogpt-trailer-section';
+      section.id = 'trailer';
+      section.setAttribute('aria-label', 'Trailer do NekoGPT');
       section.innerHTML = `
-        <div class="nekogpt-beta-video-card">
-          <iframe
-            class="nekogpt-youtube-short"
-            src="https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&modestbranding=1&playsinline=1"
-            title="Demonstração do NekoGPT"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          ></iframe>
+        <div class="nekogpt-trailer-inner">
+          <header class="nekogpt-trailer-heading">
+            <h2>TRAILER</h2>
+            <span>PV</span>
+          </header>
+          <div class="nekogpt-trailer-screen">
+            <video controls preload="none" playsinline poster="./assets/images/nekogpt-trailer-poster.jpg" title="Trailer do NekoGPT">
+              Seu navegador não suporta a reprodução deste vídeo.
+            </video>
+          </div>
         </div>
       `;
+      anchor.insertAdjacentElement('beforebegin', section);
     }
-
     return true;
   };
 
@@ -253,7 +264,7 @@
     replaceDetails();
     removeBadge();
     removeScrollCue();
-    addYouTubeShowcase();
+    addTrailerShowcase();
     addCursorAttribution();
   };
 
@@ -287,7 +298,7 @@
   let attempts = 0;
   const timer = window.setInterval(() => {
     attempts += 1;
-    if (addYouTubeShowcase() || attempts >= 40) {
+    if (addTrailerShowcase() || attempts >= 40) {
       window.clearInterval(timer);
     }
   }, 250);
