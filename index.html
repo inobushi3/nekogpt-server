@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="neko-booting">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,25 +27,91 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="preload" href="./assets/vendor/pixi/pixi.min.js" as="script" />
-    <link rel="preload" href="./assets/vendor/pixi/pixi-sound.js" as="script" />
-    <link rel="preload" href="./assets/vendor/live2d/live2dcubismcore.min.js" as="script" />
-    <link rel="preload" href="./assets/vendor/live2d/cubism.min.js" as="script" />
-    <link rel="preload" href="./assets/live2d/catgpt/catgpt.model3.json" as="fetch" crossorigin="anonymous" />
-    <link rel="preload" href="./assets/live2d/catgpt/catgpt.moc3" as="fetch" crossorigin="anonymous" />
+    <!-- Prioritize the actual hero instead of preloading the retired Live2D preview. -->
+    <link rel="preload" href="./assets/images/neko-hero-poster.webp" as="image" type="image/webp" fetchpriority="high" />
     <link rel="stylesheet" href="./src/paw-spacing.css?v=120" />
 
     <style>
       html,body{min-height:100%;margin:0;background:#000;color:#fff;font-family:Inter,system-ui,sans-serif}
       #preview-loader{min-height:100vh;display:grid;place-items:center;text-align:center}
       #preview-loader span{opacity:.72}
+      /* The original payload is an intermediate implementation, never a visible page. */
+      html.neko-booting body > :not(#neko-bootstrap-screen):not(script) {
+        visibility: hidden !important;
+      }
+      #neko-bootstrap-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 2147483647;
+        display: flex;
+        align-items: flex-start;
+        background: #161f42 url('./assets/images/neko-hero-poster.webp') center center / cover no-repeat;
+        opacity: 1;
+        pointer-events: auto;
+        transition: opacity .42s ease-in-out;
+      }
+      #neko-bootstrap-screen::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg,rgba(4,9,28,.86),rgba(5,10,29,.65) 26%,rgba(7,13,30,.12) 72%),
+                    linear-gradient(to bottom,transparent 62%,rgba(255,245,250,.4) 87%,#fff5fa 100%);
+        pointer-events: none;
+      }
+      #neko-bootstrap-screen img {
+        position: relative;
+        display: block;
+        width: min(36vw,655px);
+        height: auto;
+        margin: clamp(44px,5.5vh,66px) 0 0 clamp(22px,2.1vw,42px);
+        animation: nekoBootstrapBreathe 4s ease-in-out infinite alternate;
+      }
+      #neko-bootstrap-screen span {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .22em;
+        text-shadow: 0 1px 8px rgba(0,0,0,.6);
+      }
+      #neko-bootstrap-screen.neko-bootstrap-done {opacity:0;pointer-events:none}
+      @keyframes nekoBootstrapBreathe {from{transform:translateY(0)}to{transform:translateY(-4px)}}
+      @media(max-width:1199px) {
+        #neko-bootstrap-screen img {width:min(49vw,505px);margin:91px 0 0 22px}
+      }
+      @media(max-width:860px) {
+        #neko-bootstrap-screen img {width:min(84vw,470px);margin:95px 0 0 14px}
+      }
+      @media(prefers-reduced-motion:reduce) {
+        #neko-bootstrap-screen, #neko-bootstrap-screen img {animation:none;transition:none}
+      }
     </style>
   </head>
   <body>
+    <div id="neko-bootstrap-screen" role="status" aria-label="Carregando NekoGPT">
+      <img src="./assets/images/nekogpt-wordmark-hero.png" width="900" height="436" alt="NekoGPT" />
+      <span>CARREGANDO</span>
+    </div>
     <div id="preview-loader"><span>Carregando preview do NekoGPT…</span></div>
     <!-- deploy refresh: cute window controls -->
     <script>
       (() => {
+        // Keep the splash until the real hero is styled and its first video frame is ready.
+        const bootstrapScreen = document.getElementById('neko-bootstrap-screen');
+        let bootFinished = false;
+        const finishBootstrap = () => {
+          if (bootFinished) return;
+          bootFinished = true;
+          document.documentElement.classList.remove('neko-booting');
+          if (bootstrapScreen) {
+            bootstrapScreen.classList.add('neko-bootstrap-done');
+            setTimeout(() => bootstrapScreen.remove(), 470);
+          }
+        };
+
         const payloadParts = ["./payload/part-01.txt", "./payload/part-02.txt", "./payload/part-03.txt", "./payload/part-04.txt", "./payload/part-05.txt", "./payload/part-06.txt", "./payload/part-07.txt", "./payload/part-08.txt", "./payload/part-09.txt", "./payload/part-10.txt", "./payload/part-11.txt", "./payload/part-12.txt", "./payload/part-13.txt", "./payload/part-14.txt", "./payload/part-15.txt", "./payload/part-16.txt", "./payload/part-17.txt", "./payload/part-18.txt", "./payload/part-19.txt", "./payload/part-20.txt", "./payload/part-21.txt", "./payload/part-22.txt", "./payload/part-23.txt", "./payload/part-24.txt"];
 
         const loadScript = (src) => new Promise((resolve, reject) => {
@@ -189,6 +255,8 @@
           style.textContent = payload.css;
           document.head.appendChild(style);
           document.body.innerHTML = payload.body;
+          // body.innerHTML replaces the loading screen; restore it before the next paint.
+          if (bootstrapScreen) document.body.appendChild(bootstrapScreen);
           new Function(payload.js)();
 
           await loadScript('./src/paw-fix.js?v=119');
@@ -201,26 +269,53 @@
           await loadScript('./src/install-navigation-theme.js?v=1');
           await loadScript('./src/pricing-navigation-theme.js?v=1');
           await loadScript('./src/comparison-navigation-theme.js?v=1');
-          await loadScript('./src/hero-chat-preview.js?v=1');
-          await loadScript('./src/hero-chat-size-fix.js?v=5');
           await loadScript('./src/header-logo-v2.js?v=11');
           await loadScript('./src/header-scroll-fix.js?v=5');
           const heroMotionStyles = document.createElement('link');
           heroMotionStyles.rel = 'stylesheet';
-          heroMotionStyles.href = './src/hero-motion.css?v=11';
-          document.head.appendChild(heroMotionStyles);
-          await loadScript('./src/hero-motion.js?v=6');
+          heroMotionStyles.href = './src/hero-motion.css?v=12';
+          await new Promise((resolve, reject) => {
+            heroMotionStyles.onload = resolve;
+            heroMotionStyles.onerror = () => reject(new Error('Falha ao carregar os estilos do topo.'));
+            document.head.appendChild(heroMotionStyles);
+          });
+          await loadScript('./src/hero-motion.js?v=7');
           const trailerTransitionStyles = document.createElement('link');
           trailerTransitionStyles.rel = 'stylesheet';
           trailerTransitionStyles.href = './src/trailer-transition.css?v=3';
-          document.head.appendChild(trailerTransitionStyles);
+          await new Promise((resolve) => {
+            trailerTransitionStyles.onload = resolve;
+            trailerTransitionStyles.onerror = resolve;
+            document.head.appendChild(trailerTransitionStyles);
+          });
           await loadScript('./src/trailer-video.js?v=1');
           await loadScript('./src/trailer-endcap.js?v=1');
+
+          const hero = document.querySelector('.hero');
+          const heroVideo = hero?.querySelector('.neko-motion-video');
+          const revealPage = () => {
+            // On slow connections, show the still frame rather than the old preview.
+            if (hero && !hero.classList.contains('hero-with-motion')) {
+              hero.classList.add('hero-with-motion');
+              if (heroVideo) {
+                heroVideo.poster = './assets/images/neko-hero-poster.webp';
+              }
+            }
+            finishBootstrap();
+          };
+          if (!heroVideo || heroVideo.readyState >= 2) {
+            revealPage();
+          } else {
+            heroVideo.addEventListener('loadeddata', revealPage, { once: true });
+            heroVideo.addEventListener('error', revealPage, { once: true });
+            setTimeout(revealPage, 6500);
+          }
         };
 
         loadPreview().catch((error) => {
-          console.error(error);
-          document.body.innerHTML = '<main id="preview-loader"><span>Não foi possível carregar o preview.</span></main>';
+          console.error('NekoGPT não pôde carregar:', error);
+          document.body.innerHTML = '<main id="preview-loader"><span>Não foi possível carregar o NekoGPT. Atualize a página para tentar novamente.</span></main>';
+          finishBootstrap();
         });
       })();
     </script>

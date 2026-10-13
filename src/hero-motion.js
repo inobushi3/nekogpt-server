@@ -13,6 +13,7 @@
   video.playsInline = true;
   video.preload = 'auto';
   video.disablePictureInPicture = true;
+  video.poster = './assets/images/neko-hero-poster.webp';
   video.setAttribute('autoplay', '');
   video.setAttribute('muted', '');
   video.setAttribute('loop', '');
@@ -63,7 +64,10 @@
   }, {once:true});
   video.addEventListener('error', () => {
     ready = false;
-    hero.classList.remove('hero-with-motion');
+    // Keep the new branded layout; fall back to the matching still image.
+    video.style.display = 'none';
+    layer.style.background = "url('./assets/images/neko-hero-poster.webp') center / cover no-repeat";
+    hero.classList.add('hero-with-motion');
   });
   const scrollLink = document.createElement('a');
   scrollLink.className = 'neko-motion-scroll';
