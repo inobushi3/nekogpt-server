@@ -236,7 +236,7 @@
             <span>PV</span>
           </header>
           <div class="nekogpt-trailer-screen">
-            <video controls preload="none" playsinline poster="./assets/images/nekogpt-trailer-poster.jpg" title="Trailer do NekoGPT">
+            <video controls preload="none" playsinline poster="./assets/images/nekogpt-trailer-poster.jpg?v=2" title="Trailer do NekoGPT">
               Seu navegador não suporta a reprodução deste vídeo.
             </video>
           </div>
