@@ -366,10 +366,13 @@
 }
 
 /* NEKOGPT WORDMARK REPLACEMENT — maintain the main heading and desktop/mobile flow. */
+/* Larger NekoGPT wordmark, positioned slightly further left without
+   shifting the Steam badge or altering the animated background. */
 .hero .hero-title.neko-brand-title,
 .hero.hero-with-motion .hero-title.neko-brand-title {
-  max-width: 650px !important;
-  margin: 0 0 22px !important;
+  width: min(76vw, 750px) !important;
+  max-width: none !important;
+  margin: 0 0 14px !important;
   padding: 0 !important;
   font-size: 0 !important;
   line-height: 0 !important;
@@ -377,8 +380,8 @@
 }
 .hero .hero-title.neko-brand-title .neko-hero-brand-wordmark {
   display: block;
-  width: min(100%, 610px);
-  max-width: 100%;
+  width: 100%;
+  max-width: none;
   height: auto;
   margin: 0;
   padding: 0;
@@ -388,15 +391,23 @@
   object-fit: contain;
   object-position: left center;
 }
+@media (min-width: 761px) {
+  .hero.hero-with-motion .hero-title.neko-brand-title {
+    transform: translateX(-36px);
+  }
+}
 @media (max-width: 760px) {
   .hero .hero-title.neko-brand-title,
   .hero.hero-with-motion .hero-title.neko-brand-title {
+    width: min(100%, 530px) !important;
+    max-width: 100% !important;
     margin-right: auto !important;
     margin-left: auto !important;
-    margin-bottom: 18px !important;
+    margin-bottom: 15px !important;
+    transform: none !important;
   }
   .hero .hero-title.neko-brand-title .neko-hero-brand-wordmark {
-    width: min(100%, 530px);
+    width: 100%;
     margin-inline: auto;
     object-position: center;
   }

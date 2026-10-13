@@ -74,6 +74,8 @@
     steamContainer.append(steamImage, steamLabel);
     personaLine.insertAdjacentElement('afterend', steamContainer);
   }
+  // The marketing hero now uses the NekoGPT wordmark and Steam badge only.
+  personaLine?.remove();
   const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
   let ready = false;
   let heroVisible = true;
