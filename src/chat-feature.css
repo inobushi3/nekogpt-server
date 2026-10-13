@@ -1,0 +1,33 @@
+/* Follow-up feature: the same pastel palette, with video left and copy right. */
+.nekogpt-chat-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(44px, 5.2vw, 88px);
+  margin-top: clamp(110px, 13vw, 210px);
+}
+.nekogpt-chat-feature .nekogpt-chat-visual {
+  min-width: 0;
+}
+.nekogpt-chat-feature .nekogpt-chat-copy {
+  max-width: 530px;
+}
+.nekogpt-chat-feature .nekogpt-chat-video {
+  object-fit: contain;
+}
+@media (max-width: 860px) {
+  .nekogpt-chat-feature {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-top: clamp(80px, 12vw, 130px);
+  }
+  .nekogpt-chat-feature .nekogpt-chat-copy {
+    max-width: 720px;
+  }
+}
+@media (max-width: 540px) {
+  .nekogpt-chat-feature {
+    margin-top: 76px;
+    gap: 28px;
+  }
+}
