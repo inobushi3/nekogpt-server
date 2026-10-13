@@ -107,6 +107,21 @@
   }
 }
 
+/* Small kawaii decoration, immediately after the TRAILER heading. */
+.nekogpt-trailer-heading h2::after {
+  content: "𑄝੭";
+  display: inline-block;
+  margin-inline-start: .25em;
+  color: #c48aab;
+  font-family: "Noto Sans Chakma", "Noto Sans Gurmukhi", system-ui, sans-serif;
+  font-size: .57em;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: normal;
+  text-indent: 0;
+  vertical-align: .1em;
+}
+
 /* The scroll prompt sits over the new pale gradient: give it contrast. */
 .hero.hero-with-motion .neko-motion-scroll {
   color: #945b7c;
