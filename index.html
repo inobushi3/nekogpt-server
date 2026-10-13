@@ -327,15 +327,15 @@
             document.head.appendChild(gameplayStyles);
           });
           await loadScript('./src/gameplay-feature.js?v=2');
-          const nekoNoteStyles = document.createElement('link');
-          nekoNoteStyles.rel = 'stylesheet';
-          nekoNoteStyles.href = './src/neko-note-section.css?v=2';
-          await new Promise((resolve) => {
-            nekoNoteStyles.onload = resolve;
-            nekoNoteStyles.onerror = resolve;
-            document.head.appendChild(nekoNoteStyles);
+          const creatorsStyles = document.createElement('link');
+          creatorsStyles.rel = 'stylesheet';
+          creatorsStyles.href = './src/creators-section.css?v=1';
+          await new Promise((resolve, reject) => {
+            creatorsStyles.onload = resolve;
+            creatorsStyles.onerror = () => reject(new Error('Falha ao carregar a seção Usuários e Criador.'));
+            document.head.appendChild(creatorsStyles);
           });
-          await loadScript('./src/neko-note-section.js?v=1');
+          await loadScript('./src/creators-section.js?v=1');
           await loadScript('./src/wishlist-badge.js?v=1');
 
           const hero = document.querySelector('.hero');

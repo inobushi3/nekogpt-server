@@ -1,0 +1,132 @@
+/* NekoGPT — Users & Creator. Pastel editorial layout, prepared for real profiles. */
+.nekogpt-creators-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(86px, 9vw, 144px) 22px clamp(100px, 10vw, 152px);
+  color: #473741;
+  background:
+    linear-gradient(180deg, #fff4f9 0%, rgba(255, 246, 249, .95) 28%, rgba(255, 247, 245, .92) 70%, #fff4f9 100%),
+    url('../assets/images/neko-hero-poster.webp') center center / cover no-repeat;
+}
+.nekogpt-creators-section::before,
+.nekogpt-creators-section::after {
+  position: absolute;
+  content: '';
+  border: 1px solid rgba(202, 141, 172, .18);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+.nekogpt-creators-section::before { width: 460px; height: 460px; left: -285px; top: 9%; }
+.nekogpt-creators-section::after { width: 370px; height: 370px; right: -240px; bottom: 2%; }
+.nekogpt-creators-content { width: min(100%, 1120px); margin: 0 auto; }
+.nekogpt-creators-heading { max-width: 1050px; text-align: center; margin: 0 auto; }
+.nekogpt-creators-section-title {
+  margin-bottom: 25px;
+  color: #bb7097;
+  font: 800 clamp(27px, 4.2vw, 52px)/1.15 Inter, system-ui, sans-serif;
+  letter-spacing: .095em;
+}
+.nekogpt-creators-eyebrow {
+  margin: 0;
+  color: #bb8b9f;
+  font: 700 12px/1.6 Inter, system-ui, sans-serif;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+}
+.nekogpt-creators-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 10px 0 28px;
+}
+.nekogpt-creators-ornament span {
+  display: block;
+  width: 67px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #dbb3c4);
+}
+.nekogpt-creators-ornament span:last-child { transform: scaleX(-1); }
+.nekogpt-creators-ornament i {
+  width: 7px;
+  height: 7px;
+  transform: rotate(45deg);
+  background: #d6a1b9;
+}
+.nekogpt-creators-heading h2 {
+  max-width: 1000px;
+  margin: 0 auto 25px;
+  font: 500 clamp(29px, 3.15vw, 44px)/1.36 Georgia, 'Times New Roman', serif;
+  letter-spacing: .025em;
+  color: #483941;
+  text-wrap: balance;
+}
+.nekogpt-creators-message {
+  max-width: 980px;
+  margin: 0 auto;
+  font: 400 clamp(15px, 1.25vw, 17px)/1.95 Inter, system-ui, sans-serif;
+  color: #7e6e75;
+  text-wrap: pretty;
+}
+.nekogpt-creators-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(22px, 3vw, 34px);
+  max-width: 960px;
+  margin: clamp(52px, 6vw, 80px) auto 0;
+}
+.nekogpt-creator-card {
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(210, 162, 182, .45);
+  background: #fffdfd;
+  box-shadow: 0 22px 50px rgba(120, 67, 99, .10), 0 3px 10px rgba(120, 67, 99, .035);
+}
+.nekogpt-creator-card-media {
+  position: relative;
+  height: clamp(240px, 26vw, 330px);
+  background: linear-gradient(135deg, #f8e9ef 0%, #fff3f6 56%, #efdbe8 100%);
+  border-bottom: 1px solid rgba(210, 162, 182, .28);
+}
+.nekogpt-creator-card-media::before {
+  position: absolute;
+  content: '';
+  inset: 14px;
+  border: 1px solid rgba(198, 136, 167, .18);
+  border-radius: 15px;
+  pointer-events: none;
+}
+.nekogpt-creator-card-copy { padding: 25px clamp(20px, 2vw, 30px) 30px; }
+.nekogpt-creator-card-kicker {
+  margin: 0 0 5px;
+  color: #b8839e;
+  font: 600 12px/1.5 Inter, system-ui, sans-serif;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+.nekogpt-creator-card-copy h3 {
+  margin: 0 0 10px;
+  color: #503d49;
+  font: 600 clamp(24px, 2.7vw, 31px)/1.2 Georgia, 'Times New Roman', serif;
+}
+.nekogpt-creator-card-copy > p:last-child {
+  margin: 0;
+  color: #88747e;
+  font: 400 14px/1.75 Inter, system-ui, sans-serif;
+}
+@media (max-width: 740px) {
+  .nekogpt-creators-section { padding: 78px 18px 100px; }
+  .nekogpt-creators-heading h2 { font-size: clamp(26px, 6.2vw, 35px); }
+  .nekogpt-creators-cards { max-width: 490px; grid-template-columns: 1fr; gap: 22px; }
+  .nekogpt-creator-card-media { height: clamp(230px, 55vw, 320px); }
+}
+@media (max-width: 440px) {
+  .nekogpt-creators-section { padding-inline: 15px; }
+  .nekogpt-creators-section-title { font-size: clamp(25px, 7vw, 33px); }
+  .nekogpt-creators-message { font-size: 15px; line-height: 1.8; }
+  .nekogpt-creators-heading h2 { font-size: 26px; line-height: 1.34; }
+}
