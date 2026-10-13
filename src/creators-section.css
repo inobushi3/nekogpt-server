@@ -8,22 +8,60 @@
   width: 100%;
   padding: clamp(85px, 9vw, 140px) 24px clamp(100px, 10vw, 150px);
   color: #493c43;
+  /* Match the exact end-color of Resources; reveal the scenic background gradually. */
   background:
-    linear-gradient(180deg, rgba(255, 248, 250, .89), rgba(255, 247, 250, .91)),
+    linear-gradient(
+      180deg,
+      #fff4f9 0%,
+      #fff4f9 2%,
+      rgba(255, 244, 249, .985) 9%,
+      rgba(255, 247, 250, .94) 22%,
+      rgba(255, 248, 250, .89) 44%,
+      rgba(255, 247, 250, .91) 100%
+    ),
     url('../assets/images/neko-hero-poster.webp') center center / cover no-repeat;
 }
-.nekogpt-creators-section::before,
+/* Very subtle, endlessly breathing pastel mist; edges fade to full transparency. */
+.nekogpt-creators-section::before {
+  position: absolute;
+  content: '';
+  z-index: 0;
+  inset: 0 0 auto;
+  height: clamp(200px, 27vw, 370px);
+  background: radial-gradient(
+    ellipse 68% 75% at 45% 0%,
+    rgba(255, 255, 255, .38) 0%,
+    rgba(255, 240, 247, .22) 48%,
+    rgba(255, 244, 249, 0) 100%
+  );
+  pointer-events: none;
+  animation: nekoCreatorsSoftMist 16s ease-in-out infinite alternate;
+}
 .nekogpt-creators-section::after {
   position: absolute;
-  z-index: -1;
   content: '';
-  border: 1px solid rgba(211, 157, 183, .17);
+  z-index: 0;
+  width: 370px;
+  height: 370px;
+  right: -240px;
+  bottom: 2%;
+  border: 1px solid rgba(211, 157, 183, .14);
   border-radius: 50%;
   pointer-events: none;
 }
-.nekogpt-creators-section::before { width: 460px; height: 460px; left: -285px; top: 9%; }
-.nekogpt-creators-section::after { width: 370px; height: 370px; right: -240px; bottom: 2%; }
-.nekogpt-creators-content { width: min(100%, 1160px); margin: 0 auto; }
+.nekogpt-creators-content {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1160px);
+  margin: 0 auto;
+}
+@keyframes nekoCreatorsSoftMist {
+  from { opacity: .40; transform: translate3d(-1.5%, 0, 0); }
+  to { opacity: .78; transform: translate3d(1.5%, 9px, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nekogpt-creators-section::before { animation: none; }
+}
 .nekogpt-creators-heading { max-width: 1050px; text-align: center; margin: 0 auto; }
 .nekogpt-creators-section-title {
   margin-bottom: 24px;
