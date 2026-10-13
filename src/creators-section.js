@@ -32,7 +32,6 @@
       <div class="nekogpt-creators-content">
         <header class="nekogpt-creators-heading">
           <div class="nekogpt-creators-section-title">USUÁRIOS E CRIADOR</div>
-          <p class="nekogpt-creators-eyebrow">Criador</p>
           <div class="nekogpt-creators-ornament" aria-hidden="true"><span></span><i></i><span></span></div>
           <h2 id="nekogpt-creators-title">Experiências reais de usuários que usaram o NekoGPT e ajudaram o projeto a crescer com seus feedbacks.</h2>
           <p class="nekogpt-creators-message">

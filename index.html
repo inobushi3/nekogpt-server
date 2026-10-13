@@ -335,7 +335,16 @@
             creatorsStyles.onerror = () => reject(new Error('Falha ao carregar a seção Usuários e Criador.'));
             document.head.appendChild(creatorsStyles);
           });
-          await loadScript('./src/creators-section.js?v=4');
+          await loadScript('./src/creators-section.js?v=5');
+          const socialFooterStyles = document.createElement('link');
+          socialFooterStyles.rel = 'stylesheet';
+          socialFooterStyles.href = './src/social-footer.css?v=1';
+          await new Promise((resolve, reject) => {
+            socialFooterStyles.onload = resolve;
+            socialFooterStyles.onerror = () => reject(new Error('Falha ao carregar o rodapé do NekoGPT.'));
+            document.head.appendChild(socialFooterStyles);
+          });
+          await loadScript('./src/social-footer.js?v=1');
           await loadScript('./src/wishlist-badge.js?v=1');
 
           const hero = document.querySelector('.hero');
