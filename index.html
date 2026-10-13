@@ -209,9 +209,9 @@
           await loadScript('./src/header-scroll-fix.js?v=5');
           const heroMotionStyles = document.createElement('link');
           heroMotionStyles.rel = 'stylesheet';
-          heroMotionStyles.href = './src/hero-motion.css?v=5';
+          heroMotionStyles.href = './src/hero-motion.css?v=6';
           document.head.appendChild(heroMotionStyles);
-          await loadScript('./src/hero-motion.js?v=2');
+          await loadScript('./src/hero-motion.js?v=3');
         };
 
         loadPreview().catch((error) => {

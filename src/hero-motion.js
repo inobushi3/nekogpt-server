@@ -30,15 +30,32 @@
   if (personaLine && !hero.querySelector('.steam-presence')) {
     personaLine.classList.add('steam-persona-line');
     const steamImage = document.createElement('img');
-    steamImage.src = './assets/images/steam-available.png';
-    steamImage.alt = 'NekoGPT disponível na Steam';
+    steamImage.src = './assets/images/steam-available.png?v=2';
+    steamImage.alt = ''; // The adjacent label describes the logo.
     steamImage.width = 160;
     steamImage.height = 160;
     steamImage.loading = 'eager';
     steamImage.decoding = 'async';
     const steamContainer = document.createElement('div');
     steamContainer.className = 'steam-presence';
-    steamContainer.appendChild(steamImage);
+    const steamLabel = document.createElement('span');
+    steamLabel.className = 'steam-presence-label';
+    const steamTranslations = {
+      pt: 'Disponível na Steam',
+      en: 'Available on Steam',
+      es: 'Disponible en Steam',
+      fr: 'Disponible sur Steam',
+    };
+    const updateSteamLabel = () => {
+      const language = (document.documentElement.lang || 'pt').split('-')[0].toLowerCase();
+      steamLabel.textContent = steamTranslations[language] || steamTranslations.en;
+    };
+    updateSteamLabel();
+    new MutationObserver(updateSteamLabel).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['lang'],
+    });
+    steamContainer.append(steamImage, steamLabel);
     personaLine.insertAdjacentElement('afterend', steamContainer);
   }
   const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
