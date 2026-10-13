@@ -26,7 +26,7 @@
       </div>
       <div class="nekogpt-resources-copy nekogpt-gameplay-copy">
         <p class="nekogpt-resources-eyebrow">Gameplay</p>
-        <h3>Jogue com e faça Live com sua companheira</h3>
+        <h3>Jogue e faça lives com sua companheira</h3>
         <p class="nekogpt-resources-description">Ela interage com você, pode ver o que você tá fazendo, te ajudar, dar dicas e até mesmo dar suporte emocional, o que você preferir.</p>
       </div>
     `;
