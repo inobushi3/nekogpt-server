@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5c4dc">
+<meta name="description" content="Documentação oficial do NekoGPT.">
+<link rel="icon" href="../assets/images/icon-256.png">
+<title>Documentação | NekoGPT</title>
+<style>
+:root{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#56364a;background:#fff4fa}
+*{box-sizing:border-box}
+body{margin:0;min-height:100svh;background:radial-gradient(ellipse at 80% 10%,#ffe6f3,transparent 54%),linear-gradient(180deg,#fff8fb,#f9d7e8);display:flex;flex-direction:column}
+header{padding:22px clamp(18px,5vw,68px);display:flex;align-items:center;justify-content:space-between;gap:15px}
+header img{display:block;width:clamp(132px,18vw,200px);height:auto}
+header a{font-weight:700;color:#96547a;text-decoration:none;padding:12px 16px;border:1px solid #ebadca;border-radius:999px;background:#fff8fb}
+header a:hover,header a:focus-visible{background:#ffe7f3;outline-color:#ae6b92}
+main{width:min(850px,calc(100% - 36px));margin:auto;text-align:center;padding:70px 15px 115px}
+.eyebrow{font-weight:800;font-size:12px;letter-spacing:.25em;color:#bd739e;text-transform:uppercase}
+h1{font:500 clamp(42px,8vw,76px)/1.14 Georgia,"Times New Roman",serif;margin:18px auto;color:#a65d86;overflow-wrap:anywhere}
+p{font-size:clamp(16px,2.5vw,19px);line-height:1.7;color:#78606f;max-width:630px;margin:20px auto}
+.paws{font-size:34px;letter-spacing:.45em;color:#d599b9}
+footer{text-align:center;padding:24px;color:#946f84;font-size:12px}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header>
+<a href="/" aria-label="Voltar ao NekoGPT"><img src="../assets/images/nekogpt-wordmark-hero.png" alt="NekoGPT"></a>
+<a id="back" href="/">← Voltar ao site</a>
+</header>
+<main>
+<div class="paws" aria-hidden="true">✦ ♡ ✦</div>
+<div class="eyebrow" id="eyebrow">GUIAS E REFERÊNCIA</div>
+<h1 id="title">Documentação do NekoGPT</h1>
+<p id="message">Estamos preparando os guias oficiais do NekoGPT. Em breve você encontrará aqui tutoriais de instalação, modelos Live2D e 3D, provedores de IA, integração com jogos e SDK.</p>
+</main>
+<footer>© 2026 NekoGPT</footer>
+<script>
+(() => {
+  const copy={
+    pt:['← Voltar ao site','GUIAS E REFERÊNCIA','Documentação do NekoGPT','Estamos preparando os guias oficiais do NekoGPT. Em breve você encontrará aqui tutoriais de instalação, modelos Live2D e 3D, provedores de IA, integração com jogos e SDK.'],
+    en:['← Back to website','GUIDES AND REFERENCE','NekoGPT Documentation','We are preparing the official NekoGPT guides. Soon you will find installation tutorials, Live2D and 3D models, AI providers, game integrations, and SDK information here.'],
+    es:['← Volver al sitio','GUÍAS Y REFERENCIAS','Documentación de NekoGPT','Estamos preparando las guías oficiales de NekoGPT. Pronto encontrarás tutoriales de instalación, modelos Live2D y 3D, proveedores de IA, integración con juegos e información del SDK.'],
+    fr:['← Retour au site','GUIDES ET RÉFÉRENCES','Documentation NekoGPT','Nous préparons les guides officiels de NekoGPT. Vous trouverez bientôt ici des tutoriels d’installation, les modèles Live2D et 3D, les fournisseurs IA, les intégrations de jeux et le SDK.']
+  };
+  let lang='pt';
+  try { lang=localStorage.getItem('nekogpt-language')||'pt'; } catch {}
+  if(!copy[lang])lang='pt';
+  document.documentElement.lang={pt:'pt-BR',en:'en',es:'es',fr:'fr'}[lang];
+  ['back','eyebrow','title','message'].forEach((id,i)=>document.getElementById(id).textContent=copy[lang][i]);
+  document.title=copy[lang][2]+' | NekoGPT';
+})();
+</script>
+</body>
+</html>
