@@ -74,6 +74,17 @@
               <p>Beard está sempre ajudando na qualidade de vida do app e dando boas ideias para facilitar o uso.</p>
             </div>
           </article>
+          <article class="nekogpt-creator-card nekogpt-creator-card--shinobu" aria-label="Apresentação do criador Shinobu">
+            <div class="nekogpt-creator-card-media">
+              <img src="./assets/images/shinobu-card-original.webp"
+                alt="Arte original NekoGPT com personagem de orelhas de gato e logotipo rosa"
+                width="630" height="500" loading="lazy" decoding="async">
+            </div>
+            <div class="nekogpt-creator-card-copy">
+              <p class="nekogpt-creator-card-kicker">Shinobu</p>
+              <p>Criador do NekoGPT, inspirado na Neuro-sama e um pouquinho em Nekopara (dá para imaginar por quê, né?).</p>
+            </div>
+          </article>
         </div>
       </div>
     `;

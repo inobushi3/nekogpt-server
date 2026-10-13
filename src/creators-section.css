@@ -81,12 +81,13 @@
   text-wrap: pretty;
 }
 
-/* Paired portrait / profile cards — wide image above a clean white caption. */
+/* Three community and creator cards — original media above clean white captions. */
 .nekogpt-creators-cards {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(22px, 3vw, 34px);
-  width: min(100%, 1040px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: clamp(16px, 2.2vw, 28px);
+  width: min(100%, 1160px);
   margin: clamp(52px, 6vw, 82px) auto 0;
 }
 .nekogpt-creator-card {
@@ -110,7 +111,7 @@
   position: relative;
   display: block;
   width: 100%;
-  height: clamp(265px, 27vw, 354px);
+  height: clamp(240px, 24vw, 300px);
   overflow: hidden;
   background: linear-gradient(138deg, #f9ecf2 0%, #fff4f8 55%, #efdeea 100%);
   border-bottom: 1px solid rgba(239, 191, 208, .65);
@@ -161,12 +162,28 @@
   color: #806f78;
   font: 400 14px/1.78 Inter, system-ui, sans-serif;
 }
-@media (max-width: 900px) {
+@media (max-width: 1010px) {
+  .nekogpt-creators-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 750px;
+  }
+  .nekogpt-creator-card--shinobu {
+    grid-column: 1 / -1;
+    width: min(100%, 375px);
+    justify-self: center;
+  }
+  .nekogpt-creator-card-media { height: clamp(245px, 33vw, 310px); }
+}
+@media (max-width: 700px) {
   .nekogpt-creators-cards {
     grid-template-columns: 1fr;
-    max-width: 590px;
+    max-width: 500px;
   }
-  .nekogpt-creator-card-media { height: clamp(265px, 52vw, 375px); }
+  .nekogpt-creator-card--shinobu {
+    grid-column: auto;
+    width: 100%;
+  }
+  .nekogpt-creator-card-media { height: clamp(235px, 56vw, 340px); }
 }
 @media (max-width: 740px) {
   .nekogpt-creators-section { padding: 78px 18px 100px; }
@@ -253,4 +270,24 @@
 @media (prefers-reduced-motion: reduce) {
   .nekogpt-creator-card--beard .nekogpt-creator-card-video { transition: none; }
   .nekogpt-creator-card--beard:hover .nekogpt-creator-card-video { transform: none; }
+}
+
+
+/* Third card — Shinobu, using the original supplied artwork. */
+.nekogpt-creator-card--shinobu .nekogpt-creator-card-kicker {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(25px, 2.5vw, 32px);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: .025em;
+  line-height: 1.3;
+  color: #9e5e82;
+  text-transform: none;
+  margin-bottom: 16px;
+}
+.nekogpt-creator-card--shinobu .nekogpt-creator-card-media {
+  background: #f7edf4;
+}
+.nekogpt-creator-card--shinobu .nekogpt-creator-card-media::before {
+  display: none;
 }
