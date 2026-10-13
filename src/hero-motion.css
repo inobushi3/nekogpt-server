@@ -364,3 +364,40 @@
     font-size: clamp(15px, 4vw, 19px);
   }
 }
+
+/* NEKOGPT WORDMARK REPLACEMENT — maintain the main heading and desktop/mobile flow. */
+.hero .hero-title.neko-brand-title,
+.hero.hero-with-motion .hero-title.neko-brand-title {
+  max-width: 650px !important;
+  margin: 0 0 22px !important;
+  padding: 0 !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  letter-spacing: normal !important;
+}
+.hero .hero-title.neko-brand-title .neko-hero-brand-wordmark {
+  display: block;
+  width: min(100%, 610px);
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  object-fit: contain;
+  object-position: left center;
+}
+@media (max-width: 760px) {
+  .hero .hero-title.neko-brand-title,
+  .hero.hero-with-motion .hero-title.neko-brand-title {
+    margin-right: auto !important;
+    margin-left: auto !important;
+    margin-bottom: 18px !important;
+  }
+  .hero .hero-title.neko-brand-title .neko-hero-brand-wordmark {
+    width: min(100%, 530px);
+    margin-inline: auto;
+    object-position: center;
+  }
+}

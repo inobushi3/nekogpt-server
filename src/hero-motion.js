@@ -24,6 +24,22 @@
   video.appendChild(source);
   layer.appendChild(video);
   hero.prepend(layer);
+  // Use the supplied NekoGPT wordmark instead of the old marketing headline.
+  const heroTitle = hero.querySelector('.hero-title');
+  if (heroTitle) {
+    heroTitle.removeAttribute('data-i18n-html');
+    heroTitle.removeAttribute('data-i18n');
+    heroTitle.classList.add('neko-brand-title');
+    const wordmark = document.createElement('img');
+    wordmark.className = 'neko-hero-brand-wordmark';
+    wordmark.src = './assets/images/nekogpt-wordmark-hero.png';
+    wordmark.alt = 'NekoGPT';
+    wordmark.width = 900;
+    wordmark.height = 436;
+    wordmark.loading = 'eager';
+    wordmark.decoding = 'async';
+    heroTitle.replaceChildren(wordmark);
+  }
   // Keep the persona text; replace the former subheading and note with the Steam icon.
   hero.querySelectorAll('.hero-lede, .hero-note').forEach((element) => element.remove());
   const personaLine = hero.querySelector('.personality-line');
