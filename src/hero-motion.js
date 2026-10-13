@@ -24,7 +24,7 @@
   video.appendChild(source);
   layer.appendChild(video);
   hero.prepend(layer);
-  // Use the supplied NekoGPT wordmark instead of the old marketing headline.
+  // Position the official logo independently of the hero grid, in the upper-left corner.
   const heroTitle = hero.querySelector('.hero-title');
   if (heroTitle) {
     heroTitle.removeAttribute('data-i18n-html');
@@ -39,43 +39,12 @@
     wordmark.loading = 'eager';
     wordmark.decoding = 'async';
     heroTitle.replaceChildren(wordmark);
+    // Move the existing semantic H1 out of the centered grid into the positioned hero.
+    hero.appendChild(heroTitle);
   }
-  // Keep the persona text; replace the former subheading and note with the Steam icon.
-  hero.querySelectorAll('.hero-lede, .hero-note').forEach((element) => element.remove());
-  const personaLine = hero.querySelector('.personality-line');
-  if (personaLine && !hero.querySelector('.steam-presence')) {
-    personaLine.classList.add('steam-persona-line');
-    const steamImage = document.createElement('img');
-    steamImage.src = './assets/images/steam-available.png?v=2';
-    steamImage.alt = ''; // The adjacent label describes the logo.
-    steamImage.width = 160;
-    steamImage.height = 160;
-    steamImage.loading = 'eager';
-    steamImage.decoding = 'async';
-    const steamContainer = document.createElement('div');
-    steamContainer.className = 'steam-presence';
-    const steamLabel = document.createElement('span');
-    steamLabel.className = 'steam-presence-label';
-    const steamTranslations = {
-      pt: 'Disponível na Steam',
-      en: 'Available on Steam',
-      es: 'Disponible en Steam',
-      fr: 'Disponible sur Steam',
-    };
-    const updateSteamLabel = () => {
-      const language = (document.documentElement.lang || 'pt').split('-')[0].toLowerCase();
-      steamLabel.textContent = steamTranslations[language] || steamTranslations.en;
-    };
-    updateSteamLabel();
-    new MutationObserver(updateSteamLabel).observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['lang'],
-    });
-    steamContainer.append(steamImage, steamLabel);
-    personaLine.insertAdjacentElement('afterend', steamContainer);
-  }
-  // The marketing hero now uses the NekoGPT wordmark and Steam badge only.
-  personaLine?.remove();
+  // Remove the former headline support text and the Steam promotional badge entirely.
+  hero.querySelectorAll('.hero-lede, .hero-note, .personality-line, .steam-presence')
+    .forEach((element) => element.remove());
   const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
   let ready = false;
   let heroVisible = true;

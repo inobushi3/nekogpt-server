@@ -309,71 +309,25 @@
 }
 
 
-/* Steam presence: transparent PNG and text side by side, no colored frame. */
-.hero .personality-line.steam-persona-line {
-  margin-bottom: 0 !important;
+/* TOP-LEFT NEKOGPT BRAND — freely positioned above the cinematic video. */
+#nekogpt-hero-logo-banner {
+  display: none !important; /* Suppress the legacy, separately injected header logo. */
 }
-.hero .steam-presence {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 16px;
-  width: fit-content;
-  max-width: 100%;
-  margin: 28px 0 5px;
-  padding: 0;
-  background: none;
-  border: 0;
-  box-shadow: none;
-}
-.hero .steam-presence img {
-  display: block;
-  flex: 0 0 auto;
-  width: clamp(82px, 6vw, 105px);
-  height: auto;
-  max-width: 100%;
-  aspect-ratio: 1;
-  object-fit: contain;
-  background: none;
-  border: 0;
-  box-shadow: none;
-  filter: none;
-}
-.hero .steam-presence-label {
-  display: inline-block;
-  color: #fff;
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-  font-size: clamp(17px, 1.3vw, 21px);
-  font-weight: 750;
-  line-height: 1.25;
-  letter-spacing: -.012em;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, .55);
-}
-@media (max-width: 760px) {
-  .hero .steam-presence {
-    justify-content: center;
-    margin: 22px auto 7px;
-    gap: 11px;
-  }
-  .hero .steam-presence img {
-    width: clamp(70px, 19vw, 90px);
-  }
-  .hero .steam-presence-label {
-    font-size: clamp(15px, 4vw, 19px);
-  }
-}
-
-
-/* NEKOGPT WORDMARK: gentle floating motion and comfortable spacing above Steam. */
 .hero .hero-title.neko-brand-title,
 .hero.hero-with-motion .hero-title.neko-brand-title {
-  --logo-x: -52px;
-  --logo-y: -18px;
-  width: min(80vw, 820px) !important;
+  --logo-x: 0px;
+  --logo-y: 0px;
+  position: absolute !important;
+  z-index: 4 !important;
+  top: 6px !important;
+  left: clamp(22px, 2.1vw, 42px) !important;
+  right: auto !important;
+  bottom: auto !important;
+  display: block !important;
+  width: min(32vw, 585px) !important;
   max-width: none !important;
-  margin: 0 0 34px !important;
+  height: auto !important;
+  margin: 0 !important;
   padding: 0 !important;
   font-size: 0 !important;
   line-height: 0 !important;
@@ -381,11 +335,12 @@
   transform: translate(var(--logo-x), var(--logo-y));
   animation: nekoWordmarkFloat 6.8s ease-in-out infinite;
   will-change: transform;
+  pointer-events: none;
 }
 .hero .hero-title.neko-brand-title .neko-hero-brand-wordmark {
   display: block;
   width: 100%;
-  max-width: none;
+  max-width: 100%;
   height: auto;
   margin: 0;
   padding: 0;
@@ -393,31 +348,58 @@
   border: 0;
   box-shadow: none;
   object-fit: contain;
-  object-position: left center;
+  object-position: left top;
+  user-select: none;
 }
 @keyframes nekoWordmarkFloat {
-  0%, 100% {
-    transform: translate(var(--logo-x), var(--logo-y));
+  0%, 100% { transform: translate(var(--logo-x), var(--logo-y)); }
+  50% { transform: translate(var(--logo-x), calc(var(--logo-y) - 6px)); }
+}
+
+/* Larger top-right navigation and a pastel-pink underline on hover/focus. */
+@media (min-width: 861px) {
+  .site-header .nav-shell.nekogpt-pink-navigation .nav-links a:not(.nav-download) {
+    position: relative !important;
+    font-size: clamp(13px, .88vw, 16px) !important;
+    font-weight: 750 !important;
+    letter-spacing: .045em !important;
+    padding: 12px 0 !important;
+    overflow: visible !important;
   }
-  50% {
-    transform: translate(var(--logo-x), calc(var(--logo-y) - 6px));
+  .site-header .nav-shell.nekogpt-pink-navigation .nav-links a:not(.nav-download)::after {
+    content: '' !important;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 3px;
+    height: 2px;
+    border-radius: 999px;
+    background: #f4b2d5;
+    box-shadow: 0 0 8px rgba(244, 178, 213, .24);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 240ms ease;
+    pointer-events: none;
+  }
+  .site-header .nav-shell.nekogpt-pink-navigation .nav-links a:not(.nav-download):is(:hover, :focus-visible)::after {
+    transform: scaleX(1);
   }
 }
-@media (max-width: 760px) {
+/* Avoid overlap with the top-right menu on smaller laptop screens. */
+@media (min-width: 861px) and (max-width: 1199px) {
   .hero .hero-title.neko-brand-title,
   .hero.hero-with-motion .hero-title.neko-brand-title {
-    --logo-x: 0px;
-    --logo-y: -10px;
-    width: min(100%, 560px) !important;
-    max-width: 100% !important;
-    margin-right: auto !important;
-    margin-left: auto !important;
-    margin-bottom: 24px !important;
+    top: 64px !important;
+    left: 22px !important;
+    width: min(45vw, 460px) !important;
   }
-  .hero .hero-title.neko-brand-title .neko-hero-brand-wordmark {
-    width: 100%;
-    margin-inline: auto;
-    object-position: center;
+}
+@media (max-width: 860px) {
+  .hero .hero-title.neko-brand-title,
+  .hero.hero-with-motion .hero-title.neko-brand-title {
+    top: 68px !important;
+    left: 14px !important;
+    width: min(79vw, 440px) !important;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -425,5 +407,8 @@
   .hero.hero-with-motion .hero-title.neko-brand-title {
     animation: none !important;
     will-change: auto;
+  }
+  .site-header .nav-shell.nekogpt-pink-navigation .nav-links a:not(.nav-download)::after {
+    transition: none !important;
   }
 }
