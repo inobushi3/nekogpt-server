@@ -1,41 +1,45 @@
-/* NekoGPT — Users & Creator. Pastel editorial layout, prepared for real profiles. */
+/* Users & Creator — editorial Ryza-inspired cards in the NekoGPT pastel-pink identity.
+   Media panels intentionally stay empty until the actual pictures are provided. */
 .nekogpt-creators-section {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  width: 100%;
   box-sizing: border-box;
-  padding: clamp(86px, 9vw, 144px) 22px clamp(100px, 10vw, 152px);
-  color: #473741;
+  width: 100%;
+  padding: clamp(85px, 9vw, 140px) 24px clamp(100px, 10vw, 150px);
+  color: #493c43;
   background:
-    linear-gradient(180deg, #fff4f9 0%, rgba(255, 246, 249, .95) 28%, rgba(255, 247, 245, .92) 70%, #fff4f9 100%),
+    linear-gradient(180deg, rgba(255, 248, 250, .89), rgba(255, 247, 250, .91)),
     url('../assets/images/neko-hero-poster.webp') center center / cover no-repeat;
 }
 .nekogpt-creators-section::before,
 .nekogpt-creators-section::after {
   position: absolute;
+  z-index: -1;
   content: '';
-  border: 1px solid rgba(202, 141, 172, .18);
+  border: 1px solid rgba(211, 157, 183, .17);
   border-radius: 50%;
   pointer-events: none;
-  z-index: -1;
 }
 .nekogpt-creators-section::before { width: 460px; height: 460px; left: -285px; top: 9%; }
 .nekogpt-creators-section::after { width: 370px; height: 370px; right: -240px; bottom: 2%; }
-.nekogpt-creators-content { width: min(100%, 1120px); margin: 0 auto; }
+.nekogpt-creators-content { width: min(100%, 1160px); margin: 0 auto; }
 .nekogpt-creators-heading { max-width: 1050px; text-align: center; margin: 0 auto; }
 .nekogpt-creators-section-title {
-  margin-bottom: 25px;
-  color: #bb7097;
-  font: 800 clamp(27px, 4.2vw, 52px)/1.15 Inter, system-ui, sans-serif;
-  letter-spacing: .095em;
+  margin-bottom: 24px;
+  color: #c185a4;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(37px, 4.8vw, 64px);
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: .085em;
 }
 .nekogpt-creators-eyebrow {
   margin: 0;
-  color: #bb8b9f;
+  color: #b78a9c;
   font: 700 12px/1.6 Inter, system-ui, sans-serif;
   letter-spacing: .35em;
-  text-transform: uppercase;
+  text-transform: none;
 }
 .nekogpt-creators-ornament {
   display: flex;
@@ -48,10 +52,11 @@
   display: block;
   width: 67px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #dbb3c4);
+  background: linear-gradient(90deg, transparent, #d8a7ba);
 }
 .nekogpt-creators-ornament span:last-child { transform: scaleX(-1); }
 .nekogpt-creators-ornament i {
+  display: block;
   width: 7px;
   height: 7px;
   transform: rotate(45deg);
@@ -60,73 +65,134 @@
 .nekogpt-creators-heading h2 {
   max-width: 1000px;
   margin: 0 auto 25px;
-  font: 500 clamp(29px, 3.15vw, 44px)/1.36 Georgia, 'Times New Roman', serif;
-  letter-spacing: .025em;
-  color: #483941;
+  color: #4b3d42;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(28px, 3.2vw, 46px);
+  font-weight: 400;
+  line-height: 1.44;
+  letter-spacing: .02em;
   text-wrap: balance;
 }
 .nekogpt-creators-message {
   max-width: 980px;
   margin: 0 auto;
+  color: #7c6a73;
   font: 400 clamp(15px, 1.25vw, 17px)/1.95 Inter, system-ui, sans-serif;
-  color: #7e6e75;
   text-wrap: pretty;
 }
+
+/* Paired portrait / profile cards — wide image above a clean white caption. */
 .nekogpt-creators-cards {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(22px, 3vw, 34px);
-  max-width: 960px;
-  margin: clamp(52px, 6vw, 80px) auto 0;
+  width: min(100%, 1040px);
+  margin: clamp(52px, 6vw, 82px) auto 0;
 }
 .nekogpt-creator-card {
+  position: relative;
+  min-width: 0;
   overflow: hidden;
-  border-radius: 24px;
-  border: 1px solid rgba(210, 162, 182, .45);
+  border: 1.5px solid #efbfd0;
+  border-radius: 25px;
   background: #fffdfd;
-  box-shadow: 0 22px 50px rgba(120, 67, 99, .10), 0 3px 10px rgba(120, 67, 99, .035);
+  box-shadow: 0 18px 45px rgba(120, 67, 99, .10), 0 3px 10px rgba(120, 67, 99, .045);
+  transition: transform 300ms cubic-bezier(.2, .7, .2, 1),
+              border-color 300ms ease,
+              box-shadow 300ms ease;
+}
+.nekogpt-creator-card:hover {
+  transform: translateY(-5px);
+  border-color: #e8a0c1;
+  box-shadow: 0 26px 56px rgba(160, 83, 122, .18), 0 5px 15px rgba(160, 83, 122, .07);
 }
 .nekogpt-creator-card-media {
   position: relative;
-  height: clamp(240px, 26vw, 330px);
-  background: linear-gradient(135deg, #f8e9ef 0%, #fff3f6 56%, #efdbe8 100%);
-  border-bottom: 1px solid rgba(210, 162, 182, .28);
+  display: block;
+  width: 100%;
+  height: clamp(265px, 27vw, 354px);
+  overflow: hidden;
+  background: linear-gradient(138deg, #f9ecf2 0%, #fff4f8 55%, #efdeea 100%);
+  border-bottom: 1px solid rgba(239, 191, 208, .65);
+  transition: background-color 280ms ease;
 }
 .nekogpt-creator-card-media::before {
   position: absolute;
+  z-index: 1;
   content: '';
-  inset: 14px;
-  border: 1px solid rgba(198, 136, 167, .18);
-  border-radius: 15px;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.14), transparent 28%);
   pointer-events: none;
 }
-.nekogpt-creator-card-copy { padding: 25px clamp(20px, 2vw, 30px) 30px; }
+.nekogpt-creator-card-media::after {
+  position: absolute;
+  z-index: 1;
+  content: '';
+  inset: 15px;
+  border: 1px solid rgba(210, 148, 178, .16);
+  border-radius: 13px;
+  pointer-events: none;
+}
+/* When actual photos are supplied, they fill the media area with a subtle hover zoom. */
+.nekogpt-creator-card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 450ms ease;
+}
+.nekogpt-creator-card:hover .nekogpt-creator-card-media img {
+  transform: scale(1.035);
+}
+.nekogpt-creator-card-copy {
+  position: relative;
+  padding: 25px clamp(22px, 2.3vw, 32px) 29px;
+  background: rgba(255, 255, 255, .96);
+}
 .nekogpt-creator-card-kicker {
-  margin: 0 0 5px;
-  color: #b8839e;
-  font: 600 12px/1.5 Inter, system-ui, sans-serif;
-  letter-spacing: .15em;
+  margin: 0 0 7px;
+  color: #c087a3;
+  font: 700 11px/1.6 Inter, system-ui, sans-serif;
+  letter-spacing: .17em;
   text-transform: uppercase;
 }
 .nekogpt-creator-card-copy h3 {
-  margin: 0 0 10px;
-  color: #503d49;
-  font: 600 clamp(24px, 2.7vw, 31px)/1.2 Georgia, 'Times New Roman', serif;
+  margin: 0 0 12px;
+  color: #4a3942;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(28px, 2.8vw, 39px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: .035em;
 }
 .nekogpt-creator-card-copy > p:last-child {
   margin: 0;
-  color: #88747e;
-  font: 400 14px/1.75 Inter, system-ui, sans-serif;
+  color: #806f78;
+  font: 400 14px/1.78 Inter, system-ui, sans-serif;
+}
+@media (max-width: 900px) {
+  .nekogpt-creators-cards {
+    grid-template-columns: 1fr;
+    max-width: 590px;
+  }
+  .nekogpt-creator-card-media { height: clamp(265px, 52vw, 375px); }
 }
 @media (max-width: 740px) {
   .nekogpt-creators-section { padding: 78px 18px 100px; }
   .nekogpt-creators-heading h2 { font-size: clamp(26px, 6.2vw, 35px); }
-  .nekogpt-creators-cards { max-width: 490px; grid-template-columns: 1fr; gap: 22px; }
-  .nekogpt-creator-card-media { height: clamp(230px, 55vw, 320px); }
+  .nekogpt-creators-cards { gap: 22px; }
 }
 @media (max-width: 440px) {
   .nekogpt-creators-section { padding-inline: 15px; }
-  .nekogpt-creators-section-title { font-size: clamp(25px, 7vw, 33px); }
+  .nekogpt-creators-section-title { font-size: clamp(29px, 8vw, 38px); }
   .nekogpt-creators-message { font-size: 15px; line-height: 1.8; }
   .nekogpt-creators-heading h2 { font-size: 26px; line-height: 1.34; }
+  .nekogpt-creator-card-media { height: 235px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nekogpt-creator-card,
+  .nekogpt-creator-card-media,
+  .nekogpt-creator-card-media img { transition: none; }
+  .nekogpt-creator-card:hover,
+  .nekogpt-creator-card:hover .nekogpt-creator-card-media img { transform: none; }
 }
