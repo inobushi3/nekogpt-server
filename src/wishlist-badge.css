@@ -28,13 +28,8 @@
   cursor: pointer;
   pointer-events: auto;
   filter: drop-shadow(0 9px 11px rgba(69, 31, 56, .2));
-  transition: filter .22s ease, scale .22s ease;
+  /* Hover scaling belongs only to the Steam button, not the cat-ear sticker. */
   -webkit-tap-highlight-color: transparent;
-}
-.neko-steam-wishlist__link:hover,
-.neko-steam-wishlist__link:focus-visible {
-  scale: 1.045;
-  filter: drop-shadow(0 12px 16px rgba(103, 38, 81, .29));
 }
 .neko-steam-wishlist__link:focus-visible {
   outline: 2px solid #c96caa;
@@ -57,11 +52,24 @@
   border: 0;
   border-radius: 6px;
   background: transparent;
-  transform: translateX(-50%);
-  pointer-events: none;
+  transform: translateX(-50%) scale(1);
+  transform-origin: center center;
+  transition: transform .26s cubic-bezier(.2, .7, .2, 1);
+  pointer-events: auto;
   user-select: none;
   -webkit-user-drag: none;
 }
+
+/* Only the Steam button grows: the original pink ear artwork stays still. */
+@media (hover: hover) and (pointer: fine) {
+  .neko-steam-wishlist__steam:hover {
+    transform: translateX(-50%) scale(1.12);
+  }
+}
+.neko-steam-wishlist__link:focus-visible .neko-steam-wishlist__steam {
+  transform: translateX(-50%) scale(1.12);
+}
+
 @keyframes nekoSteamFloat {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-7px); }
@@ -73,9 +81,8 @@
     bottom: max(12px, env(safe-area-inset-bottom));
     width: clamp(190px, 52vw, 260px);
   }
-  .neko-steam-wishlist__link:hover { scale: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
   .neko-steam-wishlist__float { animation: none; will-change: auto; }
-  .neko-steam-wishlist__link { transition: none; }
+  .neko-steam-wishlist__steam { transition: none; }
 }
