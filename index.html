@@ -290,6 +290,15 @@
           });
           await loadScript('./src/trailer-video.js?v=2');
           await loadScript('./src/trailer-endcap.js?v=1');
+          const resourcesStyles = document.createElement('link');
+          resourcesStyles.rel = 'stylesheet';
+          resourcesStyles.href = './src/resources-section.css?v=1';
+          await new Promise((resolve) => {
+            resourcesStyles.onload = resolve;
+            resourcesStyles.onerror = resolve;
+            document.head.appendChild(resourcesStyles);
+          });
+          await loadScript('./src/resources-section.js?v=1');
 
           const hero = document.querySelector('.hero');
           const heroVideo = hero?.querySelector('.neko-motion-video');
