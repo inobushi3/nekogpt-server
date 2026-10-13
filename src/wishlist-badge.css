@@ -1,0 +1,79 @@
+/* Floating Steam wishlist — original NekoGPT cat ear artwork, non-modal CTA. */
+.neko-steam-wishlist {
+  position: fixed;
+  z-index: 2200;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  width: clamp(196px, 19vw, 292px);
+  max-width: calc(100vw - 32px);
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+.neko-steam-wishlist__float {
+  width: 100%;
+  animation: nekoSteamFloat 5.8s ease-in-out infinite;
+  will-change: transform;
+}
+.neko-steam-wishlist__link {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 900 / 382;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  outline-offset: 5px;
+  cursor: pointer;
+  pointer-events: auto;
+  filter: drop-shadow(0 9px 11px rgba(69, 31, 56, .2));
+  transition: filter .22s ease, scale .22s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.neko-steam-wishlist__link:hover,
+.neko-steam-wishlist__link:focus-visible {
+  scale: 1.045;
+  filter: drop-shadow(0 12px 16px rgba(103, 38, 81, .29));
+}
+.neko-steam-wishlist__link:focus-visible {
+  outline: 2px solid #c96caa;
+  border-radius: 22px;
+}
+.neko-steam-wishlist__ears {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+.neko-steam-wishlist__steam {
+  position: absolute;
+  left: 50%;
+  top: 56%;
+  width: 46%;
+  height: auto;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  transform: translateX(-50%);
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+@keyframes nekoSteamFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+@media (max-width: 700px) {
+  .neko-steam-wishlist {
+    right: max(11px, env(safe-area-inset-right));
+    bottom: max(12px, env(safe-area-inset-bottom));
+    width: clamp(156px, 40vw, 205px);
+  }
+  .neko-steam-wishlist__link:hover { scale: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .neko-steam-wishlist__float { animation: none; will-change: auto; }
+  .neko-steam-wishlist__link { transition: none; }
+}

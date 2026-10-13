@@ -30,6 +30,7 @@
     <!-- Prioritize the actual hero instead of preloading the retired Live2D preview. -->
     <link rel="preload" href="./assets/images/neko-hero-poster.webp" as="image" type="image/webp" fetchpriority="high" />
     <link rel="stylesheet" href="./src/paw-spacing.css?v=120" />
+    <link rel="stylesheet" href="./src/wishlist-badge.css?v=1" />
 
     <style>
       html,body{min-height:100%;margin:0;background:#000;color:#fff;font-family:Inter,system-ui,sans-serif}
@@ -326,6 +327,7 @@
             document.head.appendChild(gameplayStyles);
           });
           await loadScript('./src/gameplay-feature.js?v=2');
+          await loadScript('./src/wishlist-badge.js?v=1');
 
           const hero = document.querySelector('.hero');
           const heroVideo = hero?.querySelector('.neko-motion-video');
