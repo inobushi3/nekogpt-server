@@ -305,7 +305,7 @@
             document.head.appendChild(trailerTransitionStyles);
           });
           // Remove retired content before showing the styled landing page.
-          await loadScript('./src/trailer-endcap.js?v=1');
+          await loadScript('./src/trailer-endcap.js?v=2');
           const hero = document.querySelector('.hero');
           if (hero) hero.classList.add('hero-with-motion');
           // The poster is ready to display; video decoding must never block the page.
