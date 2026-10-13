@@ -13,9 +13,11 @@
       let next = node.nextSibling;
       while (next) {
         const following = next.nextSibling;
-        if (!(next.nodeType === Node.ELEMENT_NODE && preservedTags.has(next.tagName))) {
-          next.remove();
-        }
+        // The animated boot screen is managed by finishBootstrap in index.html.
+        // Removing it here before the hero is revealed causes a black flash.
+        const keepNode = next.nodeType === Node.ELEMENT_NODE &&
+          (preservedTags.has(next.tagName) || next.id === 'neko-bootstrap-screen');
+        if (!keepNode) next.remove();
         next = following;
       }
     }
