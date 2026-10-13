@@ -374,9 +374,12 @@
         };
 
         loadPreview().catch((error) => {
-          console.error('NekoGPT não pôde carregar:', error);
-          document.body.innerHTML = '<main id="preview-loader"><span>Não foi possível carregar o NekoGPT. Atualize a página para tentar novamente.</span></main>';
-          finishBootstrap();
+          console.error('Falha ao carregar o NekoGPT:', error);
+          // Errors in a late-loading section must never destroy the working hero.
+          if (!bootFinished) {
+            document.body.innerHTML = '<main id="preview-loader"><span>Não foi possível carregar o NekoGPT. Atualize a página para tentar novamente.</span></main>';
+            finishBootstrap();
+          }
         });
       })();
     </script>
