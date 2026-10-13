@@ -24,6 +24,23 @@
   video.appendChild(source);
   layer.appendChild(video);
   hero.prepend(layer);
+  // Keep the persona text; replace the former subheading and note with the Steam icon.
+  hero.querySelectorAll('.hero-lede, .hero-note').forEach((element) => element.remove());
+  const personaLine = hero.querySelector('.personality-line');
+  if (personaLine && !hero.querySelector('.steam-presence')) {
+    personaLine.classList.add('steam-persona-line');
+    const steamImage = document.createElement('img');
+    steamImage.src = './assets/images/steam-available.png';
+    steamImage.alt = 'NekoGPT disponível na Steam';
+    steamImage.width = 160;
+    steamImage.height = 160;
+    steamImage.loading = 'eager';
+    steamImage.decoding = 'async';
+    const steamContainer = document.createElement('div');
+    steamContainer.className = 'steam-presence';
+    steamContainer.appendChild(steamImage);
+    personaLine.insertAdjacentElement('afterend', steamContainer);
+  }
   const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
   let ready = false;
   let heroVisible = true;

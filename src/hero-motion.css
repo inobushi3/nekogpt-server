@@ -307,3 +307,37 @@
     left: clamp(-85px, -5vw, -24px) !important;
   }
 }
+
+
+/* Steam availability emblem below the dynamic Persona line. */
+.hero .personality-line.steam-persona-line {
+  margin-bottom: 0 !important;
+}
+.hero .steam-presence {
+  display: flex;
+  position: relative;
+  z-index: 2;
+  align-items: center;
+  justify-content: flex-start;
+  width: fit-content;
+  max-width: 100%;
+  margin: 17px 0 5px;
+}
+.hero .steam-presence img {
+  display: block;
+  width: clamp(96px, 7vw, 120px);
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,.28));
+}
+@media (max-width: 760px) {
+  .hero .steam-presence {
+    justify-content: center;
+    margin: 18px auto 7px;
+  }
+  .hero .steam-presence img {
+    width: clamp(90px, 23vw, 108px);
+  }
+}
