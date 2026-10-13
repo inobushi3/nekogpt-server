@@ -5,6 +5,7 @@
   color-scheme:light;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth;scroll-padding-top:104px}
 body{margin:0;font:15px/1.75 Inter,"Segoe UI",system-ui,sans-serif;color:var(--plum);
 background:radial-gradient(ellipse 47% 450px at 100% 2%,#ffe5f1,transparent 94%),linear-gradient(180deg,#fff7fb 0%,#fffafd 35%,#fffbfc 100%);}
