@@ -40,6 +40,21 @@
   letter-spacing: .125em;
   text-indent: .125em;
 }
+/* Cute accent next to RECURSOS (keep the original heading intact). */
+.nekogpt-resources-header h2::after {
+  content: "ᨐᵉᵒʷ";
+  display: inline-block;
+  margin-inline-start: .25em;
+  color: #c887ab;
+  font-family: "Noto Sans Buginese", "Noto Sans", system-ui, sans-serif;
+  font-size: .55em;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: normal;
+  text-indent: 0;
+  vertical-align: .08em;
+}
+
 .nekogpt-resources-subheading {
   display: flex;
   align-items: center;
