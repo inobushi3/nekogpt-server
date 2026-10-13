@@ -329,7 +329,7 @@
           await loadScript('./src/gameplay-feature.js?v=2');
           const creatorsStyles = document.createElement('link');
           creatorsStyles.rel = 'stylesheet';
-          creatorsStyles.href = './src/creators-section.css?v=1';
+          creatorsStyles.href = './src/creators-section.css?v=2';
           await new Promise((resolve, reject) => {
             creatorsStyles.onload = resolve;
             creatorsStyles.onerror = () => reject(new Error('Falha ao carregar a seção Usuários e Criador.'));
