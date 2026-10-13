@@ -3,7 +3,6 @@ window.NEKO_DOCS_LOCALES = Object.assign(window.NEKO_DOCS_LOCALES || {}, {
     "ui": {
       "title": "Documentación",
       "back": "Volver al sitio",
-      "source": "Ver código",
       "search": "Buscar en la documentación...",
       "noResults": "No se encontraron secciones.",
       "groups": [
@@ -19,7 +18,7 @@ window.NEKO_DOCS_LOCALES = Object.assign(window.NEKO_DOCS_LOCALES || {}, {
         "Ejemplos prácticos",
         "Sin programación"
       ],
-      "version": "Basado en la rama más reciente analizada · 13 oct. 2026",
+      "version": "Guía de funcionamiento de NekoGPT · actualizada en octubre de 2026",
       "noteLabel": "Importante",
       "sectionLabel": "CÓMO FUNCIONA",
       "sourceDate": "Referencia técnica: 13 de octubre de 2026",
@@ -163,7 +162,7 @@ window.NEKO_DOCS_LOCALES = Object.assign(window.NEKO_DOCS_LOCALES || {}, {
         "lead": "El programa puede guardar información y buscar fragmentos útiles más adelante, como un cuaderno de recuerdos que consulta cuando conviene.",
         "paragraphs": [
           "El historial inmediato del chat no es lo mismo que las memorias guardadas. El historial mantiene el contexto de la conversación actual; las memorias se buscan por relevancia cuando la pregunta lo requiere.",
-          "El código dispone de recuperación textual y semántica (RAG), con ámbitos separados, incluso por persona. Esto no significa memoria perfecta: depende de lo guardado, lo recuperado y la configuración."
+          "NekoGPT dispone de recuperación textual y semántica (RAG), con ámbitos separados, incluso por persona. Esto no significa memoria perfecta: depende de lo guardado, lo recuperado y la configuración."
         ],
         "process": [
           "Guardar información",
@@ -277,13 +276,13 @@ window.NEKO_DOCS_LOCALES = Object.assign(window.NEKO_DOCS_LOCALES || {}, {
         ]
       },
       "source": {
-        "title": "¿De dónde sale esta información?",
-        "lead": "Esta guía se basó en el código real del proyecto y se reescribió para que cualquiera pueda comprenderlo.",
+        "title": "Acerca de esta documentación",
+        "lead": "Esta guía te ayuda a entender NekoGPT sin necesidad de conocer su implementación técnica.",
         "paragraphs": [
-          "Referencia principal: rama codex/live2d-window-interaction-1.0.48, commit 8839f452 (13/10/2026). Se revisaron proveedores, voz, avatares, conversación, memoria y especificación de Game Bridge.",
-          "Las funciones pueden variar según la versión, configuración, modelos instalados y proveedores. Esta página describe el diseño general, sin garantizar que todo esté disponible en cualquier instalación."
+          "Descubre cómo funcionan y se conectan las personalidades, los avatares, los modelos de IA, la memoria, la voz y las integraciones. La idea es explicar para qué sirve cada función en el uso diario.",
+          "Las funciones disponibles pueden variar según la versión instalada, los modelos elegidos y la configuración. Seguiremos ampliando esta documentación a medida que NekoGPT evolucione."
         ],
-        "note": "Consulta los enlaces a la documentación original para detalles técnicos y los límites de las acciones."
+        "note": "NekoGPT no es un proyecto de código abierto. Esta guía explica el uso y el funcionamiento general de la aplicación; no ofrece su código fuente."
       }
     }
   },
@@ -291,7 +290,6 @@ window.NEKO_DOCS_LOCALES = Object.assign(window.NEKO_DOCS_LOCALES || {}, {
     "ui": {
       "title": "Documentation",
       "back": "Retour au site",
-      "source": "Voir le code",
       "search": "Rechercher dans la documentation...",
       "noResults": "Aucune section trouvée.",
       "groups": [
@@ -307,7 +305,7 @@ window.NEKO_DOCS_LOCALES = Object.assign(window.NEKO_DOCS_LOCALES || {}, {
         "Exemples concrets",
         "Sans programmation"
       ],
-      "version": "Basé sur la branche la plus récente examinée · 13 oct. 2026",
+      "version": "Guide de fonctionnement de NekoGPT · mis à jour en octobre 2026",
       "noteLabel": "À savoir",
       "sectionLabel": "FONCTIONNEMENT",
       "sourceDate": "Référence technique : 13 octobre 2026",
@@ -451,7 +449,7 @@ window.NEKO_DOCS_LOCALES = Object.assign(window.NEKO_DOCS_LOCALES || {}, {
         "lead": "Le logiciel peut enregistrer des informations et retrouver les éléments utiles plus tard, comme un carnet de souvenirs.",
         "paragraphs": [
           "L'historique de la conversation actuelle est distinct des souvenirs consultables. L'historique maintient le fil du dialogue ; les souvenirs enregistrés peuvent être recherchés quand une question s'y rapporte.",
-          "Le code propose une recherche textuelle et sémantique (RAG), avec des espaces séparés, notamment selon la persona. Ce n'est pas une mémoire parfaite : tout dépend des données enregistrées, retrouvées et des paramètres."
+          "NekoGPT propose une recherche textuelle et sémantique (RAG), avec des espaces séparés, notamment selon la persona. Ce n'est pas une mémoire parfaite : tout dépend des données enregistrées, retrouvées et des paramètres."
         ],
         "process": [
           "Sauvegarder une information",
@@ -565,13 +563,13 @@ window.NEKO_DOCS_LOCALES = Object.assign(window.NEKO_DOCS_LOCALES || {}, {
         ]
       },
       "source": {
-        "title": "D'où viennent ces explications ?",
-        "lead": "Nous avons étudié le projet réel puis reformulé son fonctionnement en langage accessible.",
+        "title": "À propos de cette documentation",
+        "lead": "Ce guide vous aide à comprendre NekoGPT sans avoir besoin de connaître son fonctionnement technique interne.",
         "paragraphs": [
-          "Référence principale : branche codex/live2d-window-interaction-1.0.48, commit 8839f452 (13/10/2026). Nous avons consulté la liste des fournisseurs d'IA, les composants de voix, les avatars, le chat, la mémoire et la documentation Game Bridge.",
-          "Les fonctions peuvent varier suivant la version, les paramètres, les modèles installés et les fournisseurs. Cette page présente le fonctionnement général sans garantir chaque fonction pour chaque installation."
+          "Découvrez comment la personnalité, les avatars, les modèles d'IA, la mémoire, la voix et les intégrations fonctionnent ensemble. Le but est de présenter l'utilité de chaque fonction au quotidien.",
+          "Les fonctionnalités peuvent varier selon la version installée, les modèles choisis et les paramètres activés. Nous enrichirons cette documentation à mesure que NekoGPT évoluera."
         ],
-        "note": "Pour les détails techniques et les limites du Game Bridge, consultez les liens vers les sources ci-dessous."
+        "note": "NekoGPT n'est pas un projet open source. Ce guide explique l'utilisation et le fonctionnement général de l'application ; il ne donne pas accès à son code source."
       }
     }
   }

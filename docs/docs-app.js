@@ -59,21 +59,8 @@
     if (id === 'started') content = sequence(s.steps) + note(s.note,ui.noteLabel);
     if (id === 'faq') content = '<div class="faq">' + s.items.map(([q,a]) =>
       '<details><summary>' + escape(q) + '</summary><p>' + escape(a) + '</p></details>').join('') + '</div>';
-    if (id === 'source') {
-      const branch = 'https://github.com/inobushi3/NekoGPT-Opensource/tree/codex/live2d-window-interaction-1.0.48';
-      const bridge = 'https://github.com/inobushi3/NekoGPT-Opensource/blob/codex/live2d-window-interaction-1.0.48/docs/game-bridge.md';
-      const live2d = 'https://github.com/inobushi3/NekoGPT-Opensource/blob/codex/live2d-window-interaction-1.0.48/docs/live2d-runtime-architecture.md';
-      const providers = 'https://github.com/inobushi3/NekoGPT-Opensource/blob/codex/live2d-window-interaction-1.0.48/src/shared/aiProviderRegistry.ts';
-      content = paragraphs(s.paragraphs) +
-        '<div class="cards-two">' +
-        '<div class="info-card"><span class="symbol">⌁</span><h3>GitHub</h3><p><a href="' + branch +
-        '" target="_blank" rel="noopener noreferrer">NekoGPT-Opensource · 8839f452 ↗</a></p>' +
-        '<p><a href="' + providers + '" target="_blank" rel="noopener noreferrer">AI providers ↗</a></p></div>' +
-        '<div class="info-card"><span class="symbol">✧</span><h3>Referências</h3><p><a href="' + bridge +
-        '" target="_blank" rel="noopener noreferrer">Game Bridge ↗</a></p><p><a href="' + live2d +
-        '" target="_blank" rel="noopener noreferrer">Live2D ↗</a></p></div></div>' +
-        note(s.note, ui.noteLabel);
-    }
+    if (id === 'source') content = paragraphs(s.paragraphs) + note(s.note,ui.noteLabel);
+
     return start + content + '</section>';
   }
 
@@ -108,7 +95,6 @@
     const set = (id,text) => { const el=document.getElementById(id); if(el) el.textContent=text; };
     set('docs-brand-label', ui.title);
     set('docs-home-label', ui.back);
-    set('docs-repo-label', ui.source);
     set('docs-hero-eyebrow', ui.heroEyebrow);
     set('docs-hero-title', ui.heroTitle);
     set('docs-hero-lead', ui.heroLead);
