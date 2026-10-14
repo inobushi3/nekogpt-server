@@ -69,20 +69,12 @@
   letter-spacing: 7px;
   padding-left: 7px;
 }
-.nekogpt-social-footer__logo {
-  display: block;
-  width: clamp(245px, 31vw, 345px);
-  max-width: 84%;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 7px 14px rgba(109, 58, 91, .14));
-}
 .nekogpt-social-footer__links {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 16px;
-  margin-top: clamp(4px, 1.5vw, 22px);
+  margin-top: clamp(16px, 2.5vw, 30px);
 }
 .nekogpt-social-footer__link {
   display: inline-flex;
@@ -130,7 +122,6 @@
 }
 @media (max-width: 600px) {
   .nekogpt-social-footer { padding: 65px 16px 42px; }
-  .nekogpt-social-footer__logo { width: min(70vw, 290px); }
   .nekogpt-social-footer__links { gap: 13px; }
   .nekogpt-social-footer__link { width: 54px; height: 54px; }
 }
