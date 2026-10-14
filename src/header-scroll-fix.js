@@ -175,7 +175,11 @@
         text.includes('acesso vitalício') ||
         text.includes('acesso vitalicio') ||
         text.includes('lifetime access') ||
-        text.includes('get lifetime');
+        text.includes('get lifetime') ||
+        text.includes('获取永久使用权') ||
+        text.includes('пожизненный доступ') ||
+        text.includes('永久アクセス') ||
+        control.getAttribute('data-i18n') === 'nav.lifetimeAccess';
 
       if (isLifetimeButton) control.remove();
     });
