@@ -1,4 +1,4 @@
-/* Floating Steam wishlist sticker composed from the developer's original PNGs. */
+/* Floating Steam wishlist button, retaining the original float and hover behavior. */
 (() => {
   'use strict';
   if (document.getElementById('neko-steam-wishlist')) return;
@@ -23,14 +23,6 @@
   link.setAttribute('aria-label', 'Encontrar NekoGPT na Steam (abre em outra aba)');
   link.title = 'NekoGPT na Steam';
 
-  const catBadge = document.createElement('img');
-  catBadge.className = 'neko-steam-wishlist__ears';
-  catBadge.src = './assets/images/neko-wishlist-ear.png?v=1';
-  catBadge.alt = '';
-  catBadge.width = 900;
-  catBadge.height = 382;
-  catBadge.decoding = 'async';
-
   const steamButton = document.createElement('img');
   steamButton.className = 'neko-steam-wishlist__steam';
   steamButton.src = './assets/images/neko-steam-button.png?v=1';
@@ -38,8 +30,9 @@
   steamButton.width = 408;
   steamButton.height = 124;
   steamButton.decoding = 'async';
+  steamButton.loading = 'lazy';
 
-  link.append(catBadge, steamButton);
+  link.append(steamButton);
   float.append(link);
   outer.append(float);
   document.body.append(outer);
