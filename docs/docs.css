@@ -15,7 +15,7 @@ a{color:#a75283}
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #dc92bc;outline-offset:3px}
 #read-progress{position:fixed;top:0;left:0;width:0;height:3px;background:linear-gradient(90deg,#f2adc9,#b96898);z-index:101;transition:width .13s linear}
 .topbar{z-index:60;position:sticky;top:0;height:77px;background:rgba(255,250,253,.90);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
-.topbar-inner{max-width:1460px;height:100%;margin:auto;display:flex;align-items:center;gap:18px;padding:0 clamp(20px,3vw,38px)}
+.topbar-inner{max-width:1830px;height:100%;margin:auto;display:flex;align-items:center;gap:18px;padding:0 clamp(24px,3vw,50px)}
 .brand{display:flex;align-items:center;text-decoration:none;min-width:0;white-space:nowrap}
 .brand em{font:700 16px/1.2 Inter,system-ui,sans-serif;color:var(--rose);font-style:normal;letter-spacing:.015em}
 .top-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
@@ -26,12 +26,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,su
 #docs-language{border:0;background:transparent;color:#72475f;font-weight:750;font-size:12px;outline-offset:0;cursor:pointer}
 .mobile-toggle{display:none;align-items:center;justify-content:center;width:39px;height:39px;border:1px solid #efcada;background:#fff;border-radius:11px;color:#945a7b;cursor:pointer}
 .mobile-toggle svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
-.layout{display:grid;grid-template-columns:246px minmax(0,830px);gap:clamp(25px,5vw,75px);max-width:1245px;margin:0 auto;padding:31px 32px 110px}
-.sidebar{position:sticky;top:107px;align-self:start;max-height:calc(100vh - 124px);overflow:auto;scrollbar-width:thin;scrollbar-color:#ecd0dc transparent;padding:6px 16px 20px 0}
+.layout{display:grid;grid-template-columns:248px minmax(0,1fr);gap:clamp(36px,4vw,72px);width:100%;max-width:1830px;margin:0 auto;padding:31px clamp(24px,3vw,50px) 110px}
+.sidebar{position:sticky;top:107px;align-self:start;min-width:0;max-height:calc(100vh - 124px);overflow-x:hidden;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#ecd0dc transparent;padding:6px 9px 20px 0}
 .side-top{margin:0 0 19px;font-size:11px;letter-spacing:.15em;font-weight:800;color:#b37599;text-transform:uppercase}
-.search-shell{position:relative;margin-bottom:24px}
-.search-shell svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:17px;height:17px;stroke:#b58ca5;stroke-width:2;fill:none}
-#docs-search{width:100%;padding:11px 12px 11px 40px;color:#74566a;background:#fff;border:1px solid #ecd1e0;border-radius:12px;font-size:13px;outline-color:#c878a7}
+.search-shell{position:relative;min-width:0;margin-bottom:24px;padding:3px}
+.search-shell svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:17px;height:17px;stroke:#b58ca5;stroke-width:2;fill:none;pointer-events:none}
+#docs-search{display:block;box-sizing:border-box;width:100%;min-width:0;max-width:100%;padding:11px 12px 11px 40px;color:#74566a;background:#fff;border:1px solid #ecd1e0;border-radius:12px;font-size:13px;outline:none;appearance:none;-webkit-appearance:none}
+#docs-search:focus-visible{outline:none;border-color:#c878a7;box-shadow:0 0 0 2px rgba(200,120,167,.30)}
 #docs-search::placeholder{color:#b8a2ad}
 .nav-group{margin-top:24px}
 .nav-group-title{margin:0 0 8px;padding-left:11px;font-size:11px;font-weight:800;color:#a98a9b;letter-spacing:.12em;text-transform:uppercase}
@@ -40,7 +41,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,su
 .nav-item.active{background:#fae3ef;color:#9e4d78;font-weight:760}
 .nav-item.active::before{position:absolute;content:"";width:3px;background:#ce84ac;border-radius:2px;left:0;top:22%;height:56%}
 #empty-search{font-size:12px;color:var(--muted);padding:0 10px}
-.article{min-width:0}
+.article{min-width:0;width:100%;max-width:1320px}
 .hero{position:relative;padding:clamp(32px,5vw,52px) 0 13px;background:transparent;border:0;border-radius:0;box-shadow:none}
 .hero-content{position:relative;z-index:1;max-width:620px}
 .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.22em;font-weight:800;color:#bb7299;display:flex;align-items:center;gap:10px}
