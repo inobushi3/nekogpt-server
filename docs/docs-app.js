@@ -5,10 +5,10 @@
   const ids = ['overview','flow','modules','persona','ai','memory','senses','games','started','faq','source'];
   const groups = [[...ids.slice(0,3)],[...ids.slice(3,7)],[...ids.slice(7)]];
   const featureGuides = {
-    pt: ['Guias de recursos','Live2D — como funciona','3D — como funciona'],
-    en: ['Feature guides','Live2D — how it works','3D — how it works'],
-    es: ['Guías de funciones','Live2D — cómo funciona','3D — cómo funciona'],
-    fr: ['Guides des fonctionnalités','Live2D — fonctionnement','3D — fonctionnement']
+    pt: ['Guias de recursos','Live2D — como funciona','3D — como funciona','TTS — voz da personagem'],
+    en: ['Feature guides','Live2D — how it works','3D — how it works','TTS — character voice'],
+    es: ['Guías de funciones','Live2D — cómo funciona','3D — cómo funciona','TTS — voz del personaje'],
+    fr: ['Guides des fonctionnalités','Live2D — fonctionnement','3D — fonctionnement','TTS — voix du personnage']
   };
   const escape = value => String(value == null ? '' : value).replace(/[&<>"']/g, char => ({
     '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
@@ -107,7 +107,9 @@
           '<a class="nav-item" href="/docs/live2d/?lang='+encodeURIComponent(lang)+'" data-id="live2d-guide">'+
           escape(featureGuides[lang][1])+'</a>' +
           '<a class="nav-item" href="/docs/3d/?lang='+encodeURIComponent(lang)+'" data-id="3d-guide">'+
-          escape(featureGuides[lang][2])+'</a></div>'
+          escape(featureGuides[lang][2])+'</a>' +
+          '<a class="nav-item" href="/docs/tts/?lang='+encodeURIComponent(lang)+'" data-id="tts-guide">'+
+          escape(featureGuides[lang][3])+'</a></div>'
         : '') +
       '<div class="nav-group"><p class="nav-group-title">'+escape(ui.groups[i])+'</p>' +
       group.map(id => '<a class="nav-item" href="#'+id+'" data-id="'+id+'">'+
