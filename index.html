@@ -262,9 +262,27 @@
             return response.text();
           }))).join('');
           const bytes = Uint8Array.from(atob(encoded), (char) => char.charCodeAt(0));
-          if (!("DecompressionStream" in window)) throw new Error('Navegador sem suporte a DecompressionStream');
-          const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
-          const originalPayload = JSON.parse(await new Response(stream).text());
+          const decodeGzip = async () => {
+            if (typeof DecompressionStream !== 'undefined' && Blob.prototype.stream) {
+              try {
+                const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+                return await new Response(stream).text();
+              } catch (error) {
+                console.warn('Descompressão nativa indisponível:', error);
+              }
+            }
+            // Fallback for browsers that do not implement DecompressionStream.
+            if (!window.pako) {
+              try {
+                await loadScript('https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js');
+              } catch (error) {
+                await loadScript('https://unpkg.com/pako@2.1.0/dist/pako.min.js');
+              }
+            }
+            if (!window.pako) throw new Error('Descompressão indisponível.');
+            return window.pako.ungzip(bytes, { to: 'string' });
+          };
+          const originalPayload = JSON.parse(await decodeGzip());
           const payload = configureNativeSoloNeko(updateLocalizedCopy(originalPayload));
           const style = document.createElement('style');
           style.textContent = payload.css;
@@ -312,7 +330,7 @@
           finishBootstrap();
 
           // Below-the-fold sections load independently of the first render.
-          await loadScript('./src/trailer-video.js?v=2');
+          await loadScript('./src/trailer-video.js?v=3').catch(error => console.warn('Trailer indisponível:', error));
           const resourcesStyles = document.createElement('link');
           resourcesStyles.rel = 'stylesheet';
           resourcesStyles.href = './src/resources-section.css?v=4';
@@ -321,7 +339,7 @@
             resourcesStyles.onerror = resolve;
             document.head.appendChild(resourcesStyles);
           });
-          await loadScript('./src/resources-section.js?v=2');
+          await loadScript('./src/resources-section.js?v=2').catch(error => console.warn('Recurso opcional indisponível: resources-section.js?v=2', error));
           const chatFeatureStyles = document.createElement('link');
           chatFeatureStyles.rel = 'stylesheet';
           chatFeatureStyles.href = './src/chat-feature.css?v=1';
@@ -330,7 +348,7 @@
             chatFeatureStyles.onerror = resolve;
             document.head.appendChild(chatFeatureStyles);
           });
-          await loadScript('./src/chat-feature.js?v=2');
+          await loadScript('./src/chat-feature.js?v=2').catch(error => console.warn('Recurso opcional indisponível: chat-feature.js?v=2', error));
           const feature3dStyles = document.createElement('link');
           feature3dStyles.rel = 'stylesheet';
           feature3dStyles.href = './src/three-d-feature.css?v=1';
@@ -339,7 +357,7 @@
             feature3dStyles.onerror = resolve;
             document.head.appendChild(feature3dStyles);
           });
-          await loadScript('./src/three-d-feature.js?v=2');
+          await loadScript('./src/three-d-feature.js?v=2').catch(error => console.warn('Recurso opcional indisponível: three-d-feature.js?v=2', error));
           const gameplayStyles = document.createElement('link');
           gameplayStyles.rel = 'stylesheet';
           gameplayStyles.href = './src/gameplay-feature.css?v=1';
@@ -348,7 +366,7 @@
             gameplayStyles.onerror = resolve;
             document.head.appendChild(gameplayStyles);
           });
-          await loadScript('./src/gameplay-feature.js?v=2');
+          await loadScript('./src/gameplay-feature.js?v=2').catch(error => console.warn('Recurso opcional indisponível: gameplay-feature.js?v=2', error));
           const creatorsStyles = document.createElement('link');
           creatorsStyles.rel = 'stylesheet';
           creatorsStyles.href = './src/creators-section.css?v=9';
@@ -357,7 +375,7 @@
             creatorsStyles.onerror = () => reject(new Error('Falha ao carregar a seção Usuários e Criador.'));
             document.head.appendChild(creatorsStyles);
           });
-          await loadScript('./src/creators-section.js?v=5');
+          await loadScript('./src/creators-section.js?v=5').catch(error => console.warn('Recurso opcional indisponível: creators-section.js?v=5', error));
           const socialFooterStyles = document.createElement('link');
           socialFooterStyles.rel = 'stylesheet';
           socialFooterStyles.href = './src/social-footer.css?v=1';
@@ -366,9 +384,9 @@
             socialFooterStyles.onerror = () => reject(new Error('Falha ao carregar o rodapé do NekoGPT.'));
             document.head.appendChild(socialFooterStyles);
           });
-          await loadScript('./src/social-footer.js?v=2');
-          await loadScript('./src/wishlist-badge.js?v=1');
-          await loadScript('./src/site-localization.js?v=1');
+          await loadScript('./src/social-footer.js?v=2').catch(error => console.warn('Recurso opcional indisponível: social-footer.js?v=2', error));
+          await loadScript('./src/wishlist-badge.js?v=1').catch(error => console.warn('Recurso opcional indisponível: wishlist-badge.js?v=1', error));
+          await loadScript('./src/site-localization.js?v=1').catch(error => console.warn('Recurso opcional indisponível: site-localization.js?v=1', error));
 
           // The page was revealed as soon as its header was ready.
         };
