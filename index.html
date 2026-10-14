@@ -31,7 +31,7 @@
     <link rel="preload" href="./assets/images/neko-hero-poster.webp" as="image" type="image/webp" fetchpriority="high" />
     <link rel="preload" href="./src/hero-motion.css?v=14" as="style" />
     <link rel="stylesheet" href="./src/paw-spacing.css?v=120" />
-    <link rel="stylesheet" href="./src/wishlist-badge.css?v=4" />
+    <link rel="stylesheet" href="./src/wishlist-badge.css?v=5" />
 
     <style>
       html,body{min-height:100%;margin:0;background:#161f42;color:#fff;font-family:Inter,system-ui,sans-serif}
@@ -417,7 +417,7 @@
             document.head.appendChild(socialFooterStyles);
           });
           await loadScript('./src/social-footer.js?v=3').catch(error => console.warn('Recurso opcional indisponível: social-footer.js?v=2', error));
-          await loadScript('./src/wishlist-badge.js?v=3').catch(error => console.warn('Recurso opcional indisponível: wishlist-badge.js?v=1', error));
+          await loadScript('./src/wishlist-badge.js?v=4').catch(error => console.warn('Recurso opcional indisponível: wishlist-badge.js?v=1', error));
           await loadScript('./src/site-localization.js?v=2').catch(error => console.warn('Recurso opcional indisponível: site-localization.js?v=1', error));
 
           // The page was revealed as soon as its header was ready.
