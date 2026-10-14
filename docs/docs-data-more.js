@@ -12,12 +12,7 @@ window.NEKO_DOCS_LOCALES = Object.assign(window.NEKO_DOCS_LOCALES || {}, {
       ],
       "heroEyebrow": "GUÍA PARA EMPEZAR",
       "heroTitle": "Entiende cómo funciona NekoGPT.",
-      "heroLead": "Descubre cómo tu compañera recibe mensajes, prepara respuestas, habla e interactúa con lo que ocurre a su alrededor. Sin necesidad de programar.",
-      "badges": [
-        "De lo básico al uso diario",
-        "Ejemplos prácticos",
-        "Sin programación"
-      ],
+      "heroLead": "Descubre cómo tu compañera recibe mensajes, responde, habla e interactúa con lo que ocurre a su alrededor.",
       "version": "Guía de funcionamiento de NekoGPT · actualizada en octubre de 2026",
       "noteLabel": "Importante",
       "sectionLabel": "CÓMO FUNCIONA",
@@ -277,12 +272,12 @@ window.NEKO_DOCS_LOCALES = Object.assign(window.NEKO_DOCS_LOCALES || {}, {
       },
       "source": {
         "title": "Acerca de esta documentación",
-        "lead": "Esta guía te ayuda a entender NekoGPT sin necesidad de conocer su implementación técnica.",
+        "lead": "Conoce las funciones de NekoGPT y descubre cómo funcionan juntas.",
         "paragraphs": [
           "Descubre cómo funcionan y se conectan las personalidades, los avatares, los modelos de IA, la memoria, la voz y las integraciones. La idea es explicar para qué sirve cada función en el uso diario.",
           "Las funciones disponibles pueden variar según la versión instalada, los modelos elegidos y la configuración. Seguiremos ampliando esta documentación a medida que NekoGPT evolucione."
         ],
-        "note": "NekoGPT no es un proyecto de código abierto. Esta guía explica el uso y el funcionamiento general de la aplicación; no ofrece su código fuente."
+        "note": "Esta documentación presenta las funciones disponibles y se actualizará a medida que NekoGPT evolucione."
       }
     }
   },
@@ -299,12 +294,7 @@ window.NEKO_DOCS_LOCALES = Object.assign(window.NEKO_DOCS_LOCALES || {}, {
       ],
       "heroEyebrow": "LE GUIDE POUR DÉBUTER",
       "heroTitle": "Comprendre le fonctionnement de NekoGPT.",
-      "heroLead": "Découvrez comment votre compagne reçoit les messages, prépare ses réponses, parle et réagit à son environnement. Sans connaissances en programmation.",
-      "badges": [
-        "Les bases, simplement",
-        "Exemples concrets",
-        "Sans programmation"
-      ],
+      "heroLead": "Découvrez comment votre compagne reçoit les messages, répond, parle et réagit à ce qui se passe autour de vous.",
       "version": "Guide de fonctionnement de NekoGPT · mis à jour en octobre 2026",
       "noteLabel": "À savoir",
       "sectionLabel": "FONCTIONNEMENT",
@@ -564,12 +554,12 @@ window.NEKO_DOCS_LOCALES = Object.assign(window.NEKO_DOCS_LOCALES || {}, {
       },
       "source": {
         "title": "À propos de cette documentation",
-        "lead": "Ce guide vous aide à comprendre NekoGPT sans avoir besoin de connaître son fonctionnement technique interne.",
+        "lead": "Découvrez les fonctionnalités de NekoGPT et leur fonctionnement.",
         "paragraphs": [
           "Découvrez comment la personnalité, les avatars, les modèles d'IA, la mémoire, la voix et les intégrations fonctionnent ensemble. Le but est de présenter l'utilité de chaque fonction au quotidien.",
           "Les fonctionnalités peuvent varier selon la version installée, les modèles choisis et les paramètres activés. Nous enrichirons cette documentation à mesure que NekoGPT évoluera."
         ],
-        "note": "NekoGPT n'est pas un projet open source. Ce guide explique l'utilisation et le fonctionnement général de l'application ; il ne donne pas accès à son code source."
+        "note": "Cette documentation présente les fonctionnalités et sera mise à jour au fil de l'évolution de NekoGPT."
       }
     }
   }
