@@ -284,10 +284,42 @@
           };
           const originalPayload = JSON.parse(await decodeGzip());
           const payload = configureNativeSoloNeko(updateLocalizedCopy(originalPayload));
+          await loadScript('./src/extra-languages.js?v=1');
+          // Extend the existing language controller before it is initialized.
+          payload.js = payload.js.replace(
+            'new Set(["pt", "en", "es", "fr"])',
+            'new Set(["pt", "en", "es", "fr", "ru", "zh", "ja"])'
+          );
+          payload.js = payload.js.replace(
+            '  fr: "fr",',
+            '  fr: "fr",\\n  ru: "ru",\\n  zh: "zh-CN",\\n  ja: "ja",'.replace(/\\n/g, '\n')
+          );
+          payload.js = payload.js.replace(
+            'function readTranslation(key, language) {',
+            'Object.entries(window.nekoExtraLanguages).forEach(([code, pack]) => { translations[code] = { ...translations.en, ...pack.main }; });\\nfunction readTranslation(key, language) {'.replace(/\\n/g, '\n')
+          );
           const style = document.createElement('style');
           style.textContent = payload.css;
           document.head.appendChild(style);
           document.body.innerHTML = payload.body;
+          const frenchOption = document.querySelector('[data-lang-option="fr"]');
+          if (frenchOption) {
+            for (const [code, pack] of Object.entries(window.nekoExtraLanguages)) {
+              const option = frenchOption.cloneNode(true);
+              option.dataset.langOption = code;
+              option.dataset.langLabel = pack.short;
+              option.setAttribute('lang', pack.html);
+              // Preserve the existing menu styling, badge structure and selection logic.
+              const label = option.querySelector('[data-lang-name]') ||
+                Array.from(option.querySelectorAll('span')).find(el => el.textContent.trim() === 'Français') ||
+                option.firstElementChild;
+              if (label) label.textContent = pack.name;
+              else option.textContent = pack.name + ' ' + pack.short;
+              const badge = Array.from(option.querySelectorAll('span')).find(el => el.textContent.trim() === 'FR');
+              if (badge) badge.textContent = pack.short;
+              frenchOption.parentElement.appendChild(option);
+            }
+          }
           // body.innerHTML replaces the loading screen; restore it before the next paint.
           if (bootstrapScreen) document.body.appendChild(bootstrapScreen);
           new Function(payload.js)();
@@ -386,7 +418,7 @@
           });
           await loadScript('./src/social-footer.js?v=3').catch(error => console.warn('Recurso opcional indisponível: social-footer.js?v=2', error));
           await loadScript('./src/wishlist-badge.js?v=2').catch(error => console.warn('Recurso opcional indisponível: wishlist-badge.js?v=1', error));
-          await loadScript('./src/site-localization.js?v=1').catch(error => console.warn('Recurso opcional indisponível: site-localization.js?v=1', error));
+          await loadScript('./src/site-localization.js?v=2').catch(error => console.warn('Recurso opcional indisponível: site-localization.js?v=1', error));
 
           // The page was revealed as soon as its header was ready.
         };
