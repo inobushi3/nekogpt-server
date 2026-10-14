@@ -4,6 +4,12 @@
   const locales = window.NEKO_DOCS_LOCALES || {};
   const ids = ['overview','flow','modules','persona','ai','memory','senses','games','started','faq','source'];
   const groups = [[...ids.slice(0,3)],[...ids.slice(3,7)],[...ids.slice(7)]];
+  const live2dNavigation = {
+    pt: ['Guias de recursos', 'Live2D — como funciona'],
+    en: ['Feature guides', 'Live2D — how it works'],
+    es: ['Guías de funciones', 'Live2D — cómo funciona'],
+    fr: ['Guides des fonctionnalités', 'Live2D — fonctionnement']
+  };
   const escape = value => String(value == null ? '' : value).replace(/[&<>"']/g, char => ({
     '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
   }[char]));
@@ -96,6 +102,11 @@
     langSelect.value = lang;
     content.innerHTML = ids.map((id,i)=>sectionHTML(id,d,ui,i)).join('');
     navigation.innerHTML = groups.map((group,i) =>
+      (i === 1
+        ? '<div class="nav-group"><p class="nav-group-title">'+escape(live2dNavigation[lang][0])+'</p>' +
+          '<a class="nav-item" href="/docs/live2d/?lang='+encodeURIComponent(lang)+'" data-id="live2d-guide">'+
+          escape(live2dNavigation[lang][1])+'</a></div>'
+        : '') +
       '<div class="nav-group"><p class="nav-group-title">'+escape(ui.groups[i])+'</p>' +
       group.map(id => '<a class="nav-item" href="#'+id+'" data-id="'+id+'">'+
         escape(d.sections[id].title)+'</a>').join('')+'</div>').join('') +

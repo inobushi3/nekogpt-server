@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fff6fb">
+<meta name="description" content="Saiba como usar modelos Live2D no NekoGPT: importação, skins, expressões, animações e personalização.">
+<title>Live2D | NekoGPT</title>
+<link rel="icon" href="../../assets/images/icon-256.png" type="image/png">
+<link rel="stylesheet" href="../docs.css?v=6">
+<link rel="stylesheet" href="./live2d.css?v=1">
+<script defer src="./data.js?v=1"></script>
+<script defer src="./live2d.js?v=1"></script>
+</head>
+<body>
+<div id="read-progress" aria-hidden="true"></div>
+<header class="topbar">
+ <div class="topbar-inner">
+  <button id="docs-menu-toggle" class="mobile-toggle" type="button" aria-controls="docs-sidebar" aria-expanded="false" aria-label="Abrir menu">
+   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+  <a class="brand" href="/docs/" aria-label="NekoGPT, documentação"><em id="docs-brand-label">Documentação</em></a>
+  <div class="top-actions">
+   <a id="docs-back-label" href="/docs/">Voltar à documentação</a>
+   <a id="docs-home-label" href="/">Voltar ao site</a>
+   <label class="lang-wrap" for="docs-language">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a17 17 0 0 1 0 18M12 3a17 17 0 0 0 0 18"/></svg>
+    <select id="docs-language" aria-label="Idioma / Language">
+     <option value="pt">PT</option><option value="en">EN</option><option value="es">ES</option><option value="fr">FR</option>
+    </select>
+   </label>
+  </div>
+ </div>
+</header>
+<div id="docs-mobile-mask" class="mobile-mask" aria-hidden="true"></div>
+<div class="layout live2d-layout">
+ <aside id="docs-sidebar" class="sidebar" aria-label="Seções do guia Live2D">
+  <p id="docs-side-title" class="side-top">LIVE2D / GUIA</p>
+  <div class="search-shell">
+   <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+   <input id="docs-search" type="search" placeholder="Buscar neste guia..." autocomplete="off">
+  </div>
+  <nav id="docs-navigation" aria-label="Navegação Live2D"></nav>
+ </aside>
+ <main class="article">
+  <header class="hero">
+   <div class="hero-content">
+    <span class="eyebrow" id="docs-hero-eyebrow">PERSONAGENS LIVE2D</span>
+    <h1 id="docs-hero-title">Como funciona o Live2D no NekoGPT</h1>
+    <p id="docs-hero-lead">O Live2D dá rosto e movimento à sua companheira.</p>
+   </div>
+  </header>
+  <div id="docs-content"></div>
+  <div class="live2d-related">
+   <small id="docs-related-title">Confira também</small>
+   <a id="docs-related-link" href="/docs/">Visão geral do NekoGPT</a>
+  </div>
+  <p class="live2d-copy" id="docs-footer-label">Documentação · Live2D</p>
+ </main>
+</div>
+<noscript><p style="margin:30px">Habilite JavaScript para visualizar as seções deste guia.</p></noscript>
+</body>
+</html>
