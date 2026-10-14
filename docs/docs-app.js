@@ -8,7 +8,10 @@
     pt: ['Guias de recursos','Live2D — como funciona','3D — como funciona','TTS — voz da personagem'],
     en: ['Feature guides','Live2D — how it works','3D — how it works','TTS — character voice'],
     es: ['Guías de funciones','Live2D — cómo funciona','3D — cómo funciona','TTS — voz del personaje'],
-    fr: ['Guides des fonctionnalités','Live2D — fonctionnement','3D — fonctionnement','TTS — voix du personnage']
+    fr: ['Guides des fonctionnalités','Live2D — fonctionnement','3D — fonctionnement','TTS — voix du personnage'],
+    ru: ['Руководства по функциям','Live2D — как это работает','3D — как это работает','TTS — голос персонажа'],
+    zh: ['功能指南','Live2D — 使用方法','3D — 使用方法','TTS — 角色语音'],
+    ja: ['機能ガイド','Live2D — 仕組み','3D — 仕組み','TTS — キャラクター音声']
   };
   const escape = value => String(value == null ? '' : value).replace(/[&<>"']/g, char => ({
     '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
