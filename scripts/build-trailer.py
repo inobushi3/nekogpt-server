@@ -1,20 +1,41 @@
-"""Build a normal seekable MP4 from the checked-in, base64-encoded trailer chunks."""
+"""Build a streaming-friendly, visually sharper MP4 from the original 1080p master."""
 import base64
-import hashlib
+import subprocess
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "assets" / "video" / "trailer-data"
-DEST = ROOT / "assets" / "video" / "nekogpt-trailer.mp4"
-EXPECTED_SHA256 = "032fb1a763cf17578d4be052665e2d59e7a8a97aaa24920b60152357e4efb867"
+SOURCE = ROOT / "assets/video/trailer-hq-data"
+DEST = ROOT / "assets/video/nekogpt-trailer.mp4"
 
-parts = [SOURCE / f"part-{i:02d}.txt" for i in range(12)]
-if not all(p.is_file() for p in parts):
-    raise SystemExit("Trailer segments are missing")
-data = base64.b64decode("".join(p.read_text(encoding="ascii").strip() for p in parts), validate=True)
-digest = hashlib.sha256(data).hexdigest()
-if digest != EXPECTED_SHA256:
-    raise SystemExit(f"Video integrity check failed: {digest}")
-DEST.parent.mkdir(parents=True, exist_ok=True)
-DEST.write_bytes(data)
-print(f"Built {DEST.name}: {len(data)} bytes / SHA-256 {digest}")
+parts = sorted(SOURCE.glob("part-*.txt"))
+if len(parts) != 21:
+    raise SystemExit(f"Expected 21 high-quality trailer chunks, found {len(parts)}")
+
+with tempfile.TemporaryDirectory() as directory:
+    original = Path(directory) / "original.mp4"
+    # Decode in chunks to avoid creating a huge base64 string in memory.
+    carry = ""
+    with original.open("wb") as output:
+        for part in parts:
+            carry += "".join(part.read_text(encoding="ascii").split())
+            aligned = len(carry) // 4 * 4
+            if aligned:
+                output.write(base64.b64decode(carry[:aligned], validate=True))
+                carry = carry[aligned:]
+        if carry:
+            output.write(base64.b64decode(carry, validate=True))
+
+    DEST.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run([
+        "ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
+        "-i", str(original),
+        "-map", "0:v:0", "-map", "0:a:0?",
+        "-c:v", "libx264", "-preset", "medium", "-crf", "22",
+        "-maxrate", "3000k", "-bufsize", "6000k",
+        "-pix_fmt", "yuv420p", "-profile:v", "high",
+        "-c:a", "aac", "-b:a", "128k",
+        "-movflags", "+faststart",
+        str(DEST),
+    ], check=True)
+    print(f"Optimized 1080p MP4: {DEST.stat().st_size / (1024*1024):.1f} MiB")
