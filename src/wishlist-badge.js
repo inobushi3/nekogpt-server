@@ -25,10 +25,10 @@
 
   const steamButton = document.createElement('img');
   steamButton.className = 'neko-steam-wishlist__steam';
-  steamButton.src = './assets/images/neko-steam-button.png?v=1';
+  steamButton.src = './assets/images/wishlist-now.png?v=1';
   steamButton.alt = '';
-  steamButton.width = 408;
-  steamButton.height = 124;
+  steamButton.width = 220;
+  steamButton.height = 84;
   steamButton.decoding = 'async';
   steamButton.loading = 'lazy';
 
