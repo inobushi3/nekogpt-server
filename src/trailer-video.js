@@ -1,106 +1,73 @@
-/* NekoGPT trailer: Full HD 1080p with unchanged original AAC audio.
-   Transfer is split into static base64 chunks to avoid GitHub file-size limits.
-   Downloading starts only when the video approaches the viewport. */
+/* Stream the MP4 directly so browsers can use native playback, seeking and HTTP ranges.
+   The poster remains visible until the viewer approaches the trailer. */
 (() => {
-  const PART_COUNT = 21;
-  const TRAILER_PATH = './assets/video/trailer-hq-data/';
-  const VIDEO_TYPE = 'video/mp4';
-  let objectUrl = null;
-
-  async function loadTrailer(video) {
-    if (video.dataset.loading === 'loading' || video.dataset.loading === 'ready') return;
-    video.dataset.loading = 'loading';
-    const frame = video.closest('.nekogpt-trailer-screen');
-    const status = document.createElement('p');
-    status.className = 'nekogpt-trailer-status';
-    status.setAttribute('role', 'status');
-    status.textContent = 'Preparando trailer em Full HD…';
-    frame?.appendChild(status);
-
-    try {
-      let nextPart = 0;
-      let finishedParts = 0;
-      const pieces = Array(PART_COUNT);
-
-      const worker = async () => {
-        while (nextPart < PART_COUNT) {
-          const current = nextPart++;
-          const filename = 'part-' + String(current).padStart(2, '0') + '.txt';
-          const response = await fetch(TRAILER_PATH + filename);
-          if (!response.ok) throw new Error('Erro no vídeo HD: ' + filename);
-          const encoded = (await response.text()).replace(/\s+/g, '');
-          const decoded = atob(encoded);
-          const bytes = new Uint8Array(decoded.length);
-          for (let i = 0; i < decoded.length; i++) bytes[i] = decoded.charCodeAt(i);
-          pieces[current] = bytes;
-          finishedParts += 1;
-          status.textContent = 'Preparando trailer em Full HD… ' +
-            Math.round(finishedParts / PART_COUNT * 100) + '%';
-        }
-      };
-
-      await Promise.all([worker(), worker(), worker()]);
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
-      objectUrl = URL.createObjectURL(new Blob(pieces, { type: VIDEO_TYPE }));
-      video.src = objectUrl;
-      video.preload = 'metadata';
-      video.load();
-      video.dataset.loading = 'ready';
-      status.remove();
-    } catch (error) {
-      console.error('Falha ao carregar trailer Full HD:', error);
-      status.textContent = 'Não foi possível carregar o trailer. Clique para tentar novamente.';
-      status.classList.add('nekogpt-trailer-retry');
-      status.tabIndex = 0;
-      status.setAttribute('role', 'button');
-      video.dataset.loading = '';
-      const retry = () => { status.remove(); loadTrailer(video); };
-      status.addEventListener('click', retry, { once: true });
-      status.addEventListener('keydown', event => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          retry();
-        }
-      }, { once: true });
-    }
-  }
-
-  const css = document.createElement('style');
-  css.textContent = `
+  const VIDEO_PATH = './assets/video/nekogpt-trailer.mp4';
+  const POSTER_PATH = './assets/images/nekogpt-trailer-poster.jpg';
+  const style = document.createElement('style');
+  style.textContent = `
     .nekogpt-trailer-screen { position: relative; }
+    .nekogpt-trailer-screen video { max-width: 100%; }
     .nekogpt-trailer-status {
-      position: absolute; top: 50%; left: 50%; z-index: 3;
-      transform: translate(-50%, -50%);
-      width: max-content; max-width: 90%; padding: 12px 20px;
-      border: 1px solid rgba(255,255,255,.18); border-radius: 999px;
-      background: rgba(21,17,38,.88); color: #fff;
+      position: absolute; inset: auto 12px 12px; z-index: 3;
+      margin: 0; padding: 10px 14px; border-radius: 10px;
+      background: rgba(21,17,38,.90); color: #fff;
       font: 600 13px/1.5 Inter, system-ui, sans-serif; text-align: center;
-      backdrop-filter: blur(10px); pointer-events: none;
     }
-    .nekogpt-trailer-retry {
-      border-radius: 12px;
-      cursor: pointer;
-      pointer-events: auto;
-    }
+    .nekogpt-trailer-retry { cursor: pointer; border: 1px solid rgba(255,255,255,.35); }
   `;
-  document.head.appendChild(css);
+  document.head.appendChild(style);
 
   function initialize() {
     const player = document.querySelector('.nekogpt-trailer-screen video');
     if (!player || player.dataset.trailerInit) return false;
     player.dataset.trailerInit = '1';
-    player.poster = './assets/images/nekogpt-trailer-poster.jpg?v=2';
-
-    if (!('IntersectionObserver' in window)) {
-      loadTrailer(player);
-    } else {
+    player.poster = POSTER_PATH;
+    player.preload = 'none';
+    player.controls = true;
+    player.playsInline = true;
+    player.setAttribute('playsinline', '');
+    // Remove sources left by earlier versions so the browser selects only the direct MP4.
+    player.querySelectorAll('source').forEach(source => source.remove());
+    player.removeAttribute('src');
+    let activated = false;
+    let status = null;
+    const clearStatus = () => { if (status) { status.remove(); status = null; } };
+    const activate = () => {
+      if (activated) return;
+      activated = true;
+      player.src = VIDEO_PATH;
+      player.preload = 'metadata';
+      player.load();
+    };
+    player.addEventListener('error', () => {
+      if (!activated) return;
+      if (!status) {
+        status = document.createElement('button');
+        status.type = 'button';
+        status.className = 'nekogpt-trailer-status nekogpt-trailer-retry';
+        status.textContent = 'Não foi possível carregar o trailer. Tentar novamente';
+        player.closest('.nekogpt-trailer-screen')?.appendChild(status);
+        status.addEventListener('click', () => {
+          clearStatus();
+          activated = false;
+          activate();
+        });
+      }
+    });
+    player.addEventListener('loadedmetadata', clearStatus);
+    player.addEventListener('playing', clearStatus);
+    player.addEventListener('pointerdown', activate, { once: true });
+    player.addEventListener('focus', activate, { once: true });
+    if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver(entries => {
         if (entries.some(entry => entry.isIntersecting)) {
           observer.disconnect();
-          loadTrailer(player);
+          activate();
         }
-      }, { rootMargin: '750px' });
+      }, { rootMargin: '350px' });
       observer.observe(player);
+    } else {
+      activate();
     }
     return true;
   }
@@ -110,7 +77,4 @@
     });
     observer.observe(document.body, { childList: true, subtree: true });
   }
-  window.addEventListener('pagehide', () => {
-    if (objectUrl) URL.revokeObjectURL(objectUrl);
-  }, { once: true });
 })();
