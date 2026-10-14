@@ -6,7 +6,10 @@
     pt: 'Documentação',
     en: 'Documentation',
     es: 'Documentación',
-    fr: 'Documentation'
+    fr: 'Documentation',
+    ru: 'Документация',
+    zh: '文档',
+    ja: 'ドキュメント'
   };
   const locale = () => {
     const key = (document.documentElement.lang || 'pt').split('-')[0].toLowerCase();
