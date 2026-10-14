@@ -4,13 +4,6 @@
   const locales = window.NEKO_DOCS_LOCALES || {};
   const ids = ['overview','flow','modules','persona','ai','memory','senses','games','started','faq','source'];
   const groups = [[...ids.slice(0,3)],[...ids.slice(3,7)],[...ids.slice(7)]];
-  const glyph = [
-    '<svg viewBox="0 0 24 24"><path d="M4 5h16v12H9l-5 4V5Z"/><path d="M8 9h8M8 13h5"/></svg>',
-    '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
-    '<svg viewBox="0 0 24 24"><path d="M12 3 4 8v8l8 5 8-5V8l-8-5Z"/><path d="M4 8l8 5 8-5M12 13v8"/></svg>',
-    '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 11 2 2 4-4"/></svg>',
-    '<svg viewBox="0 0 24 24"><path d="M12 2v7m0 6v7M2 12h7m6 0h7"/><circle cx="12" cy="12" r="3"/></svg>'
-  ];
   const escape = value => String(value == null ? '' : value).replace(/[&<>"']/g, char => ({
     '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
   }[char]));
@@ -48,8 +41,7 @@
     if (id === 'overview') content = paragraphs(s.paragraphs) + note(s.note, ui.noteLabel);
     if (id === 'flow') content = '<div class="flow">' +
       s.steps.map(([title,body],i) => '<div class="flow-item"><span class="flow-num">' +
-        String(i+1).padStart(2,'0') + '</span><div class="flow-icon" aria-hidden="true">' +
-        glyph[i] + '</div><h3>' + escape(title) + '</h3><p>' + escape(body) + '</p></div>').join('') +
+        String(i+1).padStart(2,'0') + '</span><h3>' + escape(title) + '</h3><p>' + escape(body) + '</p></div>').join('') +
       '</div>' + '<div class="soft-note">' + escape(s.after) + '</div>';
     if (id === 'modules' || id === 'ai') content = table(s.headers,s.rows) + note(s.note,ui.noteLabel);
     if (id === 'persona') content = cards(s.cards) + note(s.note,ui.noteLabel);
@@ -99,7 +91,6 @@
     set('docs-hero-title', ui.heroTitle);
     set('docs-hero-lead', ui.heroLead);
     set('docs-version', ui.version);
-    set('docs-footer-label', ui.footer);
     search.placeholder = ui.search;
     search.setAttribute('aria-label',ui.search);
     langSelect.value = lang;
