@@ -41,3 +41,5 @@ for y in range(int(height*.51),height):
 target=root/"assets/images/wishlist-now-fixed.png"
 source.save(target,optimize=True)
 print(f"Saved {target} ({width}x{height})")
+
+# Rebuild the published badge whenever this script changes.
