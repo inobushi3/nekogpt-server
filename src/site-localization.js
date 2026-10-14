@@ -173,6 +173,10 @@
     "shinobuAlt": "Illustration originale de NekoGPT avec personnage aux oreilles de chat et logo rose"
   }
 };
+  // Keep existing text for missing keys, while extending custom sections.
+  for (const [code, pack] of Object.entries(window.nekoExtraLanguages || {})) {
+    dictionary[code] = { ...dictionary.en, ...pack.custom };
+  }
   const selectors = {
   "trailer": ".nekogpt-trailer-heading h2",
   "resources": "#nekogpt-resources-heading",
