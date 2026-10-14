@@ -335,7 +335,7 @@
           await loadScript('./src/pricing-navigation-theme.js?v=1');
           await loadScript('./src/comparison-navigation-theme.js?v=1');
           await loadScript('./src/header-logo-v2.js?v=11');
-          await loadScript('./src/header-scroll-fix.js?v=5');
+          await loadScript('./src/header-scroll-fix.js?v=6');
           await loadScript('./src/documentation-navigation.js?v=3');
           const heroMotionStyles = document.createElement('link');
           heroMotionStyles.rel = 'stylesheet';
@@ -417,7 +417,7 @@
             document.head.appendChild(socialFooterStyles);
           });
           await loadScript('./src/social-footer.js?v=3').catch(error => console.warn('Recurso opcional indisponível: social-footer.js?v=2', error));
-          await loadScript('./src/wishlist-badge.js?v=2').catch(error => console.warn('Recurso opcional indisponível: wishlist-badge.js?v=1', error));
+          await loadScript('./src/wishlist-badge.js?v=3').catch(error => console.warn('Recurso opcional indisponível: wishlist-badge.js?v=1', error));
           await loadScript('./src/site-localization.js?v=2').catch(error => console.warn('Recurso opcional indisponível: site-localization.js?v=1', error));
 
           // The page was revealed as soon as its header was ready.
