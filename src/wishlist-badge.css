@@ -1,11 +1,10 @@
-/* Floating Steam wishlist — original NekoGPT cat ear artwork, non-modal CTA. */
+/* Floating Steam button — no cat artwork or decorative background. */
 .neko-steam-wishlist {
   position: fixed;
   z-index: 2200;
   left: max(24px, env(safe-area-inset-left));
-  right: auto;
   bottom: max(20px, env(safe-area-inset-bottom));
-  width: clamp(265px, 26vw, 410px);
+  width: clamp(120px, 12vw, 188px);
   max-width: calc(100vw - 32px);
   margin: 0;
   padding: 0;
@@ -17,59 +16,43 @@
   will-change: transform;
 }
 .neko-steam-wishlist__link {
-  position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 900 / 382;
   padding: 0;
   border: 0;
+  border-radius: 6px;
   background: transparent;
   outline-offset: 5px;
   cursor: pointer;
   pointer-events: auto;
   filter: drop-shadow(0 9px 11px rgba(69, 31, 56, .2));
-  /* Hover scaling belongs only to the Steam button, not the cat-ear sticker. */
   -webkit-tap-highlight-color: transparent;
 }
 .neko-steam-wishlist__link:focus-visible {
   outline: 2px solid #c96caa;
-  border-radius: 22px;
-}
-.neko-steam-wishlist__ears {
-  display: block;
-  width: 100%;
-  height: auto;
-  user-select: none;
-  -webkit-user-drag: none;
-  pointer-events: none;
 }
 .neko-steam-wishlist__steam {
-  position: absolute;
-  left: 50%;
-  top: 56%;
-  width: 46%;
+  display: block;
+  width: 100%;
   height: auto;
   border: 0;
   border-radius: 6px;
   background: transparent;
-  transform: translateX(-50%) scale(1);
+  transform: scale(1);
   transform-origin: center center;
   transition: transform .26s cubic-bezier(.2, .7, .2, 1);
   pointer-events: auto;
   user-select: none;
   -webkit-user-drag: none;
 }
-
-/* Only the Steam button grows: the original pink ear artwork stays still. */
 @media (hover: hover) and (pointer: fine) {
-  .neko-steam-wishlist__steam:hover {
-    transform: translateX(-50%) scale(1.12);
+  .neko-steam-wishlist__link:hover .neko-steam-wishlist__steam {
+    transform: scale(1.12);
   }
 }
 .neko-steam-wishlist__link:focus-visible .neko-steam-wishlist__steam {
-  transform: translateX(-50%) scale(1.12);
+  transform: scale(1.12);
 }
-
 @keyframes nekoSteamFloat {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-7px); }
@@ -77,9 +60,8 @@
 @media (max-width: 700px) {
   .neko-steam-wishlist {
     left: max(12px, env(safe-area-inset-left));
-    right: auto;
     bottom: max(12px, env(safe-area-inset-bottom));
-    width: clamp(190px, 52vw, 260px);
+    width: clamp(100px, 24vw, 120px);
   }
 }
 @media (prefers-reduced-motion: reduce) {
