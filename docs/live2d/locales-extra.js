@@ -1,0 +1,13 @@
+/* Supplementary guide locales; untranslated technical paragraphs use English fallback. */
+(() => {
+ const base = window.NEKO_LIVE2D_GUIDE.en;
+ const ui = {"ru":{"back":"К документации","site":"На сайт","lang":"Язык","search":"Поиск в руководстве...","empty":"Разделы не найдены.","note":"Важно","next":"Также смотрите","related":"Обзор NekoGPT"},"zh":{"back":"返回文档","site":"返回网站","lang":"语言","search":"搜索本指南...","empty":"未找到相关章节。","note":"提示","next":"另请参阅","related":"NekoGPT 概览"},"ja":{"back":"ドキュメントに戻る","site":"サイトに戻る","lang":"言語","search":"ガイドを検索...","empty":"該当するセクションはありません。","note":"ヒント","next":"関連ガイド","related":"NekoGPTの概要"}};
+ const titles = {"ru":["Что такое Live2D?","Добавление модели","Модели и скины","Выражения и движения","Реакция на разговор","Настройка Live2D","Решение проблем"],"zh":["什么是 Live2D 模型？","添加模型","模型与皮肤","表情与动作","如何响应对话","自定义 Live2D","故障排查"],"ja":["Live2Dモデルとは？","モデルを追加する","モデルとスキン","表情とモーション","会話への反応","Live2Dのカスタマイズ","トラブルシューティング"]};
+ const headings = {"ru":["ПЕРСОНАЖИ LIVE2D","Как работает Live2D в NekoGPT","Импортируйте модель и настройте её движения и реакции."],"zh":["LIVE2D 角色","NekoGPT 的 Live2D 功能","导入模型并设置动作与互动反应。"],"ja":["LIVE2Dキャラクター","NekoGPTのLive2Dの仕組み","モデルを読み込み、動きや反応を設定します。"]};
+ for (const code of Object.keys(ui)) {
+   const data = JSON.parse(JSON.stringify(base));
+   data.ui = { ...data.ui, ...ui[code], eyebrow:headings[code][0], heroTitle:headings[code][1], heroLead:headings[code][2] };
+   data.sections.forEach((section,i)=>{ section.title=titles[code][i]; });
+   window.NEKO_LIVE2D_GUIDE[code] = data;
+ }
+})();
