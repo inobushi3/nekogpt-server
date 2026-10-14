@@ -19,10 +19,6 @@
           <span class="nekogpt-social-footer__sparkles">◆ ◆ ◆</span>
           <span class="nekogpt-social-footer__rule"></span>
         </div>
-        <img class="nekogpt-social-footer__logo"
-          src="./assets/images/nekogpt-wordmark-hero.png"
-          alt="NekoGPT"
-          width="900" height="436" loading="lazy" decoding="async">
 
         <nav class="nekogpt-social-footer__links" aria-label="Redes sociais">
           <a class="nekogpt-social-footer__link" href="https://x.com/ShinobuDev"
