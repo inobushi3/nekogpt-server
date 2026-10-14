@@ -31,25 +31,6 @@
 .neko-steam-wishlist__link:focus-visible {
   outline: 2px solid #c96caa;
 }
-.neko-steam-wishlist__caption {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: max-content;
-  max-width: 100%;
-  margin: 0 auto -3px;
-  color: #fff;
-  font-family: "Comic Sans MS", "Trebuchet MS", ui-rounded, system-ui, sans-serif;
-  font-size: clamp(17px, 2.3vw, 29px);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -.045em;
-  white-space: nowrap;
-  -webkit-text-stroke: 1.5px #090909;
-  paint-order: stroke fill;
-  text-shadow: 1px 2px 0 #090909;
-  pointer-events: none;
-}
 .neko-steam-wishlist__steam {
   display: block;
   width: 100%;
