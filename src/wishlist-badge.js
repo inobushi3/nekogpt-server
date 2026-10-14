@@ -25,14 +25,17 @@
 
   const steamButton = document.createElement('img');
   steamButton.className = 'neko-steam-wishlist__steam';
-  steamButton.src = './assets/images/wishlist-now.png?v=1';
+  steamButton.src = './assets/images/neko-steam-button.png?v=1';
   steamButton.alt = '';
-  steamButton.width = 220;
-  steamButton.height = 84;
+  steamButton.width = 408;
+  steamButton.height = 124;
   steamButton.decoding = 'async';
   steamButton.loading = 'lazy';
 
-  link.append(steamButton);
+  const caption = document.createElement('span');
+  caption.className = 'neko-steam-wishlist__caption';
+  caption.textContent = 'Wishlist Now!';
+  link.append(caption, steamButton);
   float.append(link);
   outer.append(float);
   document.body.append(outer);
