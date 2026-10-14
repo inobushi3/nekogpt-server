@@ -120,12 +120,12 @@ window.NEKO_DOCS_LOCALES = Object.assign(window.NEKO_DOCS_LOCALES || {}, {
           [
             "♡",
             "Persona: quem ela é",
-            "Reúne personalidade, estilo de resposta e vínculos com configurações como modelo de IA e voz. Mudar a persona pode mudar a experiência de conversa sem precisar trocar o desenho."
+            "Reúne personalidade, estilo de resposta e vínculos com configurações como modelo de IA e voz. Mudar a persona pode mudar a experiência de conversa sem precisar trocar o modelo Live2D ou 3D."
           ],
           [
             "✿",
             "Avatar: como ela aparece",
-            "É o modelo visual. No Live2D, desenhos em camadas recebem expressões e movimentos. No 3D, modelos VRM podem usar animações, poses e movimentos compatíveis."
+            "É o modelo Live2D ou 3D exibido na tela. Modelos Live2D têm expressões e movimentos; modelos 3D VRM podem usar animações, poses e movimentos compatíveis."
           ]
         ],
         "note": "Skins, expressões, animações e ajustes dependem dos arquivos e das capacidades do modelo escolhido. Trocar de visual não altera automaticamente a personalidade."
@@ -407,12 +407,12 @@ window.NEKO_DOCS_LOCALES = Object.assign(window.NEKO_DOCS_LOCALES || {}, {
           [
             "♡",
             "Persona: who she is",
-            "Includes personality, reply style, and links to choices such as AI model and voice. Changing persona can change the conversation without changing the artwork."
+            "Includes personality, reply style, and links to choices such as AI model and voice. Changing the persona can change the conversation without switching your Live2D or 3D model."
           ],
           [
             "✿",
             "Avatar: what she looks like",
-            "This is the visual model. Live2D animates layered artwork; 3D VRM models can use compatible motions, poses, and animations."
+            "This is the Live2D or 3D model shown on screen. Live2D models support expressions and movement; 3D VRM models can use compatible motions, poses, and animations."
           ]
         ],
         "note": "Skins, expressions, and animations depend on the chosen model's files and capabilities. A new appearance does not automatically change personality."

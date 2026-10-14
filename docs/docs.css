@@ -50,8 +50,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,su
 .eyebrow::before{content:"";width:18px;height:1px;background:#c987ad}
 .hero h1{font:500 clamp(35px,5.7vw,57px)/1.16 Georgia,"Times New Roman",serif;letter-spacing:-.036em;color:#713d5a;margin:22px 0 16px}
 .hero p{color:#7a5d6d;font-size:clamp(15px,1.7vw,17px);line-height:1.85;max-width:540px;margin:0}
-.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:27px}
-.pills span{font-weight:650;font-size:11px;color:#9b5f82;padding:7px 11px;background:#fff9fc;border:1px solid #efcade;border-radius:100px}
 .source-stamp{font-size:11px;line-height:1.6;color:#a28a98;margin:12px 0 0;padding-left:3px}
 .doc-section{padding-top:51px;scroll-margin-top:96px}
 .section-kicker{text-transform:uppercase;letter-spacing:.18em;font-size:10px;font-weight:850;color:#cb84a9}

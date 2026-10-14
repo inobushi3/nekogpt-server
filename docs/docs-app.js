@@ -103,7 +103,6 @@
     search.placeholder = ui.search;
     search.setAttribute('aria-label',ui.search);
     langSelect.value = lang;
-    document.getElementById('docs-pills').innerHTML=ui.badges.map(x=>'<span>'+escape(x)+'</span>').join('');
     content.innerHTML = ids.map((id,i)=>sectionHTML(id,d,ui,i)).join('');
     navigation.innerHTML = groups.map((group,i) =>
       '<div class="nav-group"><p class="nav-group-title">'+escape(ui.groups[i])+'</p>' +

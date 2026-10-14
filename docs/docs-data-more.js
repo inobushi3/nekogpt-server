@@ -120,12 +120,12 @@ window.NEKO_DOCS_LOCALES = Object.assign(window.NEKO_DOCS_LOCALES || {}, {
           [
             "♡",
             "Persona: cómo es",
-            "Incluye personalidad, estilo de respuesta y enlaces a ajustes como IA y voz. Cambiarla puede modificar la conversación sin cambiar el dibujo."
+            "Incluye personalidad, estilo de respuesta y enlaces a ajustes como IA y voz. Cambiarla puede modificar la conversación sin cambiar el modelo Live2D o 3D."
           ],
           [
             "✿",
             "Avatar: cómo se ve",
-            "Es el modelo visual. Live2D anima dibujos por capas; los modelos VRM 3D pueden utilizar poses y animaciones compatibles."
+            "Es el modelo Live2D o 3D que aparece en pantalla. Los modelos Live2D ofrecen expresiones y movimientos, mientras que los modelos 3D VRM pueden utilizar poses y animaciones compatibles."
           ]
         ],
         "note": "Skins, expresiones y movimientos dependen de los archivos y las capacidades del modelo. Cambiar la apariencia no cambia automáticamente la personalidad."
@@ -407,12 +407,12 @@ window.NEKO_DOCS_LOCALES = Object.assign(window.NEKO_DOCS_LOCALES || {}, {
           [
             "♡",
             "Persona : sa personnalité",
-            "Elle regroupe le caractère, le style de réponse et des préférences comme l'IA ou la voix. La modifier peut changer la conversation sans remplacer le dessin."
+            "Elle regroupe le caractère, le style de réponse et des préférences comme l'IA ou la voix. La modifier peut changer la conversation sans remplacer le modèle Live2D ou 3D."
           ],
           [
             "✿",
             "Avatar : son apparence",
-            "C'est le modèle visuel. Live2D anime des illustrations en couches ; les modèles 3D VRM peuvent utiliser des poses et animations compatibles."
+            "C'est le modèle Live2D ou 3D affiché à l'écran. Les modèles Live2D disposent d'expressions et de mouvements, tandis que les modèles 3D VRM peuvent utiliser des poses et animations compatibles."
           ]
         ],
         "note": "Skins, expressions et mouvements dépendent des fichiers et capacités du modèle choisi. Changer d'apparence ne change pas automatiquement la personnalité."
