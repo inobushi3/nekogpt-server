@@ -1,45 +1,36 @@
-"""Remove horizontal stroke artifacts and pale outer frame from the wishlist asset."""
+"""Convert the existing website badge to a transparent PNG without a pink panel."""
 from PIL import Image
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
-source = Image.open(root / "assets/images/wishlist-now-clean.webp").convert("RGBA")
-# The source is small (300x150): preserve its pixels except for the accidental
-# horizontal rule and the thin outline around the dark badge.
-width, height = source.size
-pix = source.load()
-# Detect horizontal white line segments above/behind lettering: only erase runs
-# that are unusually long and 1-2 pixels tall, leaving the letterforms intact.
-limit = int(width * .10)
-for y in range(int(height * .22), int(height * .48)):
-    segments = []
-    start = None
-    for x in range(width):
-        r,g,b,a = pix[x,y]
-        hit = a > 100 and min(r,g,b) > 145 and max(r,g,b)-min(r,g,b)<65
-        if hit and start is None: start=x
-        if not hit and start is not None:
-            segments.append((start,x)); start=None
-    if start is not None: segments.append((start,width))
-    for left,right in segments:
-        if right-left < limit: continue
-        # Do not remove letter interiors: target rows which have narrow
-        # white coverage immediately above and below.
-        for x in range(left,right):
-            above = pix[x,max(0,y-4)]
-            below = pix[x,min(height-1,y+4)]
-            if (max(above[:3])<110 and max(below[:3])<110):
-                pix[x,y]=(0,0,0,0)
-# Remove the standalone white border at the exterior of the black Steam panel,
-# below the title, without affecting the text/logo in the interior.
-for y in range(int(height*.51),height):
-    for x in range(width):
-        r,g,b,a=pix[x,y]
-        if a < 60 or min(r,g,b)<175: continue
-        if (x<width*.075 or x>width*.925 or y>height*.94):
-            pix[x,y]=(0,0,0,0)
-target=root/"assets/images/wishlist-now-fixed.png"
-source.save(target,optimize=True)
-print(f"Saved {target} ({width}x{height})")
+src = Image.open(root / "assets/images/wishlist-now-clean.webp").convert("RGBA")
+pix = src.load()
+w, h = src.size
 
-# Rebuild the published badge whenever this script changes.
+# The old WebP is flattened on a pale pink canvas. Remove only the backdrop.
+# In the image the artwork itself is nearly neutral black or white.
+for y in range(h):
+    for x in range(w):
+        r,g,b,a = pix[x,y]
+        if r > 165 and r > g + 3 and b > g + 1:
+            pix[x,y] = (0,0,0,0)
+
+# Remove thin outer highlight bordering the black button and long horizontal
+# rule behind the title, without drawing any new lettering or background.
+for y in range(h):
+    for x in range(w):
+        r,g,b,a = pix[x,y]
+        if not a: continue
+        if y > int(h*.52) and (x < int(w*.075) or x > int(w*.925) or y > int(h*.91)):
+            if min(r,g,b)>155:
+                pix[x,y]=(0,0,0,0)
+        # The rule occupies the extreme ends of the title, not the lettering.
+        if int(h*.37) <= y <= int(h*.49) and (x < int(w*.11) or x > int(w*.89)):
+            if min(r,g,b)>110: pix[x,y]=(0,0,0,0)
+
+# Keep the asset compact while preserving transparent edges.
+bbox = src.getbbox()
+if bbox: src = src.crop(bbox)
+dest=root/"assets/images/wishlist-now-fixed.png"
+src.save(dest,optimize=True)
+print(f"Created transparent wishlist badge: {src.size}")
