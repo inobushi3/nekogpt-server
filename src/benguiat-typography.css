@@ -1,0 +1,25 @@
+/* NekoGPT typography. ITC Benguiat is a licensed commercial typeface.
+   Use locally installed copies when available, without distributing font files.
+   International scripts fall back to installed system fonts. */
+:root {
+  --neko-display-font: "ITC Benguiat", "Benguiat", "ITC Benguiat Pro",
+    "Palatino Linotype", "Book Antiqua", Georgia, serif;
+}
+body,
+button, input, textarea, select,
+h1, h2, h3, h4, h5, h6,
+.site-header, .nav-links,
+.nekogpt-creators-section,
+.nekogpt-resources-section,
+.nekogpt-social-footer {
+  font-family: var(--neko-display-font) !important;
+}
+.nekogpt-creators-section h1,
+.nekogpt-creators-section h2,
+.nekogpt-creators-section h3,
+.nekogpt-creators-section p,
+.nekogpt-creators-section blockquote,
+.nekogpt-creators-section .nekogpt-creators-section-title,
+.nekogpt-creators-section .nekogpt-creators-message {
+  font-family: var(--neko-display-font) !important;
+}
