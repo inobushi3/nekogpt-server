@@ -25,11 +25,10 @@
 
   const steamButton = document.createElement('img');
   steamButton.className = 'neko-steam-wishlist__steam';
-  steamButton.src = './assets/images/wishlist-now-fixed.png?v=2';
+  steamButton.src = './assets/images/wishlist-user-upload.png?v=1';
   steamButton.alt = '';
-  steamButton.onerror = () => { steamButton.onerror = null; steamButton.src = './assets/images/neko-steam-button.png?v=1'; };
-  steamButton.width = 300;
-  steamButton.height = 150;
+  steamButton.width = 260;
+  steamButton.height = 260;
   steamButton.decoding = 'async';
   steamButton.loading = 'lazy';
 
